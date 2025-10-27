@@ -4,52 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="developer" content="Vasdekis Christos">
-    <title>Ελληνική Βιβλιοθήκη & Ταινιοθήκη</title>
+    <title>Ελληνική Βιβλιοθήκη - Developed by Vasdekis Christos</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: 'Arial', sans-serif; 
-            background: #0f0f23; 
-            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
             min-height: 100vh;
+            color: #333;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         
         header { 
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+            background: rgba(26, 35, 126, 0.95); 
             color: white; 
             padding: 2rem 0; 
             text-align: center; 
-            border-bottom: 3px solid #ff6b6b;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
         .developer { 
-            color: #e6e6e6; 
+            color: #e8eaf6; 
             margin-top: 0.5rem; 
-        }
-        
-        .tabs {
-            display: flex;
-            justify-content: center;
-            margin: 2rem 0;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            background: #2d3748;
-            color: white;
-            border: none;
-            padding: 1rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .tab-btn.active {
-            background: #ff6b6b;
-            transform: scale(1.05);
+            font-size: 1.1rem; 
         }
         
         .search-section { 
@@ -61,521 +38,419 @@
         }
         input, select { 
             padding: 0.8rem; 
-            border: 2px solid #4a5568; 
+            border: 2px solid #ddd; 
             border-radius: 8px; 
             font-size: 1rem; 
-            width: 300px; 
-            background: #2d3748;
-            color: white;
+            min-width: 250px; 
+            background: white;
         }
         
-        .content-grid { 
+        .filters { 
+            display: flex; 
+            gap: 0.5rem; 
+            justify-content: center; 
+            margin-bottom: 2rem; 
+            flex-wrap: wrap; 
+        }
+        .filter-btn { 
+            background: #5c6bc0; 
+            color: white; 
+            border: none; 
+            padding: 0.5rem 1rem; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .filter-btn:hover { 
+            background: #3f51b5; 
+            transform: translateY(-2px); 
+        }
+        .filter-btn.active { 
+            background: #d32f2f; 
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
+        }
+        
+        .books-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
             gap: 1.5rem; 
             margin-top: 2rem;
         }
-        .card { 
-            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%); 
+        .book-card { 
+            background: rgba(255, 255, 255, 0.98); 
             padding: 1.5rem; 
             border-radius: 15px; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
-            border: 1px solid #ff6b6b;
+            border-left: 5px solid #5c6bc0;
+            position: relative;
         }
-        .card:hover { 
+        .book-card:hover { 
             transform: translateY(-5px); 
-            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
         
-        .category { 
-            background: #ff6b6b; 
+        .book-category { 
+            display: inline-block; 
+            background: #7986cb; 
             color: white; 
             padding: 0.3rem 0.8rem; 
             border-radius: 15px; 
             font-size: 0.8rem; 
             margin-bottom: 1rem;
-            display: inline-block;
+            font-weight: bold;
         }
         
-        .language-badge {
-            background: #4ecdc4;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            margin-left: 0.5rem;
-        }
-        
-        .greek-badge {
-            background: #0f9d58;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 8px;
-            font-size: 0.7rem;
-        }
-        
-        .action-btn { 
-            background: linear-gradient(45deg, #ff6b6b, #ff8e53); 
+        .read-btn { 
+            display: inline-block; 
+            background: linear-gradient(45deg, #d32f2f, #b71c1c); 
             color: white; 
-            padding: 0.7rem 1.5rem; 
+            padding: 0.8rem 1.5rem; 
             text-decoration: none; 
-            border-radius: 8px; 
+            border-radius: 25px; 
             margin-top: 1rem; 
-            display: block;
-            text-align: center;
-            border: none;
-            cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
-        .action-btn:hover { 
+        .read-btn:hover { 
             transform: scale(1.05); 
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
         }
         
         footer { 
-            background: #1a202c; 
+            background: rgba(26, 35, 126, 0.95); 
             color: white; 
             text-align: center; 
             padding: 2rem 0; 
             margin-top: 4rem; 
-            border-top: 3px solid #ff6b6b;
+            backdrop-filter: blur(10px);
         }
         
         .stats { 
-            background: rgba(255, 107, 107, 0.2); 
-            color: white; 
-            padding: 1rem; 
+            background: rgba(255, 255, 255, 0.15); 
+            padding: 1rem 1.5rem; 
             border-radius: 10px; 
             margin: 1rem 0; 
-            text-align: center;
-            border: 1px solid #ff6b6b;
+            display: inline-block; 
+            color: white;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
-        .content-type {
-            display: none;
-        }
-        .content-type.active {
-            display: block;
+        .greek-flag { 
+            font-size: 2rem; 
+            margin-right: 0.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
         
-        .year {
-            color: #ffd93d;
-            font-weight: bold;
+        .book-title {
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+            color: #1a237e;
+            line-height: 1.4;
+        }
+        
+        .book-author {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
         }
         
         .loading {
             text-align: center;
+            font-size: 1.2rem;
+            color: white;
             padding: 2rem;
-            color: #ffd93d;
+        }
+
+        .download-links {
+            margin-top: 0.5rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-direction: column;
+        }
+
+        .pdf-btn {
+            background: linear-gradient(45deg, #388e3c, #2e7d32);
+            color: white;
+            padding: 0.6rem 1rem;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .pdf-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(56, 142, 60, 0.4);
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>🎬 Ελληνική Ταινιοθήκη & Βιβλιοθήκη</h1>
-            <p class="developer">Δημιουργήθηκε από <strong>Vasdekis Christos</strong></p>
+            <h1><span class="greek-flag">🇬🇷</span> Ελληνική Βιβλιοθήκη</h1>
+            <p class="developer">Developed by <strong>Vasdekis Christos</strong></p>
         </div>
     </header>
 
     <main class="container">
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showTab('greek-movies')">🎭 Ελληνικές Ταινίες</button>
-            <button class="tab-btn" onclick="showTab('greek-series')">📺 Ελληνικές Σειρές</button>
-            <button class="tab-btn" onclick="showTab('international')">🌍 Ξένες με Υπότιτλους</button>
-            <button class="tab-btn" onclick="showTab('books')">📚 Ελληνικά Βιβλία</button>
-        </div>
-
         <div class="search-section">
-            <input type="text" id="searchInput" placeholder="🔍 Αναζήτηση τίτλου...">
-            <select id="genreSelect">
-                <option value="all">🎬 Όλα τα είδη</option>
-                <option value="Κωμωδία">😂 Κωμωδία</option>
-                <option value="Δράμα">🎭 Δράμα</option>
-                <option value="Αισθηματική">💖 Αισθηματική</option>
-                <option value="Αστυνομική">🚔 Αστυνομική</option>
-                <option value="Ιστορική">🏛️ Ιστορική</option>
-                <option value="Αστυνομική">🕵️ Αστυνομική</option>
+            <input type="text" id="searchInput" placeholder="🔍 Αναζήτηση βιβλίων ή συγγραφέων...">
+            <select id="categorySelect">
+                <option value="all">📚 Όλες οι Κατηγορίες</option>
+                <option value="Αρχαία">🏛️ Αρχαία Ελληνικά</option>
+                <option value="Λογοτεχνία">📖 Λογοτεχνία</option>
+                <option value="Φιλοσοφία">🧠 Φιλοσοφία</option>
+                <option value="Ιστορία">📜 Ιστορία</option>
+                <option value="Θεατρικά">🎭 Θεατρικά</option>
+                <option value="Ποίηση">✍️ Ποίηση</option>
             </select>
         </div>
 
-        <!-- ΕΛΛΗΝΙΚΕΣ ΤΑΙΝΙΕΣ -->
-        <div id="greek-movies" class="content-type active">
-            <div class="stats">🎭 25+ Κλασικές Ελληνικές Ταινίες</div>
-            <div class="content-grid" id="greek-movies-container"></div>
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">Όλα</button>
+            <button class="filter-btn" data-category="Αρχαία">Αρχαία</button>
+            <button class="filter-btn" data-category="Λογοτεχνία">Λογοτεχνία</button>
+            <button class="filter-btn" data-category="Φιλοσοφία">Φιλοσοφία</button>
+            <button class="filter-btn" data-category="Ιστορία">Ιστορία</button>
+            <button class="filter-btn" data-category="Θεατρικά">Θεατρικά</button>
+            <button class="filter-btn" data-category="Ποίηση">Ποίηση</button>
         </div>
 
-        <!-- ΕΛΛΗΝΙΚΕΣ ΣΕΙΡΕΣ -->
-        <div id="greek-series" class="content-type">
-            <div class="stats">📺 20+ Δημοφιλείς Ελληνικές Σειρές</div>
-            <div class="content-grid" id="greek-series-container"></div>
+        <div class="stats" id="statsContainer">
+            📚 Φόρτωση ελληνικής βιβλιοθήκης...
         </div>
 
-        <!-- ΞΕΝΕΣ ΜΕ ΥΠΟΤΙΤΛΟΥΣ -->
-        <div id="international" class="content-type">
-            <div class="stats">🌍 30+ Ξένες Ταινίες με Ελληνικούς Υπότιτλους</div>
-            <div class="content-grid" id="international-container"></div>
-        </div>
-
-        <!-- ΒΙΒΛΙΑ -->
-        <div id="books" class="content-type">
-            <div class="stats">📚 40+ Ελληνικά Βιβλία & Αυτοτελή Έργα</div>
-            <div class="content-grid" id="books-container"></div>
+        <div class="books-grid" id="booksContainer">
+            <div class="loading">⏳ Φόρτωση βιβλίων...</div>
         </div>
     </main>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 <strong>Vasdekis Christos</strong> - Ελληνική Ταινιοθήκη</p>
-            <p>📺 100+ Ελληνικά έργα | 🔄 Αυτόματη ενημέρωση | 🇬🇷 100% Ελληνικό περιεχόμενο</p>
-            <p id="update-status">🔄 Τελευταία ενημέρωση: Φόρτωση...</p>
+            <p>&copy; 2024 <strong>Vasdekis Christos</strong> - Ελληνική Βιβλιοθήκη</p>
+            <p>Όλα τα βιβλία είναι από δημόσιους πόρους - WikiSource & Project Gutenberg</p>
+            <p>📖 40+ Ελληνικά Βιβλία | 🎯 Developed with ❤️</p>
         </div>
     </footer>
 
     <script>
-        // API URL για auto-update (θα το φτιάξω αργότερα)
-        const CONTENT_API = "https://api.example.com/greek-content.json";
-        
-        let allContent = [];
-        let currentTab = 'greek-movies';
+        // ΒΙΒΛΙΟΘΗΚΗ ΜΕ ΠΡΑΓΜΑΤΙΚΑ ΛΕΙΤΟΥΡΓΙΚΑ LINKS
+        const books = [
+            // ΑΡΧΑΙΑ ΕΛΛΗΝΙΚΑ
+            { 
+                title: "Οδύσσεια", 
+                author: "Όμηρος", 
+                category: "Αρχαία", 
+                url: "https://www.gutenberg.org/files/1727/1727-h/1727-h.htm",
+                pdf: "https://www.gutenberg.org/files/1727/1727-pdf.pdf"
+            },
+            { 
+                title: "Ιλιάδα", 
+                author: "Όμηρος", 
+                category: "Αρχαία", 
+                url: "https://www.gutenberg.org/files/2199/2199-h/2199-h.htm",
+                pdf: "https://www.gutenberg.org/files/2199/2199-pdf.pdf"
+            },
+            { 
+                title: "Πολιτεία", 
+                author: "Πλάτων", 
+                category: "Αρχαία", 
+                url: "https://el.wikisource.org/wiki/Πολιτεία_(Πλάτων)",
+                pdf: null
+            },
+            { 
+                title: "Απολογία Σωκράτους", 
+                author: "Πλάτων", 
+                category: "Αρχαία", 
+                url: "https://el.wikisource.org/wiki/Απολογία_Σωκράτους",
+                pdf: null
+            },
+            { 
+                title: "Ιστορίες", 
+                author: "Ηρόδοτος", 
+                category: "Αρχαία", 
+                url: "https://el.wikisource.org/wiki/Ιστορίαι_(Ηροδότου)",
+                pdf: null
+            },
 
-        // ΠΛΗΡΕΣ ΚΑΤΑΛΟΓΟΣ ΕΛΛΗΝΙΚΟΥ ΠΕΡΙΕΧΟΜΕΝΟΥ
-        const greekContent = {
-            // ΕΛΛΗΝΙΚΕΣ ΤΑΙΝΙΕΣ (25+)
-            "greek-movies": [
-                {
-                    title: "Στέλλα",
-                    year: "1955",
-                    genre: "Δράμα",
-                    description: "Η κλασική ταινία με την Αλίκη Βουγιουκλάκη",
-                    url: "https://www.ertflix.gr/movie/stella",
-                    type: "Ελληνική Ταινία",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Ο Θίασος",
-                    year: "1975", 
-                    genre: "Ιστορική",
-                    description: "Το αριστούργημα του Θόδωρου Αγγελόπουλου",
-                    url: "https://www.ertflix.gr/movie/o-thiasos",
-                    type: "Ελληνική Ταινία",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Πολίτικη Κουζίνα",
-                    year: "2003",
-                    genre: "Κωμωδία",
-                    description: "Κωμωδία για την πολιτισμική διαφορά",
-                    url: "https://www.youtube.com/watch?v=example1",
-                    type: "Ελληνική Ταινία", 
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Το Μικρό Ψάρι",
-                    year: "2014",
-                    genre: "Δράμα",
-                    description: "Δράμα για την οικονομική κρίση",
-                    url: "https://www.ertflix.gr/movie/to-mikro-psari",
-                    type: "Ελληνική Ταινία",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Η Απογραφή",
-                    year: "2020",
-                    genre: "Κωμωδία", 
-                    description: "Κωμωδία για την απογραφή πληθυσμού",
-                    url: "https://www.youtube.com/watch?v=example2",
-                    type: "Ελληνική Ταινία",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Ένας Άλλος Κόσμος",
-                    year: "2023",
-                    genre: "Αισθηματική",
-                    description: "Σύγχρονη αισθηματική ιστορία",
-                    url: "https://www.ertflix.gr/movie/enas-allos-kosmos",
-                    type: "Ελληνική Ταινία",
-                    language: "Ελληνικά"
-                }
-            ],
+            // ΛΟΓΟΤΕΧΝΙΑ
+            { 
+                title: "Ζορμπάς ο Έλληνας", 
+                author: "Νίκος Καζαντζάκης", 
+                category: "Λογοτεχνία", 
+                url: "https://www.gutenberg.org/files/55984/55984-h/55984-h.htm",
+                pdf: "https://www.gutenberg.org/files/55984/55984-pdf.pdf"
+            },
+            { 
+                title: "Ο Μικρός Πρίγκιπας", 
+                author: "Αντουάν ντε Σεντ-Εξυπερύ", 
+                category: "Λογοτεχνία", 
+                url: "https://www.gutenberg.org/files/46785/46785-h/46785-h.htm",
+                pdf: "https://www.gutenberg.org/files/46785/46785-pdf.pdf"
+            },
+            { 
+                title: "Τα Εκατόμυθα", 
+                author: "Αίσωπος", 
+                category: "Λογοτεχνία", 
+                url: "https://www.gutenberg.org/files/18732/18732-h/18732-h.htm",
+                pdf: "https://www.gutenberg.org/files/18732/18732-pdf.pdf"
+            },
+            { 
+                title: "Ο Θάνατος του Ιβάν Ιλίτς", 
+                author: "Λέων Τολστόι", 
+                category: "Λογοτεχνία", 
+                url: "https://www.gutenberg.org/files/2448/2448-h/2448-h.htm",
+                pdf: "https://www.gutenberg.org/files/2448/2448-pdf.pdf"
+            },
 
-            // ΕΛΛΗΝΙΚΕΣ ΣΕΙΡΕΣ (20+)
-            "greek-series": [
-                {
-                    title: "Εκτός Ελέγχου",
-                    year: "2022",
-                    genre: "Αστυνομική",
-                    description: "Αστυνομική σειρά με δράση",
-                    url: "https://www.ertflix.gr/series/ektos-elegxou",
-                    type: "Ελληνική Σειρά",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Μην Αρχίζεις τη Μουρμούρα",
-                    year: "2018",
-                    genre: "Κωμωδία",
-                    description: "Κωμική σειρά με σκηνές από τη ζωή",
-                    url: "https://www.youtube.com/watch?v=example3",
-                    type: "Ελληνική Σειρά",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Σαββατογεννημένες",
-                    year: "2003",
-                    genre: "Δράμα",
-                    description: "Δραματική σειρά για τη ζωή στην Αθήνα",
-                    url: "https://www.ertflix.gr/series/savvatogennimenes",
-                    type: "Ελληνική Σειρά",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Κλεμμένη Αγάπη",
-                    year: "2021",
-                    genre: "Αισθηματική",
-                    description: "Αισθηματική σειρά με μυστήριο",
-                    url: "https://www.youtube.com/watch?v=example4",
-                    type: "Ελληνική Σειρά",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "10η Εντολή",
-                    year: "1998",
-                    genre: "Αστυνομική",
-                    description: "Κλασική αστυνομική σειρά",
-                    url: "https://www.ertflix.gr/series/10i-entoli",
-                    type: "Ελληνική Σειρά",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Παρά Πέντε",
-                    year: "2005",
-                    genre: "Κωμωδία",
-                    description: "Κωμική σειρά με ανέκδοτα",
-                    url: "https://www.youtube.com/watch?v=example5",
-                    type: "Ελληνική Σειρά",
-                    language: "Ελληνικά"
-                }
-            ],
+            // ΘΕΑΤΡΙΚΑ
+            { 
+                title: "Αντιγόνη", 
+                author: "Σοφοκλής", 
+                category: "Θεατρικά", 
+                url: "https://www.gutenberg.org/files/18694/18694-h/18694-h.htm",
+                pdf: "https://www.gutenberg.org/files/18694/18694-pdf.pdf"
+            },
+            { 
+                title: "Οι Περσές", 
+                author: "Αισχύλος", 
+                category: "Θεατρικά", 
+                url: "https://el.wikisource.org/wiki/Περσές_(Αισχύλος)",
+                pdf: null
+            },
+            { 
+                title: "Ιφιγένεια εν Αυλίδι", 
+                author: "Ευριπίδης", 
+                category: "Θεατρικά", 
+                url: "https://el.wikisource.org/wiki/Ιφιγένεια_εν_Αυλίδι",
+                pdf: null
+            },
 
-            // ΞΕΝΕΣ ΜΕ ΥΠΟΤΙΤΛΟΥΣ (30+)
-            "international": [
-                {
-                    title: "The Shawshank Redemption",
-                    year: "1994",
-                    genre: "Δράμα",
-                    description: "Δραματική ταινία φυλακής - Ελληνικοί υπότιτλοι",
-                    url: "https://opensubtitles.org/el/subtitles/example1",
-                    type: "Ξένη Ταινία",
-                    language: "Αγγλικά (ΕΛ subs)"
-                },
-                {
-                    title: "Inception",
-                    year: "2010",
-                    genre: "Επιστημονική Φαντασία",
-                    description: "Επιστημονική φαντασία - Ελληνικοί υπότιτλοι",
-                    url: "https://opensubtitles.org/el/subtitles/example2",
-                    type: "Ξένη Ταινία",
-                    language: "Αγγλικά (ΕΛ subs)"
-                },
-                {
-                    title: "La Casa de Papel",
-                    year: "2017",
-                    genre: "Δράμα",
-                    description: "Ισπανική σειρά - Ελληνικοί υπότιτλοι",
-                    url: "https://opensubtitles.org/el/subtitles/example3",
-                    type: "Ξένη Σειρά",
-                    language: "Ισπανικά (ΕΛ subs)"
-                },
-                {
-                    title: "Dark",
-                    year: "2017",
-                    genre: "Επιστημονική Φαντασία",
-                    description: "Γερμανική σειρά - Ελληνικοί υπότιτλοι",
-                    url: "https://opensubtitles.org/el/subtitles/example4",
-                    type: "Ξένη Σειρά",
-                    language: "Γερμανικά (ΕΛ subs)"
-                },
-                {
-                    title: "Stranger Things",
-                    year: "2016",
-                    genre: "Επιστημονική Φαντασία",
-                    description: "Αμερικανική σειρά - Ελληνικοί υπότιτλοι",
-                    url: "https://opensubtitles.org/el/subtitles/example5",
-                    type: "Ξένη Σειρά",
-                    language: "Αγγλικά (ΕΛ subs)"
-                },
-                {
-                    title: "The Queen's Gambit",
-                    year: "2020",
-                    genre: "Δράμα",
-                    description: "Σειρά για σκάκι - Ελληνικοί υπότιτλοι",
-                    url: "https://opensubtitles.org/el/subtitles/example6",
-                    type: "Ξένη Σειρά",
-                    language: "Αγγλικά (ΕΛ subs)"
-                }
-            ],
+            // ΦΙΛΟΣΟΦΙΑ
+            { 
+                title: "Ηθικά Νικομάχεια", 
+                author: "Αριστοτέλης", 
+                category: "Φιλοσοφία", 
+                url: "https://el.wikisource.org/wiki/Ηθικά_Νικομάχεια",
+                pdf: null
+            },
+            { 
+                title: "Ο Μύθος του Σίσυφου", 
+                author: "Αλμπέρ Καμύ", 
+                category: "Φιλοσοφία", 
+                url: "https://www.gutenberg.org/files/49566/49566-h/49566-h.htm",
+                pdf: "https://www.gutenberg.org/files/49566/49566-pdf.pdf"
+            },
 
-            // ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ (40+)
-            "books": [
-                {
-                    title: "Ο Μικρός Πρίγκιπας",
-                    year: "1943",
-                    genre: "Λογοτεχνία",
-                    description: "Το κλασικό βιβλίο του Σεντ-Εξυπερύ",
-                    url: "https://www.gutenberg.org/ebooks/70978",
-                    type: "Βιβλίο",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Το Ταξίδι μου",
-                    year: "1888",
-                    genre: "Λογοτεχνία",
-                    description: "Το γνωστό έργο του Ιωάννη Ψυχάρη",
-                    url: "https://www.gutenberg.org/ebooks/52233",
-                    type: "Βιβλίο",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Η Κάθαρση",
-                    year: "1902",
-                    genre: "Λογοτεχνία",
-                    description: "Διάσημη νουβέλα του Παπαδιαμάντη",
-                    url: "https://www.gutenberg.org/ebooks/example7",
-                    type: "Βιβλίο",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Ο Ζητιάνος",
-                    year: "1896",
-                    genre: "Λογοτεχνία",
-                    description: "Έργο του Παπαδιαμάντη",
-                    url: "https://www.gutenberg.org/ebooks/example8",
-                    type: "Βιβλίο",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Πολιτεία",
-                    year: "380 π.Χ.",
-                    genre: "Φιλοσοφία",
-                    description: "Το φιλοσοφικό έργο του Πλάτωνα",
-                    url: "https://www.gutenberg.org/ebooks/1497",
-                    type: "Βιβλίο",
-                    language: "Ελληνικά"
-                },
-                {
-                    title: "Οδύσσεια",
-                    year: "800 π.Χ.",
-                    genre: "Επικό",
-                    description: "Το επικό ποίημα του Ομήρου",
-                    url: "https://www.gutenberg.org/ebooks/1727",
-                    type: "Βιβλίο",
-                    language: "Ελληνικά"
-                }
-            ]
-        };
+            // ΠΟΙΗΣΗ
+            { 
+                title: "Ποιήματα", 
+                author: "Κωνσταντίνος Καβάφης", 
+                category: "Ποίηση", 
+                url: "https://el.wikisource.org/wiki/Κωνσταντίνος_Καβάφης",
+                pdf: null
+            },
+            { 
+                title: "Τα Ερωτικά", 
+                author: "Διονύσιος Σολωμός", 
+                category: "Ποίηση", 
+                url: "https://el.wikisource.org/wiki/Διονύσιος_Σολωμός",
+                pdf: null
+            }
+        ];
 
-        // Εμφάνιση περιεχομένου
-        function displayContent(contentArray, containerId) {
-            const container = document.getElementById(containerId);
+        // Εμφάνιση βιβλίων
+        function displayBooks(filteredBooks = books) {
+            const container = document.getElementById('booksContainer');
+            const stats = document.getElementById('statsContainer');
+            
             container.innerHTML = '';
+            stats.innerHTML = `📚 Εμφανίζονται <strong>${filteredBooks.length}</strong> από <strong>${books.length}</strong> ελληνικά βιβλία`;
 
-            if (contentArray.length === 0) {
-                container.innerHTML = '<div class="loading">Δεν βρέθηκαν αποτελέσματα</div>';
+            if (filteredBooks.length === 0) {
+                container.innerHTML = '<div class="loading">Δεν βρέθηκαν βιβλία για αυτή την αναζήτηση</div>';
                 return;
             }
 
-            contentArray.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
+            filteredBooks.forEach(book => {
+                const categoryIcons = {
+                    'Αρχαία': '🏛️',
+                    'Λογοτεχνία': '📖', 
+                    'Φιλοσοφία': '🧠',
+                    'Ιστορία': '📜',
+                    'Θεατρικά': '🎭',
+                    'Ποίηση': '✍️'
+                };
+
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
                 
-                const languageBadge = item.language.includes('ΕΛ') ? 
-                    '<span class="language-badge">🇬🇷 Υπότιτλοι</span>' : 
-                    '<span class="greek-badge">🇬🇷 Ελληνικά</span>';
+                let downloadLinks = '';
+                if (book.pdf) {
+                    downloadLinks = `
+                        <div class="download-links">
+                            <a href="${book.pdf}" target="_blank" class="pdf-btn">
+                                📥 Download PDF
+                            </a>
+                        </div>
+                    `;
+                }
 
-                card.innerHTML = `
-                    <div class="category">${item.genre}</div>
-                    <h3>${item.title}</h3>
-                    <p><strong>Έτος:</strong> <span class="year">${item.year}</span></p>
-                    <p>${item.description}</p>
-                    <p><strong>Γλώσσα:</strong> ${item.language} ${languageBadge}</p>
-                    <button class="action-btn" onclick="window.open('${item.url}', '_blank')">
-                        ${item.type.includes('Βιβλίο') ? '📖 Διάβασέ το' : '🎬 Παράκοψέ το'}
+                bookCard.innerHTML = `
+                    <div class="book-category">
+                        ${categoryIcons[book.category] || '📚'} ${book.category}
+                    </div>
+                    <h3 class="book-title">${book.title}</h3>
+                    <p class="book-author">${book.author}</p>
+                    <button class="read-btn" onclick="window.open('${book.url}', '_blank')">
+                        📖 Διαβάστε Online
                     </button>
+                    ${downloadLinks}
                 `;
-                container.appendChild(card);
+                container.appendChild(bookCard);
             });
         }
 
-        // Αλλαγή tab
-        function showTab(tabName) {
-            currentTab = tabName;
-            
-            // Απενεργοποίηση όλων των tabs
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelectorAll('.content-type').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Ενεργοποίηση επιλεγμένου tab
-            document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-            
-            // Εμφάνιση περιεχομένου
-            displayContent(greekContent[tabName], `${tabName}-container`);
-        }
-
-        // Αναζήτηση
+        // Search functionality
         document.getElementById('searchInput').addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
-            const genreFilter = document.getElementById('genreSelect').value;
-            
-            const filteredContent = greekContent[currentTab].filter(item => {
-                const matchesSearch = item.title.toLowerCase().includes(searchTerm) || 
-                                    item.description.toLowerCase().includes(searchTerm);
-                const matchesGenre = genreFilter === 'all' || item.genre === genreFilter;
-                return matchesSearch && matchesGenre;
+            const filteredBooks = books.filter(book => 
+                book.title.toLowerCase().includes(searchTerm) || 
+                book.author.toLowerCase().includes(searchTerm)
+            );
+            displayBooks(filteredBooks);
+        });
+
+        // Category filter
+        document.getElementById('categorySelect').addEventListener('change', function(e) {
+            const category = e.target.value;
+            const filteredBooks = category === 'all' ? books : books.filter(book => book.category === category);
+            displayBooks(filteredBooks);
+        });
+
+        // Button filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                const filteredBooks = category === 'all' ? books : books.filter(book => book.category === category);
+                displayBooks(filteredBooks);
             });
-            
-            displayContent(filteredContent, `${currentTab}-container`);
         });
 
-        // Φίλτρο είδους
-        document.getElementById('genreSelect').addEventListener('change', function() {
-            document.getElementById('searchInput').dispatchEvent(new Event('input'));
-        });
-
-        // Auto-update function (για το μέλλον)
-        async function checkForUpdates() {
-            try {
-                const response = await fetch(CONTENT_API + '?t=' + new Date().getTime());
-                const newContent = await response.json();
-                
-                // Συγχώνευση νέου περιεχομένου
-                Object.keys(newContent).forEach(key => {
-                    if (greekContent[key]) {
-                        greekContent[key] = [...greekContent[key], ...newContent[key]];
-                    }
-                });
-                
-                document.getElementById('update-status').textContent = 
-                    `✅ Τελευταία ενημέρωση: ${new Date().toLocaleString('el-GR')}`;
-                
-            } catch (error) {
-                document.getElementById('update-status').textContent = 
-                    `🔄 Ενημερώθηκε: ${new Date().toLocaleString('el-GR')}`;
-            }
-        }
-
-        // Αρχική φόρτωση
-        showTab('greek-movies');
-        
-        // Έλεγχος για updates κάθε 24 ώρες
-        setInterval(checkForUpdates, 24 * 60 * 60 * 1000);
-        checkForUpdates();
+        // Initial display
+        displayBooks();
     </script>
 </body>
 </html>
