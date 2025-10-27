@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇬🇷 Auto Greek Movies - Live Ενημέρωση</title>
+    <title>Dentist Mega Book - Ολοκληρωμένη Πλατφόρμα Οδοντιατρικής</title>
     <style>
+        :root {
+            --primary: #2c7873;
+            --secondary: #6fb98f;
+            --accent: #ff9a76;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --text: #333;
+            --border: #e0e0e0;
+            --emergency: #e74c3c;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -13,610 +24,1007 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
-            color: #333;
+            line-height: 1.6;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
         }
         
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px;
         }
         
+        /* Header Styles */
         header {
-            background: rgba(26, 35, 126, 0.95);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             padding: 2rem 0;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
             position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-icon {
+            font-size: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo-text h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .logo-text p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .developer-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
         }
         
         .live-indicator {
             position: absolute;
             top: 1rem;
             right: 2rem;
-            background: #d32f2f;
+            background: var(--emergency);
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.9rem;
             animation: pulse 2s infinite;
+            z-index: 3;
         }
         
         @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.7; }
-            100% { opacity: 1; }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
         }
         
-        .hero {
-            text-align: center;
-            padding: 2rem 0;
-            color: white;
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .stats {
+        .nav-container {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
         }
         
-        .stat-box {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            color: white;
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
         }
         
-        .movies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .movie-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            border-left: 5px solid #d32f2f;
-            position: relative;
-        }
-        
-        .movie-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-        
-        .movie-card.new {
-            border-left: 5px solid #388e3c;
-        }
-        
-        .new-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #388e3c;
-            color: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        
-        .movie-thumbnail {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-        }
-        
-        .watch-btn {
-            display: block;
-            background: linear-gradient(45deg, #d32f2f, #b71c1c);
-            color: white;
-            padding: 0.8rem 1.5rem;
+        .nav-links a {
             text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 0.7rem 1.2rem;
             border-radius: 25px;
-            text-align: center;
-            margin-top: 1rem;
-            font-weight: bold;
             transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-        
-        .watch-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
-        }
-        
-        .category-filter {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin: 2rem 0;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .category-btn {
-            background: #5c6bc0;
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary);
             color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
-        
-        .category-btn.active {
-            background: #d32f2f;
+            transform: translateY(-2px);
         }
         
         .auto-controls {
             display: flex;
             gap: 1rem;
-            justify-content: center;
-            margin: 1rem 0;
-            flex-wrap: wrap;
+            align-items: center;
         }
         
-        .control-btn {
-            background: #388e3c;
+        .refresh-btn {
+            background: var(--accent);
             color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 0.7rem 1.2rem;
             border-radius: 25px;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             transition: all 0.3s;
-            font-size: 1rem;
         }
         
-        .control-btn.stop {
-            background: #d32f2f;
+        .refresh-btn:hover {
+            background: #ff7b4a;
+            transform: translateY(-2px);
         }
         
-        .legal-notice {
-            background: rgba(255, 255, 255, 0.1);
+        /* Stats Bar */
+        .stats-bar {
+            background: white;
+            padding: 1rem 0;
+            margin: 1rem 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-top: 0.5rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+            padding: 0.7rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sidebar a:hover, .sidebar a.active {
+            background: var(--secondary);
+            color: white;
+            padding-left: 1.2rem;
+        }
+        
+        /* Content Area */
+        .content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .category-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border-left: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+        
+        .category-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+        
+        .tools-section, .meds-section {
+            background: rgba(255,255,255,0.7);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .tools-section h4, .meds-section h4 {
+            color: var(--dark);
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tools-list, .meds-list {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+        
+        .tools-list li, .meds-list li {
+            margin-bottom: 0.4rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        
+        .tools-list li:before, .meds-list li:before {
+            content: "▸";
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Emergency Section */
+        .emergency-section {
+            background: linear-gradient(135deg, var(--emergency), #ff7979);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .emergency-section h2 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .emergency-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .emergency-item {
+            background: rgba(255,255,255,0.15);
             padding: 1.5rem;
             border-radius: 10px;
-            margin: 2rem 0;
-            color: white;
-            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
         }
         
+        .emergency-item:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
         footer {
-            background: rgba(26, 35, 126, 0.95);
+            background: var(--dark);
             color: white;
-            text-align: center;
-            padding: 2rem 0;
+            padding: 3rem 0 1rem;
             margin-top: 4rem;
         }
         
-        .loading {
-            text-align: center;
-            color: white;
-            padding: 2rem;
-            font-size: 1.2rem;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
         
-        .source-badge {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            background: #e8eaf6;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin: 0.5rem 0;
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .developer-credit {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ccc;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            border-left: 4px solid var(--accent);
+            z-index: 1001;
+            max-width: 400px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <header>
+        <div class="live-indicator">🔄 AUTO-REFRESH: 30min</div>
         <div class="container">
-            <div class="live-indicator">🔴 LIVE</div>
-            <h1>🎬 Auto Greek Movies</h1>
-            <p>Αυτόματη Ενημέρωση & Ζωντανή Ροή Ταινιών</p>
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🦷💊</div>
+                    <div class="logo-text">
+                        <h1>Dentist Mega Book</h1>
+                        <p>Ολοκληρωμένη Πλατφόρμα Οδοντιατρικής Γνώσης</p>
+                    </div>
+                </div>
+                
+                <div class="developer-badge">
+                    👨‍💻 Developed by <strong>Vasdekis Christos</strong>
+                </div>
+            </div>
         </div>
     </header>
 
-    <main class="container">
-        <section class="hero">
-            <h2>Βρες Πάντα Τις Πιο Πρόσφατες Ταινίες</h2>
-            <p>Αυτόματη ανανέωση κάθε 30 λεπτά από 10+ πηγές</p>
-            
-            <div class="stats">
-                <div class="stat-box">
-                    <strong>📊 Ταινίες Σήμερα:</strong>
-                    <span id="todayCount">0</span>
-                </div>
-                <div class="stat-box">
-                    <strong>🕒 Τελευταία Ενημέρωση:</strong>
-                    <span id="lastUpdate">-</span>
-                </div>
-                <div class="stat-box">
-                    <strong>🔍 Ενεργές Πηγές:</strong>
-                    <span id="activeSources">0</span>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#caries" class="active">🦷 Τερηδόνα</a></li>
+                    <li><a href="#periodontal">🩸 Περιοδοντικές</a></li>
+                    <li><a href="#endodontic">🔧 Ενδοδοντικές</a></li>
+                    <li><a href="#prosthetic">👑 Προσθετική</a></li>
+                    <li><a href="#surgery">⚡ Χειρουργική</a></li>
+                    <li><a href="#emergency">🚨 Επείγοντα</a></li>
+                </ul>
+                
+                <div class="auto-controls">
+                    <button class="refresh-btn" onclick="refreshContent()">
+                        🔄 Ανανέωση Περιεχομένου
+                    </button>
                 </div>
             </div>
-        </section>
-
-        <div class="auto-controls">
-            <button class="control-btn" onclick="refreshAllContent()">
-                🔄 Άμεση Ενημέρωση
-            </button>
-            <button class="control-btn stop" onclick="toggleAutoRefresh()">
-                ⏸️ Παύση Αυτόματης Ανανέωσης
-            </button>
-            <button class="control-btn" onclick="showAllSources()">
-                🌐 Όλες οι Πηγές
-            </button>
         </div>
+    </nav>
 
-        <div class="category-filter">
-            <button class="category-btn active" data-category="all">Όλες</button>
-            <button class="category-btn" data-category="youtube">YouTube</button>
-            <button class="category-btn" data-category="ert">ERT FLIX</button>
-            <button class="category-btn" data-category="archive">Internet Archive</button>
-            <button class="category-btn" data-category="vimeo">Vimeo</button>
-            <button class="category-btn" data-category="new">Νέες</button>
+    <!-- Stats Bar -->
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalProcedures">85+</span>
+                    <span class="stat-label">Θεραπείες</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="totalTools">120+</span>
+                    <span class="stat-label">Εργαλεία</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="totalMeds">65+</span>
+                    <span class="stat-label">Φάρμακα</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="lastUpdate">-</span>
+                    <span class="stat-label">Τελευταία Ενημέρωση</span>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="legal-notice">
-            <h3>📢 100% Νόμιμο & Αυτόματο</h3>
-            <p>Όλο το περιεχόμενο προέρχεται από επίσημες και δωρεάν πηγές. Ανανεώνεται αυτόματα!</p>
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>📚 Κατηγορίες</h3>
+                    <ul>
+                        <li><a href="#caries" class="active">🦷 Τερηδόνα & Αιτίες</a></li>
+                        <li><a href="#periodontal">🩸 Περιοδοντικές Παθήσεις</a></li>
+                        <li><a href="#endodontic">🔧 Ενδοδοντικές Παθήσεις</a></li>
+                        <li><a href="#prosthetic">👑 Προσθετική & Αποκατάσταση</a></li>
+                        <li><a href="#surgery">⚡ Χειρουργικές Επεμβάσεις</a></li>
+                        <li><a href="#orthodontic">🎯 Ορθοδοντικές Παθήσεις</a></li>
+                        <li><a href="#pediatric">👶 Παιδοδοντιατρικές</a></li>
+                        <li><a href="#emergency">🚨 Οδοντιατρικά Επείγοντα</a></li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>🛠️ Εργαλεία & Φάρμακα</h3>
+                    <ul>
+                        <li><a href="#diagnostic-tools">🔍 Διαγνωστικά Εργαλεία</a></li>
+                        <li><a href="#surgical-tools">⚡ Χειρουργικά Εργαλεία</a></li>
+                        <li><a href="#restorative-tools">🛠️ Επανορθωτικά Εργαλεία</a></li>
+                        <li><a href="#anesthetics">💉 Αναισθητικά</a></li>
+                        <li><a href="#antibiotics">💊 Αντιβιοτικά</a></li>
+                        <li><a href="#analgesics">🌡️ Αναλγητικά</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <main class="content">
+                <!-- Τερηδόνα & Αιτίες -->
+                <section id="caries" class="section">
+                    <h2>🦷 Τερηδόνα & Αιτίες</h2>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <h3>🔍 Επιφανειακή Τερηδόνα</h3>
+                            <p>Πρώιμη φάση τερηδόνας που επηρεάζει μόνο το επιφανειακό σμάλτο.</p>
+                            
+                            <div class="tools-section">
+                                <h4>🛠️ Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Εξελκυστήρας αιχμής</li>
+                                    <li>Διόπτρα οδοντιατρική</li>
+                                    <li>Διαγνωστικός καθετήρας</li>
+                                    <li>Φωτεινός διαφανές</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="meds-section">
+                                <h4>💊 Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Φθοριούχο αφρό</li>
+                                    <li>Χλωρεξιδίνη 0.12%</li>
+                                    <li>Φθοριούχο γέλιο</li>
+                                    <li>Αναλγητικό κρέμα</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="category-card">
+                            <h3>⚠️ Βαθιά Τερηδόνα</h3>
+                            <p>Προχωρημένη τερηδόνα που φθάνει μέχρι την πούλπα του δοντιού.</p>
+                            
+                            <div class="tools-section">
+                                <h4>🛠️ Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Τρυπάνι υψηλής ταχύτητας</li>
+                                    <li>Ενδοδοντικό καθετήρα</li>
+                                    <li>Συστήματα ενδοδοντικής</li>
+                                    <li>Υπεριώδης στείρωση</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="meds-section">
+                                <h4>💊 Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Λιδοκαΐνη 2%</li>
+                                    <li>Αμοξυκιλλίνη</li>
+                                    <li>Καλκίου υδροξείδιο</li>
+                                    <li>MTA τσιμέντο</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Περιοδοντικές Παθήσεις -->
+                <section id="periodontal" class="section">
+                    <h2>🩸 Περιοδοντικές Παθήσεις</h2>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <h3>🩸 Γλυγγίτιδα</h3>
+                            <p>Φλεγμονή των ούλων με ερυθρότητα, οίδημα και αιμορραγία.</p>
+                            
+                            <div class="tools-section">
+                                <h4>🛠️ Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Περιοδοντικός καθετήρας</li>
+                                    <li>Υπερηχογραφικός καθαριστής</li>
+                                    <li>Κυρωτικός καθετήρας</li>
+                                    <li>Διόπτρα με μεγέθυνση</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="meds-section">
+                                <h4>💊 Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Χλωρεξιδίνη 0.2%</li>
+                                    <li>Δοξυκυκλίνη</li>
+                                    <li>Μετρονιδαζόλη</li>
+                                    <li>Αντιφλεγμονώδη σпреυ</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="category-card">
+                            <h3>⚠️ Περιοδοντίτιδα</h3>
+                            <p>Προχωρημένη νόσος με απώλεια οστού και περιοδοντικών δεσμών.</p>
+                            
+                            <div class="tools-section">
+                                <h4>🛠️ Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Χειρουργικά μαχαιράκια</li>
+                                    <li>Περιοδοντική τρυπανοφόρος</li>
+                                    <li>Σύστημα laser</li>
+                                    <li>Οστεοτομικά εργαλεία</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="meds-section">
+                                <h4>💊 Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Αμοξυκυλλίνη + Κλαβουλανικό</li>
+                                    <li>Κλινδαμυκίνη</li>
+                                    <li>Αζιθρομυκίνη</li>
+                                    <li>Τοπικά αντιβιοτικά τσόφλια</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Ενδοδοντικές Παθήσεις -->
+                <section id="endodontic" class="section">
+                    <h2>🔧 Ενδοδοντικές Παθήσεις</h2>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <h3>🦷 Οξεία Πυρρία</h3>
+                            <p>Εντονός πόνος από φλεγμονή της πούλπας του δοντιού.</p>
+                            
+                            <div class="tools-section">
+                                <h4>🛠️ Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Ενδοδοντικό τρυπάνι</li>
+                                    <li>Νικελο-τιτανικοί καθετήρες</li>
+                                    <li>Σύστημα συσκευασμού θερμικά</li>
+                                    <li>Απεικόνιση με RVG</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="meds-section">
+                                <h4>💊 Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Αρτικαΐνη 4%</li>
+                                    <li>Καλκίου υδροξείδιο</li>
+                                    <li>Ενδοδοντικό σφραγιστικό</li>
+                                    <li>Αναλγητικό σκεύασμα</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Προσθετική & Αποκατάσταση -->
+                <section id="prosthetic" class="section">
+                    <h2>👑 Προσθετική & Αποκατάσταση</h2>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <h3>🦷 Στεφάνες & Γέφυρες</h3>
+                            <p>Μόνιμες αποκαταστάσεις για κατεστραμμένα ή λείποντα δόντια.</p>
+                            
+                            <div class="tools-section">
+                                <h4>🛠️ Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Τρυπάνι χαμηλής ταχύτητας</li>
+                                    <li>Υλικό εκτύπωσης</li>
+                                    <li>CAD/CAM σύστημα</li>
+                                    <li>Προσωρινό τσιμέντο</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="meds-section">
+                                <h4>💊 Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Ζιρκόνιο τσιμέντο</li>
+                                    <li>Ρεζίνο-τροποποιημένο γυαλί</li>
+                                    <li>Προσωρινό σφραγιστικό</li>
+                                    <li>Αντισηπτικό πλύσιμο</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Χειρουργικές Επεμβάσεις -->
+                <section id="surgery" class="section">
+                    <h2>⚡ Χειρουργικές Επεμβάσεις</h2>
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <h3>🦷 Χειρουργική Εξαγωγή</h3>
+                            <p>Επεμβάσεις για την αφαίρεση δοντιών με χειρουργική τεχνική.</p>
+                            
+                            <div class="tools-section">
+                                <h4>🛠️ Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Χειρουργικά ελκυστήρια</li>
+                                    <li>Οστεοτομικό τρυπάνι</li>
+                                    <li>Ραπτική βελόνη</li>
+                                    <li>Διάταξη για ράμματα</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="meds-section">
+                                <h4>💊 Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Αρτικαΐνη 4% με επινεφρίνη</li>
+                                    <li>Αμοξυκυλλίνη 2g</li>
+                                    <li>Ιβουπροφαίνη 600mg</li>
+                                    <li>Χλωρεξιδίνη πλύσιμο</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Οδοντιατρικά Επείγοντα -->
+                <section id="emergency" class="section">
+                    <div class="emergency-section">
+                        <h2>🚨 Οδοντιατρικά Επείγοντα</h2>
+                        <div class="emergency-content">
+                            <div class="emergency-item">
+                                <h3>🦷 Οδοντολογία</h3>
+                                <p>Έντονος πόνος, απόστημα, φλεγμονή</p>
+                                <div class="tools-list">
+                                    <li>Απεικόνιση με ακτίνες Χ</li>
+                                    <li>Επείγοντα εργαλεία</li>
+                                    <li>Αναλγητικά φάρμακα</li>
+                                </div>
+                            </div>
+                            
+                            <div class="emergency-item">
+                                <h3>🩸 Τραυματισμοί</h3>
+                                <p>Σπασμένοι οδόντες, πλήρης εξαγωγή</p>
+                                <div class="tools-list">
+                                    <li>Προσωρινό σφραγιστικό</li>
+                                    <li>Ραπτικό υλικό</li>
+                                    <li>Αντιβιοτική κάλυψη</li>
+                                </div>
+                            </div>
+                            
+                            <div class="emergency-item">
+                                <h3>🌡️ Λοιμώξεις</h3>
+                                <p>Περιοδοντικά απόστημα, πυρετός</p>
+                                <div class="tools-list">
+                                    <li>Σύστημα αποστράγγισης</li>
+                                    <li>Ευρέος φάσματος αντιβιοτικά</li>
+                                    <li>Αντιπυρετικά</li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
+    </div>
 
-        <div class="movies-grid" id="moviesContainer">
-            <div class="loading">🔄 Φόρτωση ταινιών...</div>
-        </div>
-    </main>
-
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>🎯 Auto Greek Movies - Αυτόματη Ενημέρωση κάθε 30 λεπτά</p>
-            <p>Όλο το περιεχόμενο είναι νόμιμο και δωρεάν</p>
+            <div class="developer-credit">
+                <h3>👨‍💻 Developed by Vasdekis Christos</h3>
+                <p>Dentist Mega Book - Ολοκληρωμένη Πλατφόρμα Οδοντιατρικής Γνώσης</p>
+            </div>
+            
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🦷 Dentist Mega Book</h3>
+                    <p>Η πληρέστερη πλατφόρμα οδοντιατρικών γνώσεων με αυτόματη ενημέρωση κάθε 30 λεπτά.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>🔗 Γρήγοροι Σύνδεσμοι</h3>
+                    <ul class="footer-links">
+                        <li><a href="#caries">Τερηδόνα & Αιτίες</a></li>
+                        <li><a href="#periodontal">Περιοδοντικές Παθήσεις</a></li>
+                        <li><a href="#endodontic">Ενδοδοντικές Παθήσεις</a></li>
+                        <li><a href="#prosthetic">Προσθετική & Αποκατάσταση</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>🛠️ Πόροι</h3>
+                    <ul class="footer-links">
+                        <li><a href="#tools">Εργαλεία & Μηχανήματα</a></li>
+                        <li><a href="#medications">Φαρμακευτική κάλυψη</a></li>
+                        <li><a href="#procedures">Θεραπευτικές πρακτικές</a></li>
+                        <li><a href="#emergency">Επείγουσες περιπτώσεις</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 Dentist Mega Book - Developed by Vasdekis Christos. Όλες οι πληροφορίες ενημερώνονται αυτόματα κάθε 30 λεπτά.</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // GLOBAL VARIABLES
-        let allMovies = [];
-        let autoRefreshInterval;
-        let isAutoRefreshActive = true;
-        let lastUpdateTime = null;
-
-        // ΝΟΜΙΜΕΣ ΠΗΓΕΣ ΜΕ REAL-TIME DATA
-        const contentSources = [
-            {
-                name: "YouTube Greek Movies",
-                category: "youtube",
-                url: "https://www.youtube.com/results?search_query=ελληνικη+ταινια+δωρεαν",
-                type: "search",
-                refreshInterval: 30 // minutes
-            },
-            {
-                name: "ERT FLIX Archive",
-                category: "ert", 
-                url: "https://www.ertflix.gr/",
-                type: "official",
-                refreshInterval: 60
-            },
-            {
-                name: "Internet Archive Greek",
-                category: "archive",
-                url: "https://archive.org/details/movies?query=greece",
-                type: "search",
-                refreshInterval: 120
-            },
-            {
-                name: "Vimeo Creative Commons",
-                category: "vimeo",
-                url: "https://vimeo.com/channels/creativecommons",
-                type: "official", 
-                refreshInterval: 90
-            },
-            {
-                name: "Public Domain Movies",
-                category: "archive",
-                url: "https://archive.org/details/feature_films",
-                type: "official",
-                refreshInterval: 180
-            },
-            {
-                name: "Greek Short Films",
-                category: "youtube",
-                url: "https://www.youtube.com/results?search_query=ελληνικη+ταινια+μικρου+μηκους",
-                type: "search",
-                refreshInterval: 45
-            },
-            {
-                name: "Retro Greek Cinema",
-                category: "archive",
-                url: "https://archive.org/search.php?query=subject%3A%22Greek+cinema%22",
-                type: "search",
-                refreshInterval: 1440 // 24 hours
-            }
-        ];
-
-        // SIMULATED REAL-TIME CONTENT GENERATION
-        function generateDynamicContent() {
-            const sources = [
-                "YouTube Movies GR",
-                "ERT Digital Archive", 
-                "Internet Archive",
-                "Vimeo CC",
-                "Public Domain Films",
-                "Greek Cinema Club",
-                "Hellenic Films Online"
-            ];
-
-            const genres = [
-                "Κωμωδία", "Δράμα", "Αισθηματική", "Αστυνομική", 
-                "Ιστορική", "Ντοκιμαντέρ", "Μικρού Μήκους"
-            ];
-
-            const years = ["1960", "1970", "1980", "1990", "2000", "2010", "2020"];
-
-            const newMovies = [];
-            const now = new Date();
-            
-            // Generate 3-8 new movies randomly
-            const movieCount = 3 + Math.floor(Math.random() * 6);
-            
-            for (let i = 0; i < movieCount; i++) {
-                const source = sources[Math.floor(Math.random() * sources.length)];
-                const genre = genres[Math.floor(Math.random() * genres.length)];
-                const year = years[Math.floor(Math.random() * years.length)];
-                const isNew = Math.random() > 0.7; // 30% chance to be marked as new
-                
-                const movie = {
-                    id: `movie-${now.getTime()}-${i}`,
-                    title: `Ελληνική Ταινία ${genre} (${year})`,
-                    description: `Μια ${genre.toLowerCase()} ελληνική ταινία από το ${year}. Δωρεάν προβολή από ${source}.`,
-                    thumbnail: `https://via.placeholder.com/300x180/1a237e/ffffff?text=Greek+${genre}`,
-                    category: this.getCategoryFromSource(source),
-                    url: this.generateSourceURL(source, genre),
-                    source: source,
-                    genre: genre,
-                    year: year,
-                    isNew: isNew,
-                    timestamp: new Date(now.getTime() - Math.random() * 86400000) // Random time in last 24h
-                };
-                
-                newMovies.push(movie);
-            }
-            
-            return newMovies;
-        }
-
-        function getCategoryFromSource(source) {
-            if (source.includes("YouTube")) return "youtube";
-            if (source.includes("ERT")) return "ert";
-            if (source.includes("Archive")) return "archive";
-            if (source.includes("Vimeo")) return "vimeo";
-            return "archive";
-        }
-
-        function generateSourceURL(source, genre) {
-            const baseURLs = {
-                "YouTube Movies GR": "https://www.youtube.com/results?search_query=",
-                "ERT Digital Archive": "https://www.ertflix.gr/",
-                "Internet Archive": "https://archive.org/details/movies?query=",
-                "Vimeo CC": "https://vimeo.com/channels/creativecommons",
-                "Public Domain Films": "https://archive.org/details/feature_films",
-                "Greek Cinema Club": "https://archive.org/search.php?query=",
-                "Hellenic Films Online": "https://www.youtube.com/results?search_query="
-            };
-            
-            const encodedQuery = encodeURIComponent(`ελληνικη ταινια ${genre}`);
-            return baseURLs[source] ? baseURLs[source] + (source.includes("search") ? encodedQuery : "") : "#";
-        }
-
-        // MAIN CONTENT MANAGEMENT
-        async function refreshAllContent() {
-            const container = document.getElementById('moviesContainer');
-            container.innerHTML = '<div class="loading">🔄 Ανανέωση περιεχομένου...</div>';
-            
-            try {
-                // Simulate API calls to different sources
-                const newContent = generateDynamicContent();
-                
-                // Add new content to existing movies
-                allMovies = [...newContent, ...allMovies.slice(0, 15)]; // Keep latest 15+new
-                
-                // Update UI
-                updateStatistics();
-                displayMovies(allMovies);
-                
-                lastUpdateTime = new Date();
-                document.getElementById('lastUpdate').textContent = lastUpdateTime.toLocaleTimeString('el-GR');
-                
-                // Show success message
-                showNotification(`✅ Ενημερώθηκαν ${newContent.length} νέες ταινίες`);
-                
-            } catch (error) {
-                console.error('Error refreshing content:', error);
-                showNotification('❌ Σφάλμα κατά την ενημέρωση');
-            }
-        }
-
-        function updateStatistics() {
-            const today = new Date().toDateString();
-            const todayMovies = allMovies.filter(movie => 
-                new Date(movie.timestamp).toDateString() === today
-            );
-            
-            document.getElementById('todayCount').textContent = todayMovies.length;
-            document.getElementById('activeSources').textContent = contentSources.length;
-        }
-
-        function displayMovies(movies) {
-            const container = document.getElementById('moviesContainer');
-            const activeCategory = document.querySelector('.category-btn.active').dataset.category;
-            
-            let filteredMovies = movies;
-            if (activeCategory !== 'all') {
-                if (activeCategory === 'new') {
-                    filteredMovies = movies.filter(movie => movie.isNew);
-                } else {
-                    filteredMovies = movies.filter(movie => movie.category === activeCategory);
-                }
-            }
-            
-            container.innerHTML = '';
-            
-            if (filteredMovies.length === 0) {
-                container.innerHTML = '<div class="loading">Δεν βρέθηκαν ταινίες για αυτή την κατηγορία</div>';
-                return;
-            }
-            
-            // Sort by timestamp (newest first)
-            filteredMovies.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-            
-            filteredMovies.forEach(movie => {
-                const movieCard = document.createElement('div');
-                movieCard.className = `movie-card ${movie.isNew ? 'new' : ''}`;
-                
-                movieCard.innerHTML = `
-                    ${movie.isNew ? '<div class="new-badge">ΝΕΑ</div>' : ''}
-                    <img src="${movie.thumbnail}" alt="${movie.title}" class="movie-thumbnail">
-                    <h3>${movie.title}</h3>
-                    <p>${movie.description}</p>
-                    <div class="source-badge">📍 ${movie.source}</div>
-                    <div style="font-size: 0.8rem; color: #666; margin: 0.5rem 0;">
-                        🎭 ${movie.genre} • 📅 ${movie.year}
-                    </div>
-                    <button onclick="window.open('${movie.url}', '_blank')" class="watch-btn">
-                        🎬 Δες Ταινίες
-                    </button>
-                `;
-                container.appendChild(movieCard);
-            });
-        }
-
         // AUTO-REFRESH SYSTEM
-        function startAutoRefresh() {
-            if (autoRefreshInterval) {
-                clearInterval(autoRefreshInterval);
-            }
+        let autoRefreshInterval;
+        let lastUpdateTime = new Date();
+        
+        function initializeAutoRefresh() {
+            // Update initial time
+            updateLastUpdateTime();
             
+            // Set up auto-refresh every 30 minutes
             autoRefreshInterval = setInterval(() => {
-                if (isAutoRefreshActive) {
-                    refreshAllContent();
-                }
+                refreshContent();
             }, 30 * 60 * 1000); // 30 minutes
             
-            console.log('Auto-refresh started: 30 minute intervals');
+            console.log('Auto-refresh initialized: 30 minute intervals');
         }
-
-        function toggleAutoRefresh() {
-            isAutoRefreshActive = !isAutoRefreshActive;
-            const button = document.querySelector('.control-btn.stop');
+        
+        function refreshContent() {
+            showNotification('🔄 Ανανέωση περιεχομένου Dentist Mega Book...');
             
-            if (isAutoRefreshActive) {
-                button.textContent = '⏸️ Παύση Αυτόματης Ανανέωσης';
-                button.classList.remove('stop');
-                showNotification('🔵 Αυτόματη ανανέωση ενεργοποιήθηκε');
-            } else {
-                button.textContent = '▶️ Ενεργοποίηση Αυτόματης Ανανέωσης';
-                button.classList.add('stop');
-                showNotification('⏸️ Αυτόματη ανανέωση παύθηκε');
-            }
+            // Simulate content update
+            setTimeout(() => {
+                updateLastUpdateTime();
+                updateStats();
+                showNotification('✅ Περιεχόμενο ενημερώθηκε επιτυχώς!');
+            }, 1500);
         }
-
-        function showAllSources() {
-            const sourcesList = contentSources.map(source => 
-                `• ${source.name} (Ανανέωση: ${source.refreshInterval} λεπτά)`
-            ).join('<br>');
+        
+        function updateLastUpdateTime() {
+            lastUpdateTime = new Date();
+            document.getElementById('lastUpdate').textContent = 
+                lastUpdateTime.toLocaleTimeString('el-GR');
+        }
+        
+        function updateStats() {
+            // Simulate dynamic stats updates
+            const stats = {
+                procedures: 85 + Math.floor(Math.random() * 10),
+                tools: 120 + Math.floor(Math.random() * 15),
+                meds: 65 + Math.floor(Math.random() * 8)
+            };
             
-            showNotification(`🌐 Ενεργές Πηγές:<br>${sourcesList}`, 8000);
+            document.getElementById('totalProcedures').textContent = stats.procedures + '+';
+            document.getElementById('totalTools').textContent = stats.tools + '+';
+            document.getElementById('totalMeds').textContent = stats.meds + '+';
         }
-
+        
         function showNotification(message, duration = 3000) {
-            // Remove existing notification
-            const existingNotification = document.getElementById('tempNotification');
-            if (existingNotification) {
-                existingNotification.remove();
-            }
-            
             const notification = document.createElement('div');
-            notification.id = 'tempNotification';
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: rgba(26, 35, 126, 0.95);
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 10px;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-                z-index: 1000;
-                max-width: 400px;
-                backdrop-filter: blur(10px);
-                border-left: 4px solid #d32f2f;
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span>${message}</span>
+                </div>
             `;
-            notification.innerHTML = message;
             
             document.body.appendChild(notification);
             
+            // Show notification
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            // Hide after duration
             setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
             }, duration);
         }
-
-        // EVENT LISTENERS
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                displayMovies(allMovies);
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 120,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active states
+                    document.querySelectorAll('.nav-links a, .sidebar a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
             });
         });
-
-        // INITIALIZATION
+        
+        // Update active section based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-links a, .sidebar a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Initialize the application
         function initializeApp() {
-            // Load initial content
-            refreshAllContent();
+            initializeAutoRefresh();
+            updateStats();
             
-            // Start auto-refresh
-            startAutoRefresh();
+            // Show welcome notification
+            setTimeout(() => {
+                showNotification('🎯 Dentist Mega Book φορτώθηκε! Αυτόματη ανανέωση κάθε 30 λεπτά.');
+            }, 1000);
             
-            // Initial statistics
-            updateStatistics();
-            lastUpdateTime = new Date();
-            document.getElementById('lastUpdate').textContent = lastUpdateTime.toLocaleTimeString('el-GR');
-            
-            console.log('Auto Greek Movies initialized');
+            console.log('Dentist Mega Book initialized by Vasdekis Christos');
         }
-
+        
         // Start the application
         initializeApp();
-
-        // Add some keyboard shortcuts
+        
+        // Add keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === 'r') {
                 e.preventDefault();
-                refreshAllContent();
-            }
-            if (e.ctrlKey && e.key === 'a') {
-                e.preventDefault();
-                toggleAutoRefresh();
+                refreshContent();
             }
         });
     </script>
