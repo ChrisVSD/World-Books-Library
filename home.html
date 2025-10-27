@@ -84,6 +84,16 @@
             font-size: 1.5rem; 
             margin-right: 0.5rem; 
         }
+        
+        .language-badge {
+            display: inline-block;
+            background: #ff6f00;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -104,7 +114,6 @@
                 <option value="Φιλοσοφία">🧠 Φιλοσοφία</option>
                 <option value="Ιστορία">📜 Ιστορία</option>
                 <option value="Θεατρικά">🎭 Θεατρικά</option>
-                <option value="Ποίηση">✍️ Ποίηση</option>
             </select>
         </div>
 
@@ -126,71 +135,49 @@
 
     <script>
         const books = [
-            // ΑΡΧΑΙΑ ΕΛΛΗΝΙΚΑ (20)
-            { title: "Οδύσσεια", author: "Όμηρος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1727" },
-            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2199" },
-            { title: "Πολιτεία", author: "Πλάτων", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1497" },
-            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1171" },
-            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/8438" },
-            { title: "Οι Περσές", author: "Αισχύλος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/815" },
-            { title: "Αντιγόνη", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/31" },
-            { title: "Ιφιγένεια εν Αυλίδι", author: "Ευριπίδης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/14460" },
-            { title: "Αγαμέμνων", author: "Αισχύλος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/14417" },
-            { title: "Εκκλησιάζουσες", author: "Αριστοφάνης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2560" },
-            { title: "Απολογία Σωκράτους", author: "Πλάτων", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1656" },
-            { title: "Συμπόσιο", author: "Πλάτων", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1600" },
-            { title: "Ιππής", author: "Αριστοφάνης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2562" },
-            { title: "Πλούτος", author: "Αριστοφάνης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2564" },
-            { title: "Ικέτιδες", author: "Αισχύλος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2565" },
-            { title: "Προμηθεύς Δεσμώτης", author: "Αισχύλος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2566" },
-            { title: "Τραχίνιαι", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2567" },
-            { title: "Αίας", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2568" },
-            { title: "Ηλέκτρα", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2569" },
-            { title: "Φιλοκτήτης", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2570" },
-
-            // ΝΕΟΕΛΛΗΝΙΚΗ ΛΟΓΟΤΕΧΝΙΑ (25)
-            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/70978" },
-            { title: "Τα Εκατόμυθα", author: "Αίσωπος", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/18766" },
-            { title: "Οι Άθλιοι", author: "Βίκτωρ Ουγκώ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/135" },
-            { title: "Ο Κόμης της Μόντε Χρίστο", author: "Αλέξανδρος Δουμάς", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/17989" },
-            { title: "Δον Κιχώτης", author: "Μιγκέλ ντε Θερβάντες", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2000" },
-            { title: "Περσέας", author: "Ιωάννης Ψυχάρης", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/52232" },
-            { title: "Το Ταξίδι μου", author: "Ιωάννης Ψυχάρης", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/52233" },
-            { title: "Οι Ληστές", author: "Φρίντριχ Σίλερ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1742" },
-            { title: "Φάουστ", author: "Γιόχαν Βόλφγκανγκ φον Γκαίτε", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2229" },
-            { title: "Μακεδονικός Αγών", author: "Ιωάννης Ψυχάρης", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/52234" },
-            { title: "Ο Θάνατος του Ιβάν Ιλίτς", author: "Λέων Τολστόι", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2442" },
-            { title: "Άννα Καρένινα", author: "Λέων Τολστόι", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1399" },
-            { title: "Πόλεμος και Ειρήνη", author: "Λέων Τολστόι", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2600" },
-            { title: "Ο Χαμένος Παράδεισος", author: "Τζον Μίλτον", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/20" },
-            { title: "Η Θυσία του Αβραάμ", author: "unknown", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/20776" },
-            { title: "Ο Βασιλιάς Ληρ", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1128" },
-            { title: "Άμλετ", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1524" },
-            { title: "Οθέλλος", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1531" },
-            { title: "Μακβέθ", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1532" },
-            { title: "Ιούλιος Καίσαρ", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1523" },
-            { title: "Οι Χαμένες Αιώνες", author: "unknown", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2571" },
-            { title: "Η Αγία Γραφή", author: "unknown", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/10" },
-            { title: "Ο Πόθος", author: "Μαρσέλ Προυστ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/7178" },
-            { title: "Ο Μύθος του Σίσυφου", author: "Αλμπέρ Καμύ", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/25200" },
-            { title: "Η Επανάσταση των Αγγέλων", author: "unknown", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2572" },
-
-            // ΙΣΤΟΡΙΑ & ΦΙΛΟΣΟΦΙΑ (15)
-            { title: "Ιστορία του Ελληνικού Έθνους", author: "unknown", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2573" },
-            { title: "Ο Πελοποννησιακός Πόλεμος", author: "Θουκυδίδης", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/7142" },
-            { title: "Αναβάσεις", author: "Ξενοφών", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/1170" },
-            { title: "Ηλληνικά", author: "Ξενοφών", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/1174" },
-            { title: "Πολιτεία Αθηναίων", author: "Αριστοτέλης", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2574" },
-            { title: "Βίοι Παράλληλοι", author: "Πλούταρχος", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2575" },
-            { title: "Ιστορίες", author: "Ηρόδοτος", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2707" },
-            { title: "Ο Αγώνας για τη Σκλαβιά", author: "unknown", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2576" },
-            { title: "Η Δημοκρατία", author: "Πλάτων", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/1497" },
-            { title: "Νόμοι", author: "Πλάτων", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/1750" },
-            { title: "Φαίδων", author: "Πλάτων", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/1658" },
-            { title: "Κρατύλος", author: "Πλάτων", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/1616" },
-            { title: "Πολιτικά", author: "Αριστοτέλης", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/6762" },
-            { title: "Περί Ψυχής", author: "Αριστοτέλης", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/6770" },
-            { title: "Ηθικά Ευδήμεια", author: "Αριστοτέλης", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/8438" }
+            // ΠΡΑΓΜΑΤΙΚΑ ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ - ΜΕ ΕΛΛΗΝΙΚΑ LINKS
+            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Μικρός_Πρίγκιπας" },
+            { title: "Τα Εκατόμυθα", author: "Αίσωπος", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Αισώπου_Μύθοι" },
+            { title: "Οι Άθλιοι", author: "Βίκτωρ Ουγκώ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Οι_Άθλιοι" },
+            
+            // ΑΡΧΑΙΑ ΕΛΛΗΝΙΚΑ ΜΕ ΕΛΛΗΝΙΚΑ LINKS
+            { title: "Οδύσσεια", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Οδύσσεια" },
+            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ιλιάδα" },
+            { title: "Πολιτεία", author: "Πλάτων", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Πολιτεία" },
+            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Απομνημονεύματα_Σωκράτους" },
+            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ηθικά_Νικομάχεια" },
+            
+            // ΘΕΑΤΡΙΚΑ ΕΡΓΑ
+            { title: "Οι Περσές", author: "Αισχύλος", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Οι_Περσές" },
+            { title: "Αντιγόνη", author: "Σοφοκλής", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Αντιγόνη" },
+            { title: "Ιφιγένεια εν Αυλίδι", author: "Ευριπίδης", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Ιφιγένεια_εν_Αυλίδι" },
+            { title: "Αγαμέμνων", author: "Αισχύλος", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Αγαμέμνων" },
+            
+            // ΦΙΛΟΣΟΦΙΑ
+            { title: "Απολογία Σωκράτους", author: "Πλάτων", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Απολογία_Σωκράτους" },
+            { title: "Συμπόσιο", author: "Πλάτων", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Συμπόσιο" },
+            { title: "Κριτική του Καθαρού Λόγου", author: "Ιμμάνουελ Καντ", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Κριτική_του_Καθαρού_Λόγου" },
+            
+            // ΙΣΤΟΡΙΑ
+            { title: "Ιστορίες", author: "Ηρόδοτος", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Ιστορίαι_(Ηροδότου)" },
+            { title: "Ο Πελοποννησιακός Πόλεμος", author: "Θουκυδίδης", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Ιστορία_του_Πελοποννησιακού_Πολέμου" },
+            { title: "Αναβάσεις", author: "Ξενοφών", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Αναβάσεις" },
+            
+            // ΕΛΛΗΝΙΚΗ ΛΟΓΟΤΕΧΝΙΑ 20ου ΑΙΩΝΑ
+            { title: "Το Ταξίδι μου", author: "Ιωάννης Ψυχάρης", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Το_Ταξίδι_μου" },
+            { title: "Η Κάθαρση", author: "Αλέξανδρος Παπαδιαμάντης", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Η_Κάθαρση" },
+            { title: "Ο Ζητιάνος", author: "Αλέξανδρος Παπαδιαμάντης", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Ζητιάνος" },
+            
+            // ΠΟΙΗΣΗ
+            { title: "Ο Ήρως Θρασύδημος", author: "Αριστοτέλης Βαλαωρίτης", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Ήρως_Θρασύδημος" },
+            { title: "Τα Ερωτικά", author: "Διονύσιος Σολωμός", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Τα_Ερωτικά" },
+            
+            // ΑΛΛΑ ΣΗΜΑΝΤΙΚΑ ΕΡΓΑ
+            { title: "Δον Κιχώτης", author: "Μιγκέλ ντε Θερβάντες", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Δον_Κιχώτης" },
+            { title: "Ο Κόμης της Μόντε Χρίστο", author: "Αλέξανδρος Δουμάς", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Κόμης_της_Μόντε_Χρίστο" },
+            { title: "Άμλετ", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Άμλετ" },
+            { title: "Οθέλλος", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Οθέλλος" },
+            { title: "Μακβέθ", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Μακβέθ" }
         ];
 
         function displayBooks(filteredBooks = books) {
@@ -206,17 +193,19 @@
                     'Λογοτεχνία': '📖', 
                     'Φιλοσοφία': '🧠',
                     'Ιστορία': '📜',
-                    'Θεατρικά': '🎭',
-                    'Ποίηση': '✍️'
+                    'Θεατρικά': '🎭'
                 };
 
                 const bookCard = document.createElement('div');
                 bookCard.className = 'book-card';
                 bookCard.innerHTML = `
-                    <div class="book-category">${categoryIcons[book.category] || '📚'} ${book.category}</div>
+                    <div class="book-category">
+                        ${categoryIcons[book.category] || '📚'} ${book.category}
+                        <span class="language-badge">🇬🇷 ΕΛ</span>
+                    </div>
                     <h3>${book.title}</h3>
                     <p><strong>Συγγραφέας:</strong> ${book.author}</p>
-                    <a href="${book.url}" target="_blank" class="read-btn">Διαβάστε Online</a>
+                    <a href="${book.url}" target="_blank" class="read-btn">Διαβάστε στα Ελληνικά</a>
                 `;
                 container.appendChild(bookCard);
             });
