@@ -16,6 +16,23 @@
         .search-section { display: flex; gap: 1rem; margin: 2rem 0; justify-content: center; flex-wrap: wrap; }
         input, select { padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; min-width: 250px; }
         
+        .update-alert {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: center;
+            display: none;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
         .filters { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
         .filter-btn { background: #303f9f; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
         .filter-btn:hover { background: #283593; transform: translateY(-2px); }
@@ -44,6 +61,21 @@
             border-radius: 12px; 
             font-size: 0.8rem; 
             margin-bottom: 0.5rem; 
+        }
+        
+        .new-badge {
+            background: #ff6b6b;
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            animation: blink 1.5s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.5; }
         }
         
         .read-btn { 
@@ -94,6 +126,16 @@
             font-size: 0.7rem;
             margin-left: 0.5rem;
         }
+        
+        .update-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-left: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -117,8 +159,16 @@
             </select>
         </div>
 
+        <!-- AUTO-UPDATE ALERT -->
+        <div class="update-alert" id="updateAlert">
+            <span class="alert-icon">🆕</span>
+            <strong>Νέα Βιβλία Διαθέσιμα!</strong>
+            <span id="newBooksInfo"></span>
+            <button class="update-btn" onclick="loadLatestBooks()">Ανανέωση Τώρα</button>
+        </div>
+
         <div class="stats" id="statsContainer">
-            Φόρτωση βιβλίων...
+            🔄 Φόρτωση βιβλίων...
         </div>
 
         <div class="books-grid" id="booksContainer">
@@ -130,62 +180,94 @@
         <div class="container">
             <p>&copy; 2024 <strong>Vasdekis Christos</strong> - Ελληνική Βιβλιοθήκη</p>
             <p>Όλα τα βιβλία είναι από δημόσιους πόρους - Project Gutenberg & WikiSource</p>
+            <p id="versionInfo">🔍 Έλεγχος για ενημερώσεις...</p>
         </div>
     </footer>
 
     <script>
-        const books = [
-            // ΠΡΑΓΜΑΤΙΚΑ ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ - ΜΕ ΕΛΛΗΝΙΚΑ LINKS
-            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Μικρός_Πρίγκιπας" },
-            { title: "Τα Εκατόμυθα", author: "Αίσωπος", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Αισώπου_Μύθοι" },
-            { title: "Οι Άθλιοι", author: "Βίκτωρ Ουγκώ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Οι_Άθλιοι" },
-            
-            // ΑΡΧΑΙΑ ΕΛΛΗΝΙΚΑ ΜΕ ΕΛΛΗΝΙΚΑ LINKS
-            { title: "Οδύσσεια", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Οδύσσεια" },
-            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ιλιάδα" },
-            { title: "Πολιτεία", author: "Πλάτων", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Πολιτεία" },
-            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Απομνημονεύματα_Σωκράτους" },
-            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ηθικά_Νικομάχεια" },
-            
-            // ΘΕΑΤΡΙΚΑ ΕΡΓΑ
-            { title: "Οι Περσές", author: "Αισχύλος", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Οι_Περσές" },
-            { title: "Αντιγόνη", author: "Σοφοκλής", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Αντιγόνη" },
-            { title: "Ιφιγένεια εν Αυλίδι", author: "Ευριπίδης", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Ιφιγένεια_εν_Αυλίδι" },
-            { title: "Αγαμέμνων", author: "Αισχύλος", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Αγαμέμνων" },
-            
-            // ΦΙΛΟΣΟΦΙΑ
-            { title: "Απολογία Σωκράτους", author: "Πλάτων", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Απολογία_Σωκράτους" },
-            { title: "Συμπόσιο", author: "Πλάτων", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Συμπόσιο" },
-            { title: "Κριτική του Καθαρού Λόγου", author: "Ιμμάνουελ Καντ", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Κριτική_του_Καθαρού_Λόγου" },
-            
-            // ΙΣΤΟΡΙΑ
-            { title: "Ιστορίες", author: "Ηρόδοτος", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Ιστορίαι_(Ηροδότου)" },
-            { title: "Ο Πελοποννησιακός Πόλεμος", author: "Θουκυδίδης", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Ιστορία_του_Πελοποννησιακού_Πολέμου" },
-            { title: "Αναβάσεις", author: "Ξενοφών", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Αναβάσεις" },
-            
-            // ΕΛΛΗΝΙΚΗ ΛΟΓΟΤΕΧΝΙΑ 20ου ΑΙΩΝΑ
-            { title: "Το Ταξίδι μου", author: "Ιωάννης Ψυχάρης", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Το_Ταξίδι_μου" },
-            { title: "Η Κάθαρση", author: "Αλέξανδρος Παπαδιαμάντης", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Η_Κάθαρση" },
-            { title: "Ο Ζητιάνος", author: "Αλέξανδρος Παπαδιαμάντης", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Ζητιάνος" },
-            
-            // ΠΟΙΗΣΗ
-            { title: "Ο Ήρως Θρασύδημος", author: "Αριστοτέλης Βαλαωρίτης", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Ήρως_Θρασύδημος" },
-            { title: "Τα Ερωτικά", author: "Διονύσιος Σολωμός", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Τα_Ερωτικά" },
-            
-            // ΑΛΛΑ ΣΗΜΑΝΤΙΚΑ ΕΡΓΑ
-            { title: "Δον Κιχώτης", author: "Μιγκέλ ντε Θερβάντες", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Δον_Κιχώτης" },
-            { title: "Ο Κόμης της Μόντε Χρίστο", author: "Αλέξανδρος Δουμάς", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Κόμης_της_Μόντε_Χρίστο" },
-            { title: "Άμλετ", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Άμλετ" },
-            { title: "Οθέλλος", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Οθέλλος" },
-            { title: "Μακβέθ", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Μακβέθ" }
+        // LOCAL BOOKS DATA (fallback)
+        let books = [];
+        let currentVersion = "0";
+        let latestVersion = "0";
+
+        // BOOKS API URL - Εδώ θα βάζω τα νέα βιβλία
+        const BOOKS_API_URL = "https://raw.githubusercontent.com/ChrisVSD/World-Books-Library/main/books-data.json";
+        
+        // Fallback data αν η API δεν δουλέψει
+        const FALLBACK_BOOKS = [
+            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Μικρός_Πρίγκιπας", isNew: false },
+            { title: "Οδύσσεια", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Οδύσσεια", isNew: false },
+            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ιλιάδα", isNew: false }
         ];
 
+        // Φόρτωση βιβλίων από API
+        async function loadBooks() {
+            try {
+                const response = await fetch(BOOKS_API_URL + '?t=' + new Date().getTime());
+                const data = await response.json();
+                
+                books = data.books;
+                latestVersion = data.version;
+                currentVersion = localStorage.getItem('booksVersion') || "0";
+                
+                displayBooks(books);
+                checkForUpdates();
+                
+                // Αποθήκευση version
+                localStorage.setItem('booksVersion', latestVersion);
+                localStorage.setItem('booksData', JSON.stringify(books));
+                
+            } catch (error) {
+                console.log("Χρησιμοποιώ fallback data");
+                // Fallback σε local storage ή default data
+                const savedBooks = localStorage.getItem('booksData');
+                books = savedBooks ? JSON.parse(savedBooks) : FALLBACK_BOOKS;
+                currentVersion = localStorage.getItem('booksVersion') || "1.0";
+                displayBooks(books);
+            }
+        }
+
+        // Έλεγχος για νέα βιβλία
+        function checkForUpdates() {
+            const versionInfo = document.getElementById('versionInfo');
+            const updateAlert = document.getElementById('updateAlert');
+            const newBooksInfo = document.getElementById('newBooksInfo');
+            
+            if (currentVersion !== latestVersion) {
+                const newBooksCount = books.filter(book => book.isNew).length;
+                
+                versionInfo.innerHTML = `🆕 Νέα έκδοση διαθέσιμη! (v${latestVersion})`;
+                newBooksInfo.textContent = ` ${newBooksCount} νέα βιβλία`;
+                updateAlert.style.display = 'block';
+                
+                // Προσθήκη new badge στα νέα βιβλία
+                books.forEach(book => {
+                    if (book.isNew) {
+                        book.isNew = true;
+                    }
+                });
+            } else {
+                versionInfo.innerHTML = `✅ Είστε ενημερωμένοι (v${currentVersion})`;
+                updateAlert.style.display = 'none';
+            }
+        }
+
+        // Ανανέωση βιβλίων
+        async function loadLatestBooks() {
+            document.getElementById('statsContainer').innerHTML = '🔄 Ανανέωση βιβλίων...';
+            await loadBooks();
+        }
+
+        // Εμφάνιση βιβλίων
         function displayBooks(filteredBooks = books) {
             const container = document.getElementById('booksContainer');
             const stats = document.getElementById('statsContainer');
             
             container.innerHTML = '';
-            stats.innerHTML = `📊 Εμφανίζονται ${filteredBooks.length} από ${books.length} βιβλία`;
+            
+            const newBooksCount = books.filter(book => book.isNew).length;
+            stats.innerHTML = `📊 Εμφανίζονται ${filteredBooks.length} από ${books.length} βιβλία 
+                             <br><small>Έκδοση: v${latestVersion} | Νέα βιβλία: ${newBooksCount}</small>`;
 
             filteredBooks.forEach(book => {
                 const categoryIcons = {
@@ -202,6 +284,7 @@
                     <div class="book-category">
                         ${categoryIcons[book.category] || '📚'} ${book.category}
                         <span class="language-badge">🇬🇷 ΕΛ</span>
+                        ${book.isNew ? '<span class="new-badge">ΝΕΟ</span>' : ''}
                     </div>
                     <h3>${book.title}</h3>
                     <p><strong>Συγγραφέας:</strong> ${book.author}</p>
@@ -228,8 +311,11 @@
             displayBooks(filteredBooks);
         });
 
-        // Initial display
-        displayBooks();
+        // Auto-check για updates κάθε 30 λεπτά
+        setInterval(loadLatestBooks, 30 * 60 * 1000);
+
+        // Initial load
+        loadBooks();
     </script>
 </body>
 </html>
