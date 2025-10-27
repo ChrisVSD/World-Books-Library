@@ -185,77 +185,85 @@
     </footer>
 
     <script>
-        // LOCAL BOOKS DATA (fallback)
-        let books = [];
-        let currentVersion = "0";
-        let latestVersion = "0";
-
-        // BOOKS API URL - Εδώ θα βάζω τα νέα βιβλία
-        const BOOKS_API_URL = "https://raw.githubusercontent.com/ChrisVSD/World-Books-Library/main/books-data.json";
-        
-        // Fallback data αν η API δεν δουλέψει
-        const FALLBACK_BOOKS = [
+        // LOCAL BOOKS DATA - Βιβλία που εμφανίζονται ΑΜΕΣΑ
+        let books = [
+            // ΠΡΑΓΜΑΤΙΚΑ ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ
             { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Μικρός_Πρίγκιπας", isNew: false },
+            { title: "Τα Εκατόμυθα", author: "Αίσωπος", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Αισώπου_Μύθοι", isNew: false },
+            { title: "Οι Άθλιοι", author: "Βίκτωρ Ουγκώ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Οι_Άθλιοι", isNew: false },
+            
+            // ΑΡΧΑΙΑ ΕΛΛΗΝΙΚΑ
             { title: "Οδύσσεια", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Οδύσσεια", isNew: false },
-            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ιλιάδα", isNew: false }
+            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ιλιάδα", isNew: false },
+            { title: "Πολιτεία", author: "Πλάτων", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Πολιτεία", isNew: false },
+            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Απομνημονεύματα_Σωκράτους", isNew: false },
+            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ηθικά_Νικομάχεια", isNew: false },
+            
+            // ΘΕΑΤΡΙΚΑ
+            { title: "Οι Περσές", author: "Αισχύλος", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Οι_Περσές", isNew: false },
+            { title: "Αντιγόνη", author: "Σοφοκλής", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Αντιγόνη", isNew: false },
+            { title: "Ιφιγένεια εν Αυλίδι", author: "Ευριπίδης", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Ιφιγένεια_εν_Αυλίδι", isNew: false },
+            
+            // ΦΙΛΟΣΟΦΙΑ
+            { title: "Απολογία Σωκράτους", author: "Πλάτων", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Απολογία_Σωκράτους", isNew: false },
+            { title: "Συμπόσιο", author: "Πλάτων", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Συμπόσιο", isNew: false },
+            
+            // ΙΣΤΟΡΙΑ
+            { title: "Ιστορίες", author: "Ηρόδοτος", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Ιστορίαι_(Ηροδότου)", isNew: false },
+            { title: "Ο Πελοποννησιακός Πόλεμος", author: "Θουκυδίδης", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Ιστορία_του_Πελοποννησιακού_Πολέμου", isNew: false }
         ];
 
-        // Φόρτωση βιβλίων από API
-        async function loadBooks() {
+        let currentVersion = "1.0";
+        let latestVersion = "1.0";
+
+        // BOOKS API URL - Θα το φτιάξω αργότερα
+        const BOOKS_API_URL = "https://raw.githubusercontent.com/ChrisVSD/World-Books-Library/main/books-data.json";
+
+        // Αρχική φόρτωση - εμφανίζει τα books αμέσως
+        function initializeBooks() {
+            displayBooks(books);
+            checkForUpdates();
+        }
+
+        // Έλεγχος για νέα βιβλία (θα λειτουργήσει όταν φτιάξω το JSON)
+        async function checkForUpdates() {
+            const versionInfo = document.getElementById('versionInfo');
+            const updateAlert = document.getElementById('updateAlert');
+            
+            versionInfo.innerHTML = `✅ Είστε ενημερωμένοι (v${currentVersion})`;
+            updateAlert.style.display = 'none';
+            
+            // Προσπάθεια φόρτωσης από API (για το μέλλον)
+            try {
+                const response = await fetch(BOOKS_API_URL + '?t=' + new Date().getTime());
+                const data = await response.json();
+                
+                if (data.version !== currentVersion) {
+                    latestVersion = data.version;
+                    versionInfo.innerHTML = `🆕 Νέα έκδοση διαθέσιμη! (v${latestVersion})`;
+                    updateAlert.style.display = 'block';
+                    document.getElementById('newBooksInfo').textContent = ` ${data.books.length - books.length} νέα βιβλία`;
+                }
+            } catch (error) {
+                // No problem - χρησιμοποιούμε τα local books
+                console.log("Χρησιμοποιώ local books data");
+            }
+        }
+
+        // Ανανέωση βιβλίων (για το μέλλον)
+        async function loadLatestBooks() {
             try {
                 const response = await fetch(BOOKS_API_URL + '?t=' + new Date().getTime());
                 const data = await response.json();
                 
                 books = data.books;
-                latestVersion = data.version;
-                currentVersion = localStorage.getItem('booksVersion') || "0";
-                
+                currentVersion = data.version;
                 displayBooks(books);
                 checkForUpdates();
                 
-                // Αποθήκευση version
-                localStorage.setItem('booksVersion', latestVersion);
-                localStorage.setItem('booksData', JSON.stringify(books));
-                
             } catch (error) {
-                console.log("Χρησιμοποιώ fallback data");
-                // Fallback σε local storage ή default data
-                const savedBooks = localStorage.getItem('booksData');
-                books = savedBooks ? JSON.parse(savedBooks) : FALLBACK_BOOKS;
-                currentVersion = localStorage.getItem('booksVersion') || "1.0";
-                displayBooks(books);
+                alert("Δεν ήταν δυνατή η φόρτωση νέων βιβλίων. Δοκιμάστε ξανά αργότερα.");
             }
-        }
-
-        // Έλεγχος για νέα βιβλία
-        function checkForUpdates() {
-            const versionInfo = document.getElementById('versionInfo');
-            const updateAlert = document.getElementById('updateAlert');
-            const newBooksInfo = document.getElementById('newBooksInfo');
-            
-            if (currentVersion !== latestVersion) {
-                const newBooksCount = books.filter(book => book.isNew).length;
-                
-                versionInfo.innerHTML = `🆕 Νέα έκδοση διαθέσιμη! (v${latestVersion})`;
-                newBooksInfo.textContent = ` ${newBooksCount} νέα βιβλία`;
-                updateAlert.style.display = 'block';
-                
-                // Προσθήκη new badge στα νέα βιβλία
-                books.forEach(book => {
-                    if (book.isNew) {
-                        book.isNew = true;
-                    }
-                });
-            } else {
-                versionInfo.innerHTML = `✅ Είστε ενημερωμένοι (v${currentVersion})`;
-                updateAlert.style.display = 'none';
-            }
-        }
-
-        // Ανανέωση βιβλίων
-        async function loadLatestBooks() {
-            document.getElementById('statsContainer').innerHTML = '🔄 Ανανέωση βιβλίων...';
-            await loadBooks();
         }
 
         // Εμφάνιση βιβλίων
@@ -267,7 +275,7 @@
             
             const newBooksCount = books.filter(book => book.isNew).length;
             stats.innerHTML = `📊 Εμφανίζονται ${filteredBooks.length} από ${books.length} βιβλία 
-                             <br><small>Έκδοση: v${latestVersion} | Νέα βιβλία: ${newBooksCount}</small>`;
+                             <br><small>Έκδοση: v${currentVersion}</small>`;
 
             filteredBooks.forEach(book => {
                 const categoryIcons = {
@@ -311,11 +319,8 @@
             displayBooks(filteredBooks);
         });
 
-        // Auto-check για updates κάθε 30 λεπτά
-        setInterval(loadLatestBooks, 30 * 60 * 1000);
-
         // Initial load
-        loadBooks();
+        initializeBooks();
     </script>
 </body>
 </html>
