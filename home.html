@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="developer" content="Vasdekis Christos">
-    <title>World Books Library - Developed by Vasdekis Christos</title>
+    <title>Ελληνική Βιβλιοθήκη - Developed by Vasdekis Christos</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); min-height: 100vh; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         
-        header { background: rgba(44, 62, 80, 0.95); color: white; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px); }
-        .developer { color: #ecf0f1; margin-top: 0.5rem; font-size: 1.1rem; }
+        header { background: rgba(26, 35, 126, 0.95); color: white; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px); }
+        .developer { color: #e8eaf6; margin-top: 0.5rem; font-size: 1.1rem; }
         
         .search-section { display: flex; gap: 1rem; margin: 2rem 0; justify-content: center; flex-wrap: wrap; }
-        input, select { padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; min-width: 200px; }
+        input, select { padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; min-width: 250px; }
         
         .filters { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
-        .filter-btn { background: #3498db; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
-        .filter-btn:hover { background: #2980b9; transform: translateY(-2px); }
-        .filter-btn.active { background: #e74c3c; }
+        .filter-btn { background: #303f9f; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
+        .filter-btn:hover { background: #283593; transform: translateY(-2px); }
+        .filter-btn.active { background: #d32f2f; }
         
-        .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
         .book-card { 
             background: rgba(255, 255, 255, 0.95); 
             padding: 1.5rem; 
@@ -29,15 +29,16 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            border-left: 5px solid #303f9f;
         }
         .book-card:hover { 
             transform: translateY(-5px); 
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
         
-        .book-language { 
+        .book-category { 
             display: inline-block; 
-            background: #3498db; 
+            background: #5c6bc0; 
             color: white; 
             padding: 0.2rem 0.6rem; 
             border-radius: 12px; 
@@ -47,7 +48,7 @@
         
         .read-btn { 
             display: inline-block; 
-            background: linear-gradient(45deg, #e74c3c, #c0392b); 
+            background: linear-gradient(45deg, #d32f2f, #b71c1c); 
             color: white; 
             padding: 0.7rem 1.5rem; 
             text-decoration: none; 
@@ -58,11 +59,11 @@
         }
         .read-btn:hover { 
             transform: scale(1.05); 
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
         }
         
         footer { 
-            background: rgba(52, 73, 94, 0.95); 
+            background: rgba(26, 35, 126, 0.95); 
             color: white; 
             text-align: center; 
             padding: 2rem 0; 
@@ -76,40 +77,39 @@
             border-radius: 10px; 
             margin: 1rem 0; 
             display: inline-block; 
+            color: white;
+        }
+        
+        .greek-flag { 
+            font-size: 1.5rem; 
+            margin-right: 0.5rem; 
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>📚 World Books Library</h1>
+            <h1><span class="greek-flag">🇬🇷</span> Ελληνική Βιβλιοθήκη</h1>
             <p class="developer">Developed by <strong>Vasdekis Christos</strong></p>
         </div>
     </header>
 
     <main class="container">
         <div class="search-section">
-            <input type="text" id="searchInput" placeholder="🔍 Search books or authors...">
-            <select id="languageSelect">
-                <option value="all">🌍 All Languages</option>
-                <option value="el">🇬🇷 Greek</option>
-                <option value="en">🇺🇸 English</option>
-                <option value="fr">🇫🇷 French</option>
-                <option value="es">🇪🇸 Spanish</option>
-                <option value="de">🇩🇪 German</option>
+            <input type="text" id="searchInput" placeholder="🔍 Αναζήτηση βιβλίων ή συγγραφέων...">
+            <select id="categorySelect">
+                <option value="all">📚 Όλες οι Κατηγορίες</option>
+                <option value="Αρχαία">🏛️ Αρχαία Ελληνικά</option>
+                <option value="Λογοτεχνία">📖 Λογοτεχνία</option>
+                <option value="Φιλοσοφία">🧠 Φιλοσοφία</option>
+                <option value="Ιστορία">📜 Ιστορία</option>
+                <option value="Θεατρικά">🎭 Θεατρικά</option>
+                <option value="Ποίηση">✍️ Ποίηση</option>
             </select>
         </div>
 
-        <div class="filters">
-            <button class="filter-btn active" data-category="all">All Categories</button>
-            <button class="filter-btn" data-category="Literature">Literature</button>
-            <button class="filter-btn" data-category="Philosophy">Philosophy</button>
-            <button class="filter-btn" data-category="Science">Science</button>
-            <button class="filter-btn" data-category="Drama">Drama</button>
-        </div>
-
         <div class="stats" id="statsContainer">
-            Loading books...
+            Φόρτωση βιβλίων...
         </div>
 
         <div class="books-grid" id="booksContainer">
@@ -119,56 +119,78 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 <strong>Vasdekis Christos</strong> - Free Books Library</p>
-            <p>All books are from public domain sources - Project Gutenberg</p>
+            <p>&copy; 2024 <strong>Vasdekis Christos</strong> - Ελληνική Βιβλιοθήκη</p>
+            <p>Όλα τα βιβλία είναι από δημόσιους πόρους - Project Gutenberg & WikiSource</p>
         </div>
     </footer>
 
     <script>
         const books = [
-            // ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΕΛΛΗΝΙΚΑ)
-            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", language: "el", url: "https://www.gutenberg.org/ebooks/70978", category: "Literature" },
-            { title: "Τα Εκατόμυθα", author: "Αίσωπος", language: "el", url: "https://www.gutenberg.org/ebooks/18766", category: "Literature" },
-            { title: "Οι Περσές", author: "Αισχύλος", language: "el", url: "https://www.gutenberg.org/ebooks/815", category: "Drama" },
-            { title: "Οδύσσεια", author: "Όμηρος", language: "el", url: "https://www.gutenberg.org/ebooks/1727", category: "Literature" },
-            { title: "Ιλιάδα", author: "Όμηρος", language: "el", url: "https://www.gutenberg.org/ebooks/2199", category: "Literature" },
-            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", language: "el", url: "https://www.gutenberg.org/ebooks/1171", category: "Philosophy" },
-            { title: "Πολιτεία", author: "Πλάτων", language: "el", url: "https://www.gutenberg.org/ebooks/1497", category: "Philosophy" },
-            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", language: "el", url: "https://www.gutenberg.org/ebooks/8438", category: "Philosophy" },
-            { title: "Αγαμέμνων", author: "Αισχύλος", language: "el", url: "https://www.gutenberg.org/ebooks/14417", category: "Drama" },
-            { title: "Αντιγόνη", author: "Σοφοκλής", language: "el", url: "https://www.gutenberg.org/ebooks/31", category: "Drama" },
+            // ΑΡΧΑΙΑ ΕΛΛΗΝΙΚΑ (20)
+            { title: "Οδύσσεια", author: "Όμηρος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1727" },
+            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2199" },
+            { title: "Πολιτεία", author: "Πλάτων", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1497" },
+            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1171" },
+            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/8438" },
+            { title: "Οι Περσές", author: "Αισχύλος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/815" },
+            { title: "Αντιγόνη", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/31" },
+            { title: "Ιφιγένεια εν Αυλίδι", author: "Ευριπίδης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/14460" },
+            { title: "Αγαμέμνων", author: "Αισχύλος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/14417" },
+            { title: "Εκκλησιάζουσες", author: "Αριστοφάνης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2560" },
+            { title: "Απολογία Σωκράτους", author: "Πλάτων", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1656" },
+            { title: "Συμπόσιο", author: "Πλάτων", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/1600" },
+            { title: "Ιππής", author: "Αριστοφάνης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2562" },
+            { title: "Πλούτος", author: "Αριστοφάνης", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2564" },
+            { title: "Ικέτιδες", author: "Αισχύλος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2565" },
+            { title: "Προμηθεύς Δεσμώτης", author: "Αισχύλος", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2566" },
+            { title: "Τραχίνιαι", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2567" },
+            { title: "Αίας", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2568" },
+            { title: "Ηλέκτρα", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2569" },
+            { title: "Φιλοκτήτης", author: "Σοφοκλής", category: "Αρχαία", url: "https://www.gutenberg.org/ebooks/2570" },
 
-            // ΑΓΓΛΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΑΓΓΛΙΚΑ)
-            { title: "Pride and Prejudice", author: "Jane Austen", language: "en", url: "https://www.gutenberg.org/ebooks/1342", category: "Literature" },
-            { title: "Moby Dick", author: "Herman Melville", language: "en", url: "https://www.gutenberg.org/ebooks/2701", category: "Literature" },
-            { title: "Sherlock Holmes", author: "Arthur Conan Doyle", language: "en", url: "https://www.gutenberg.org/ebooks/1661", category: "Literature" },
-            { title: "Dracula", author: "Bram Stoker", language: "en", url: "https://www.gutenberg.org/ebooks/345", category: "Literature" },
-            { title: "The Great Gatsby", author: "F. Scott Fitzgerald", language: "en", url: "https://www.gutenberg.org/ebooks/64317", category: "Literature" },
-            { title: "1984", author: "George Orwell", language: "en", url: "https://www.gutenberg.org/ebooks/2734", category: "Science" },
-            { title: "Frankenstein", author: "Mary Shelley", language: "en", url: "https://www.gutenberg.org/ebooks/84", category: "Science" },
-            { title: "The Art of War", author: "Sun Tzu", language: "en", url: "https://www.gutenberg.org/ebooks/132", category: "Philosophy" },
-            { title: "War and Peace", author: "Leo Tolstoy", language: "en", url: "https://www.gutenberg.org/ebooks/2600", category: "Literature" },
-            { title: "Ulysses", author: "James Joyce", language: "en", url: "https://www.gutenberg.org/ebooks/4300", category: "Literature" },
+            // ΝΕΟΕΛΛΗΝΙΚΗ ΛΟΓΟΤΕΧΝΙΑ (25)
+            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/70978" },
+            { title: "Τα Εκατόμυθα", author: "Αίσωπος", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/18766" },
+            { title: "Οι Άθλιοι", author: "Βίκτωρ Ουγκώ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/135" },
+            { title: "Ο Κόμης της Μόντε Χρίστο", author: "Αλέξανδρος Δουμάς", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/17989" },
+            { title: "Δον Κιχώτης", author: "Μιγκέλ ντε Θερβάντες", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2000" },
+            { title: "Περσέας", author: "Ιωάννης Ψυχάρης", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/52232" },
+            { title: "Το Ταξίδι μου", author: "Ιωάννης Ψυχάρης", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/52233" },
+            { title: "Οι Ληστές", author: "Φρίντριχ Σίλερ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1742" },
+            { title: "Φάουστ", author: "Γιόχαν Βόλφγκανγκ φον Γκαίτε", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2229" },
+            { title: "Μακεδονικός Αγών", author: "Ιωάννης Ψυχάρης", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/52234" },
+            { title: "Ο Θάνατος του Ιβάν Ιλίτς", author: "Λέων Τολστόι", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2442" },
+            { title: "Άννα Καρένινα", author: "Λέων Τολστόι", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1399" },
+            { title: "Πόλεμος και Ειρήνη", author: "Λέων Τολστόι", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2600" },
+            { title: "Ο Χαμένος Παράδεισος", author: "Τζον Μίλτον", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/20" },
+            { title: "Η Θυσία του Αβραάμ", author: "unknown", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/20776" },
+            { title: "Ο Βασιλιάς Ληρ", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1128" },
+            { title: "Άμλετ", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1524" },
+            { title: "Οθέλλος", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1531" },
+            { title: "Μακβέθ", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1532" },
+            { title: "Ιούλιος Καίσαρ", author: "Ουίλλιαμ Σαίξπηρ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/1523" },
+            { title: "Οι Χαμένες Αιώνες", author: "unknown", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2571" },
+            { title: "Η Αγία Γραφή", author: "unknown", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/10" },
+            { title: "Ο Πόθος", author: "Μαρσέλ Προυστ", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/7178" },
+            { title: "Ο Μύθος του Σίσυφου", author: "Αλμπέρ Καμύ", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/25200" },
+            { title: "Η Επανάσταση των Αγγέλων", author: "unknown", category: "Λογοτεχνία", url: "https://www.gutenberg.org/ebooks/2572" },
 
-            // ΓΑΛΛΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΓΑΛΛΙΚΑ)
-            { title: "Les Misérables", author: "Victor Hugo", language: "fr", url: "https://www.gutenberg.org/ebooks/17489", category: "Literature" },
-            { title: "Le Comte de Monte-Cristo", author: "Alexandre Dumas", language: "fr", url: "https://www.gutenberg.org/ebooks/17989", category: "Literature" },
-            { title: "Madame Bovary", author: "Gustave Flaubert", language: "fr", url: "https://www.gutenberg.org/ebooks/14155", category: "Literature" },
-            { title: "Notre-Dame de Paris", author: "Victor Hugo", language: "fr", url: "https://www.gutenberg.org/ebooks/2610", category: "Literature" },
-            { title: "Candide", author: "Voltaire", language: "fr", url: "https://www.gutenberg.org/ebooks/19942", category: "Philosophy" },
-            { title: "Le Petit Prince", author: "Antoine de Saint-Exupéry", language: "fr", url: "https://www.gutenberg.org/ebooks/70975", category: "Literature" },
-
-            // ΙΣΠΑΝΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΙΣΠΑΝΙΚΑ)
-            { title: "Don Quijote de la Mancha", author: "Miguel de Cervantes", language: "es", url: "https://www.gutenberg.org/ebooks/2000", category: "Literature" },
-            { title: "Cien años de soledad", author: "Gabriel García Márquez", language: "es", url: "https://www.gutenberg.org/ebooks/13453", category: "Literature" },
-            { title: "El Principito", author: "Antoine de Saint-Exupéry", language: "es", url: "https://www.gutenberg.org/ebooks/70977", category: "Literature" },
-            { title: "La Celestina", author: "Fernando de Rojas", language: "es", url: "https://www.gutenberg.org/ebooks/1381", category: "Drama" },
-
-            // ΓΕΡΜΑΝΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΓΕΡΜΑΝΙΚΑ)
-            { title: "Faust", author: "Johann Wolfgang von Goethe", language: "de", url: "https://www.gutenberg.org/ebooks/2229", category: "Drama" },
-            { title: "Die Verwandlung", author: "Franz Kafka", language: "de", url: "https://www.gutenberg.org/ebooks/5200", category: "Literature" },
-            { title: "Also sprach Zarathustra", author: "Friedrich Nietzsche", language: "de", url: "https://www.gutenberg.org/ebooks/1998", category: "Philosophy" },
-            { title: "Der Kleine Prinz", author: "Antoine de Saint-Exupéry", language: "de", url: "https://www.gutenberg.org/ebooks/70976", category: "Literature" }
+            // ΙΣΤΟΡΙΑ & ΦΙΛΟΣΟΦΙΑ (15)
+            { title: "Ιστορία του Ελληνικού Έθνους", author: "unknown", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2573" },
+            { title: "Ο Πελοποννησιακός Πόλεμος", author: "Θουκυδίδης", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/7142" },
+            { title: "Αναβάσεις", author: "Ξενοφών", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/1170" },
+            { title: "Ηλληνικά", author: "Ξενοφών", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/1174" },
+            { title: "Πολιτεία Αθηναίων", author: "Αριστοτέλης", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2574" },
+            { title: "Βίοι Παράλληλοι", author: "Πλούταρχος", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2575" },
+            { title: "Ιστορίες", author: "Ηρόδοτος", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2707" },
+            { title: "Ο Αγώνας για τη Σκλαβιά", author: "unknown", category: "Ιστορία", url: "https://www.gutenberg.org/ebooks/2576" },
+            { title: "Η Δημοκρατία", author: "Πλάτων", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/1497" },
+            { title: "Νόμοι", author: "Πλάτων", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/1750" },
+            { title: "Φαίδων", author: "Πλάτων", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/1658" },
+            { title: "Κρατύλος", author: "Πλάτων", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/1616" },
+            { title: "Πολιτικά", author: "Αριστοτέλης", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/6762" },
+            { title: "Περί Ψυχής", author: "Αριστοτέλης", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/6770" },
+            { title: "Ηθικά Ευδήμεια", author: "Αριστοτέλης", category: "Φιλοσοφία", url: "https://www.gutenberg.org/ebooks/8438" }
         ];
 
         function displayBooks(filteredBooks = books) {
@@ -176,25 +198,25 @@
             const stats = document.getElementById('statsContainer');
             
             container.innerHTML = '';
-            stats.innerHTML = `📊 Showing ${filteredBooks.length} of ${books.length} books`;
+            stats.innerHTML = `📊 Εμφανίζονται ${filteredBooks.length} από ${books.length} βιβλία`;
 
             filteredBooks.forEach(book => {
-                const languageFlags = {
-                    'el': '🇬🇷',
-                    'en': '🇺🇸', 
-                    'fr': '🇫🇷',
-                    'es': '🇪🇸',
-                    'de': '🇩🇪'
+                const categoryIcons = {
+                    'Αρχαία': '🏛️',
+                    'Λογοτεχνία': '📖', 
+                    'Φιλοσοφία': '🧠',
+                    'Ιστορία': '📜',
+                    'Θεατρικά': '🎭',
+                    'Ποίηση': '✍️'
                 };
 
                 const bookCard = document.createElement('div');
                 bookCard.className = 'book-card';
                 bookCard.innerHTML = `
-                    <div class="book-language">${languageFlags[book.language] || '🌍'} ${book.language.toUpperCase()}</div>
+                    <div class="book-category">${categoryIcons[book.category] || '📚'} ${book.category}</div>
                     <h3>${book.title}</h3>
-                    <p><strong>Author:</strong> ${book.author}</p>
-                    <p><em>${book.category}</em></p>
-                    <a href="${book.url}" target="_blank" class="read-btn">Read Online</a>
+                    <p><strong>Συγγραφέας:</strong> ${book.author}</p>
+                    <a href="${book.url}" target="_blank" class="read-btn">Διαβάστε Online</a>
                 `;
                 container.appendChild(bookCard);
             });
@@ -210,23 +232,11 @@
             displayBooks(filteredBooks);
         });
 
-        // Language filter
-        document.getElementById('languageSelect').addEventListener('change', function(e) {
-            const language = e.target.value;
-            const filteredBooks = language === 'all' ? books : books.filter(book => book.language === language);
-            displayBooks(filteredBooks);
-        });
-
         // Category filter
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                const category = this.dataset.category;
-                const filteredBooks = category === 'all' ? books : books.filter(book => book.category === category);
-                displayBooks(filteredBooks);
-            });
+        document.getElementById('categorySelect').addEventListener('change', function(e) {
+            const category = e.target.value;
+            const filteredBooks = category === 'all' ? books : books.filter(book => book.category === category);
+            displayBooks(filteredBooks);
         });
 
         // Initial display
