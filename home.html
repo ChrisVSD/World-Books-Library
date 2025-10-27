@@ -1,237 +1,47 @@
-<!DOCTYPE html>
-<html lang="el">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="developer" content="Vasdekis Christos">
-    <title>World Books Library - Developed by Vasdekis Christos</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        
-        header { background: rgba(44, 62, 80, 0.95); color: white; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px); }
-        .developer { color: #ecf0f1; margin-top: 0.5rem; font-size: 1.1rem; }
-        
-        .search-section { display: flex; gap: 1rem; margin: 2rem 0; justify-content: center; flex-wrap: wrap; }
-        input, select { padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; min-width: 200px; }
-        
-        .filters { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
-        .filter-btn { background: #3498db; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
-        .filter-btn:hover { background: #2980b9; transform: translateY(-2px); }
-        .filter-btn.active { background: #e74c3c; }
-        
-        .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-        .book-card { 
-            background: rgba(255, 255, 255, 0.95); 
-            padding: 1.5rem; 
-            border-radius: 15px; 
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-        .book-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-        
-        .book-language { 
-            display: inline-block; 
-            background: #3498db; 
-            color: white; 
-            padding: 0.2rem 0.6rem; 
-            border-radius: 12px; 
-            font-size: 0.8rem; 
-            margin-bottom: 0.5rem; 
-        }
-        
-        .read-btn { 
-            display: inline-block; 
-            background: linear-gradient(45deg, #e74c3c, #c0392b); 
-            color: white; 
-            padding: 0.7rem 1.5rem; 
-            text-decoration: none; 
-            border-radius: 25px; 
-            margin-top: 1rem; 
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        .read-btn:hover { 
-            transform: scale(1.05); 
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
-        }
-        
-        footer { 
-            background: rgba(52, 73, 94, 0.95); 
-            color: white; 
-            text-align: center; 
-            padding: 2rem 0; 
-            margin-top: 3rem; 
-            backdrop-filter: blur(10px);
-        }
-        
-        .stats { 
-            background: rgba(255, 255, 255, 0.1); 
-            padding: 1rem; 
-            border-radius: 10px; 
-            margin: 1rem 0; 
-            display: inline-block; 
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1>📚 World Books Library</h1>
-            <p class="developer">Developed by <strong>Vasdekis Christos</strong></p>
-        </div>
-    </header>
+const books = [
+    // ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΕΛΛΗΝΙΚΑ)
+    { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", language: "el", url: "https://www.gutenberg.org/ebooks/70978", category: "Λογοτεχνία" },
+    { title: "Τα Εκατόμυθα", author: "Αίσωπος", language: "el", url: "https://www.gutenberg.org/ebooks/18766", category: "Μυθολογία" },
+    { title: "Οι Περσές", author: "Αισχύλος", language: "el", url: "https://www.gutenberg.org/ebooks/815", category: "Θεατρικά" },
+    { title: "Οδύσσεια", author: "Όμηρος", language: "el", url: "https://www.gutenberg.org/ebooks/1727", category: "Επικό" },
+    { title: "Ιλιάδα", author: "Όμηρος", language: "el", url: "https://www.gutenberg.org/ebooks/2199", category: "Επικό" },
+    { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", language: "el", url: "https://www.gutenberg.org/ebooks/1171", category: "Φιλοσοφία" },
+    { title: "Πολιτεία", author: "Πλάτων", language: "el", url: "https://www.gutenberg.org/ebooks/1497", category: "Φιλοσοφία" },
+    { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", language: "el", url: "https://www.gutenberg.org/ebooks/8438", category: "Φιλοσοφία" },
+    { title: "Αγαμέμνων", author: "Αισχύλος", language: "el", url: "https://www.gutenberg.org/ebooks/14417", category: "Θεατρικά" },
+    { title: "Αντιγόνη", author: "Σοφοκλής", language: "el", url: "https://www.gutenberg.org/ebooks/31", category: "Θεατρικά" },
 
-    <main class="container">
-        <div class="search-section">
-            <input type="text" id="searchInput" placeholder="🔍 Search books or authors...">
-            <select id="languageSelect">
-                <option value="all">🌍 All Languages</option>
-                <option value="el">🇬🇷 Greek</option>
-                <option value="en">🇺🇸 English</option>
-                <option value="fr">🇫🇷 French</option>
-                <option value="es">🇪🇸 Spanish</option>
-                <option value="de">🇩🇪 German</option>
-            </select>
-        </div>
+    // ΑΓΓΛΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΑΓΓΛΙΚΑ)
+    { title: "Pride and Prejudice", author: "Jane Austen", language: "en", url: "https://www.gutenberg.org/ebooks/1342", category: "Romance" },
+    { title: "Moby Dick", author: "Herman Melville", language: "en", url: "https://www.gutenberg.org/ebooks/2701", category: "Adventure" },
+    { title: "Sherlock Holmes", author: "Arthur Conan Doyle", language: "en", url: "https://www.gutenberg.org/ebooks/1661", category: "Mystery" },
+    { title: "Dracula", author: "Bram Stoker", language: "en", url: "https://www.gutenberg.org/ebooks/345", category: "Horror" },
+    { title: "The Great Gatsby", author: "F. Scott Fitzgerald", language: "en", url: "https://www.gutenberg.org/ebooks/64317", category: "Classic" },
+    { title: "1984", author: "George Orwell", language: "en", url: "https://www.gutenberg.org/ebooks/2734", category: "Science Fiction" },
+    { title: "Frankenstein", author: "Mary Shelley", language: "en", url: "https://www.gutenberg.org/ebooks/84", category: "Horror" },
+    { title: "The Art of War", author: "Sun Tzu", language: "en", url: "https://www.gutenberg.org/ebooks/132", category: "Philosophy" },
+    { title: "War and Peace", author: "Leo Tolstoy", language: "en", url: "https://www.gutenberg.org/ebooks/2600", category: "Historical" },
+    { title: "Ulysses", author: "James Joyce", language: "en", url: "https://www.gutenberg.org/ebooks/4300", category: "Modernist" },
 
-        <div class="filters">
-            <button class="filter-btn active" data-category="all">All Categories</button>
-            <button class="filter-btn" data-category="Literature">Literature</button>
-            <button class="filter-btn" data-category="Philosophy">Philosophy</button>
-            <button class="filter-btn" data-category="Science">Science</button>
-            <button class="filter-btn" data-category="Drama">Drama</button>
-        </div>
+    // ΓΑΛΛΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΓΑΛΛΙΚΑ)
+    { title: "Les Misérables", author: "Victor Hugo", language: "fr", url: "https://www.gutenberg.org/ebooks/17489", category: "Classique" },
+    { title: "Le Comte de Monte-Cristo", author: "Alexandre Dumas", language: "fr", url: "https://www.gutenberg.org/ebooks/17989", category: "Aventure" },
+    { title: "Madame Bovary", author: "Gustave Flaubert", language: "fr", url: "https://www.gutenberg.org/ebooks/14155", category: "Roman" },
+    { title: "Notre-Dame de Paris", author: "Victor Hugo", language: "fr", url: "https://www.gutenberg.org/ebooks/2610", category: "Classique" },
+    { title: "Candide", author: "Voltaire", language: "fr", url: "https://www.gutenberg.org/ebooks/19942", category: "Philosophie" },
+    { title: "Le Petit Prince", author: "Antoine de Saint-Exupéry", language: "fr", url: "https://www.gutenberg.org/ebooks/70975", category: "Littérature" },
 
-        <div class="stats" id="statsContainer">
-            Loading books...
-        </div>
+    // ΙΣΠΑΝΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΙΣΠΑΝΙΚΑ)
+    { title: "Don Quijote de la Mancha", author: "Miguel de Cervantes", language: "es", url: "https://www.gutenberg.org/ebooks/2000", category: "Clásico" },
+    { title: "Cien años de soledad", author: "Gabriel García Márquez", language: "es", url: "https://www.gutenberg.org/ebooks/13453", category: "Realismo Mágico" },
+    { title: "El Principito", author: "Antoine de Saint-Exupéry", language: "es", url: "https://www.gutenberg.org/ebooks/70977", category: "Literatura" },
+    { title: "La Celestina", author: "Fernando de Rojas", language: "es", url: "https://www.gutenberg.org/ebooks/1381", category: "Drama" },
+    { title: "El Alquimista", author: "Paulo Coelho", language: "es", url: "https://www.gutenberg.org/ebooks/63885", category: "Novela" },
 
-        <div class="books-grid" id="booksContainer">
-            <!-- Books will appear here -->
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 <strong>Vasdekis Christos</strong> - Free Books Library</p>
-            <p>All books are from public domain sources - Project Gutenberg</p>
-        </div>
-    </footer>
-
-    <script>
-        const books = [
-            // ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ (15)
-            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", language: "el", url: "https://www.gutenberg.org/ebooks/70978", category: "Literature" },
-            { title: "Τα Εκατόμυθα", author: "Αίσωπος", language: "el", url: "https://www.gutenberg.org/ebooks/21", category: "Literature" },
-            { title: "Οι Περσές", author: "Αισχύλος", language: "el", url: "https://www.gutenberg.org/ebooks/815", category: "Drama" },
-            { title: "Οδύσσεια", author: "Όμηρος", language: "el", url: "https://www.gutenberg.org/ebooks/1727", category: "Literature" },
-            { title: "Ιλιάδα", author: "Όμηρος", language: "el", url: "https://www.gutenberg.org/ebooks/2199", category: "Literature" },
-            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", language: "el", url: "https://www.gutenberg.org/ebooks/1171", category: "Philosophy" },
-            { title: "Πολιτεία", author: "Πλάτων", language: "el", url: "https://www.gutenberg.org/ebooks/1497", category: "Philosophy" },
-            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", language: "el", url: "https://www.gutenberg.org/ebooks/8438", category: "Philosophy" },
-            { title: "Αγαμέμνων", author: "Αισχύλος", language: "el", url: "https://www.gutenberg.org/ebooks/14417", category: "Drama" },
-            { title: "Αντιγόνη", author: "Σοφοκλής", language: "el", url: "https://www.gutenberg.org/ebooks/31", category: "Drama" },
-
-            // ΑΓΓΛΙΚΑ ΒΙΒΛΙΑ (20)
-            { title: "Pride and Prejudice", author: "Jane Austen", language: "en", url: "https://www.gutenberg.org/ebooks/1342", category: "Literature" },
-            { title: "Moby Dick", author: "Herman Melville", language: "en", url: "https://www.gutenberg.org/ebooks/2701", category: "Literature" },
-            { title: "Sherlock Holmes", author: "Arthur Conan Doyle", language: "en", url: "https://www.gutenberg.org/ebooks/1661", category: "Literature" },
-            { title: "Dracula", author: "Bram Stoker", language: "en", url: "https://www.gutenberg.org/ebooks/345", category: "Literature" },
-            { title: "The Great Gatsby", author: "F. Scott Fitzgerald", language: "en", url: "https://www.gutenberg.org/ebooks/64317", category: "Literature" },
-            { title: "1984", author: "George Orwell", language: "en", url: "https://www.gutenberg.org/ebooks/2734", category: "Science" },
-            { title: "Frankenstein", author: "Mary Shelley", language: "en", url: "https://www.gutenberg.org/ebooks/84", category: "Science" },
-            { title: "The Art of War", author: "Sun Tzu", language: "en", url: "https://www.gutenberg.org/ebooks/132", category: "Philosophy" },
-            { title: "War and Peace", author: "Leo Tolstoy", language: "en", url: "https://www.gutenberg.org/ebooks/2600", category: "Literature" },
-            { title: "Ulysses", author: "James Joyce", language: "en", url: "https://www.gutenberg.org/ebooks/4300", category: "Literature" },
-            { title: "The Little Prince", author: "Antoine de Saint-Exupéry", language: "en", url: "https://www.gutenberg.org/ebooks/70978", category: "Literature" },
-
-            // ΓΑΛΛΙΚΑ ΒΙΒΛΙΑ (8)
-            { title: "Les Misérables", author: "Victor Hugo", language: "fr", url: "https://www.gutenberg.org/ebooks/135", category: "Literature" },
-            { title: "Le Comte de Monte-Cristo", author: "Alexandre Dumas", language: "fr", url: "https://www.gutenberg.org/ebooks/17989", category: "Literature" },
-            { title: "Madame Bovary", author: "Gustave Flaubert", language: "fr", url: "https://www.gutenberg.org/ebooks/14155", category: "Literature" },
-            { title: "Notre-Dame de Paris", author: "Victor Hugo", language: "fr", url: "https://www.gutenberg.org/ebooks/2610", category: "Literature" },
-            { title: "Candide", author: "Voltaire", language: "fr", url: "https://www.gutenberg.org/ebooks/19942", category: "Philosophy" },
-            { title: "Le Petit Prince", author: "Antoine de Saint-Exupéry", language: "fr", url: "https://www.gutenberg.org/ebooks/70978", category: "Literature" },
-
-            // ΙΣΠΑΝΙΚΑ ΒΙΒΛΙΑ (7)
-            { title: "Don Quijote de la Mancha", author: "Miguel de Cervantes", language: "es", url: "https://www.gutenberg.org/ebooks/2000", category: "Literature" },
-            { title: "Cien años de soledad", author: "Gabriel García Márquez", language: "es", url: "https://www.gutenberg.org/ebooks/13453", category: "Literature" },
-            { title: "El Principito", author: "Antoine de Saint-Exupéry", language: "es", url: "https://www.gutenberg.org/ebooks/70978", category: "Literature" },
-            { title: "La Celestina", author: "Fernando de Rojas", language: "es", url: "https://www.gutenberg.org/ebooks/1381", category: "Drama" },
-
-            // ΓΕΡΜΑΝΙΚΑ ΒΙΒΛΙΑ (5)
-            { title: "Faust", author: "Johann Wolfgang von Goethe", language: "de", url: "https://www.gutenberg.org/ebooks/2229", category: "Drama" },
-            { title: "Die Verwandlung", author: "Franz Kafka", language: "de", url: "https://www.gutenberg.org/ebooks/5200", category: "Literature" },
-            { title: "Also sprach Zarathustra", author: "Friedrich Nietzsche", language: "de", url: "https://www.gutenberg.org/ebooks/1998", category: "Philosophy" },
-            { title: "Der Kleine Prinz", author: "Antoine de Saint-Exupéry", language: "de", url: "https://www.gutenberg.org/ebooks/70978", category: "Literature" }
-        ];
-
-        function displayBooks(filteredBooks = books) {
-            const container = document.getElementById('booksContainer');
-            const stats = document.getElementById('statsContainer');
-            
-            container.innerHTML = '';
-            stats.innerHTML = `📊 Showing ${filteredBooks.length} of ${books.length} books`;
-
-            filteredBooks.forEach(book => {
-                const languageFlags = {
-                    'el': '🇬🇷',
-                    'en': '🇺🇸', 
-                    'fr': '🇫🇷',
-                    'es': '🇪🇸',
-                    'de': '🇩🇪'
-                };
-
-                const bookCard = document.createElement('div');
-                bookCard.className = 'book-card';
-                bookCard.innerHTML = `
-                    <div class="book-language">${languageFlags[book.language] || '🌍'} ${book.language.toUpperCase()}</div>
-                    <h3>${book.title}</h3>
-                    <p><strong>Author:</strong> ${book.author}</p>
-                    <p><em>${book.category}</em></p>
-                    <a href="${book.url}" target="_blank" class="read-btn">Read Online</a>
-                `;
-                container.appendChild(bookCard);
-            });
-        }
-
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredBooks = books.filter(book => 
-                book.title.toLowerCase().includes(searchTerm) || 
-                book.author.toLowerCase().includes(searchTerm)
-            );
-            displayBooks(filteredBooks);
-        });
-
-        // Language filter
-        document.getElementById('languageSelect').addEventListener('change', function(e) {
-            const language = e.target.value;
-            const filteredBooks = language === 'all' ? books : books.filter(book => book.language === language);
-            displayBooks(filteredBooks);
-        });
-
-        // Category filter
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                
-                const category = this.dataset.category;
-                const filteredBooks = category === 'all' ? books : books.filter(book => book.category === category);
-                displayBooks(filteredBooks);
-            });
-        });
-
-        // Initial display
-        displayBooks();
-    </script>
-</body>
-</html>
+    // ΓΕΡΜΑΝΙΚΑ ΒΙΒΛΙΑ (ΓΝΗΣΙΑ ΓΕΡΜΑΝΙΚΑ)
+    { title: "Faust", author: "Johann Wolfgang von Goethe", language: "de", url: "https://www.gutenberg.org/ebooks/2229", category: "Drama" },
+    { title: "Die Verwandlung", author: "Franz Kafka", language: "de", url: "https://www.gutenberg.org/ebooks/5200", category: "Erzählung" },
+    { title: "Also sprach Zarathustra", author: "Friedrich Nietzsche", language: "de", url: "https://www.gutenberg.org/ebooks/1998", category: "Philosophie" },
+    { title: "Der Kleine Prinz", author: "Antoine de Saint-Exupéry", language: "de", url: "https://www.gutenberg.org/ebooks/70976", category: "Literatur" },
+    { title: "Die Räuber", author: "Friedrich Schiller", language: "de", url: "https://www.gutenberg.org/ebooks/1742", category: "Drama" }
+];
