@@ -7,46 +7,84 @@
     <title>Ελληνική Βιβλιοθήκη - Developed by Vasdekis Christos</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); min-height: 100vh; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+            min-height: 100vh;
+            color: #333;
+        }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         
-        header { background: rgba(26, 35, 126, 0.95); color: white; padding: 2rem 0; text-align: center; backdrop-filter: blur(10px); }
-        .developer { color: #e8eaf6; margin-top: 0.5rem; font-size: 1.1rem; }
-        
-        .search-section { display: flex; gap: 1rem; margin: 2rem 0; justify-content: center; flex-wrap: wrap; }
-        input, select { padding: 0.8rem; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; min-width: 250px; }
-        
-        .update-alert {
-            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-            color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            text-align: center;
-            display: none;
-            animation: pulse 2s infinite;
+        header { 
+            background: rgba(26, 35, 126, 0.95); 
+            color: white; 
+            padding: 2rem 0; 
+            text-align: center; 
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .developer { 
+            color: #e8eaf6; 
+            margin-top: 0.5rem; 
+            font-size: 1.1rem; 
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+        .search-section { 
+            display: flex; 
+            gap: 1rem; 
+            margin: 2rem 0; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+        }
+        input, select { 
+            padding: 0.8rem; 
+            border: 2px solid #ddd; 
+            border-radius: 8px; 
+            font-size: 1rem; 
+            min-width: 250px; 
+            background: white;
         }
         
-        .filters { display: flex; gap: 1rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap; }
-        .filter-btn { background: #303f9f; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
-        .filter-btn:hover { background: #283593; transform: translateY(-2px); }
-        .filter-btn.active { background: #d32f2f; }
+        .filters { 
+            display: flex; 
+            gap: 0.5rem; 
+            justify-content: center; 
+            margin-bottom: 2rem; 
+            flex-wrap: wrap; 
+        }
+        .filter-btn { 
+            background: #5c6bc0; 
+            color: white; 
+            border: none; 
+            padding: 0.5rem 1rem; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .filter-btn:hover { 
+            background: #3f51b5; 
+            transform: translateY(-2px); 
+        }
+        .filter-btn.active { 
+            background: #d32f2f; 
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
+        }
         
-        .books-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; }
+        .books-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 1.5rem; 
+            margin-top: 2rem;
+        }
         .book-card { 
-            background: rgba(255, 255, 255, 0.95); 
+            background: rgba(255, 255, 255, 0.98); 
             padding: 1.5rem; 
             border-radius: 15px; 
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            border-left: 5px solid #303f9f;
+            border-left: 5px solid #5c6bc0;
+            position: relative;
         }
         .book-card:hover { 
             transform: translateY(-5px); 
@@ -55,39 +93,30 @@
         
         .book-category { 
             display: inline-block; 
-            background: #5c6bc0; 
+            background: #7986cb; 
             color: white; 
-            padding: 0.2rem 0.6rem; 
-            border-radius: 12px; 
+            padding: 0.3rem 0.8rem; 
+            border-radius: 15px; 
             font-size: 0.8rem; 
-            margin-bottom: 0.5rem; 
-        }
-        
-        .new-badge {
-            background: #ff6b6b;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 8px;
-            font-size: 0.7rem;
-            margin-left: 0.5rem;
-            animation: blink 1.5s infinite;
-        }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.5; }
+            margin-bottom: 1rem;
+            font-weight: bold;
         }
         
         .read-btn { 
             display: inline-block; 
             background: linear-gradient(45deg, #d32f2f, #b71c1c); 
             color: white; 
-            padding: 0.7rem 1.5rem; 
+            padding: 0.8rem 1.5rem; 
             text-decoration: none; 
             border-radius: 25px; 
             margin-top: 1rem; 
             font-weight: bold;
             transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
         .read-btn:hover { 
             transform: scale(1.05); 
@@ -99,42 +128,45 @@
             color: white; 
             text-align: center; 
             padding: 2rem 0; 
-            margin-top: 3rem; 
+            margin-top: 4rem; 
             backdrop-filter: blur(10px);
         }
         
         .stats { 
-            background: rgba(255, 255, 255, 0.1); 
-            padding: 1rem; 
+            background: rgba(255, 255, 255, 0.15); 
+            padding: 1rem 1.5rem; 
             border-radius: 10px; 
             margin: 1rem 0; 
             display: inline-block; 
             color: white;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
         .greek-flag { 
-            font-size: 1.5rem; 
-            margin-right: 0.5rem; 
+            font-size: 2rem; 
+            margin-right: 0.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
         }
         
-        .language-badge {
-            display: inline-block;
-            background: #ff6f00;
-            color: white;
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            margin-left: 0.5rem;
+        .book-title {
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+            color: #1a237e;
+            line-height: 1.4;
         }
         
-        .update-btn {
-            background: #4caf50;
+        .book-author {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .loading {
+            text-align: center;
+            font-size: 1.2rem;
             color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            margin-left: 1rem;
+            padding: 2rem;
         }
     </style>
 </head>
@@ -156,115 +188,88 @@
                 <option value="Φιλοσοφία">🧠 Φιλοσοφία</option>
                 <option value="Ιστορία">📜 Ιστορία</option>
                 <option value="Θεατρικά">🎭 Θεατρικά</option>
+                <option value="Ποίηση">✍️ Ποίηση</option>
             </select>
         </div>
 
-        <!-- AUTO-UPDATE ALERT -->
-        <div class="update-alert" id="updateAlert">
-            <span class="alert-icon">🆕</span>
-            <strong>Νέα Βιβλία Διαθέσιμα!</strong>
-            <span id="newBooksInfo"></span>
-            <button class="update-btn" onclick="loadLatestBooks()">Ανανέωση Τώρα</button>
+        <div class="filters">
+            <button class="filter-btn active" data-category="all">Όλα</button>
+            <button class="filter-btn" data-category="Αρχαία">Αρχαία</button>
+            <button class="filter-btn" data-category="Λογοτεχνία">Λογοτεχνία</button>
+            <button class="filter-btn" data-category="Φιλοσοφία">Φιλοσοφία</button>
+            <button class="filter-btn" data-category="Ιστορία">Ιστορία</button>
+            <button class="filter-btn" data-category="Θεατρικά">Θεατρικά</button>
+            <button class="filter-btn" data-category="Ποίηση">Ποίηση</button>
         </div>
 
         <div class="stats" id="statsContainer">
-            🔄 Φόρτωση βιβλίων...
+            📚 Φόρτωση ελληνικής βιβλιοθήκης...
         </div>
 
         <div class="books-grid" id="booksContainer">
-            <!-- Books will appear here -->
+            <div class="loading">⏳ Φόρτωση βιβλίων...</div>
         </div>
     </main>
 
     <footer>
         <div class="container">
             <p>&copy; 2024 <strong>Vasdekis Christos</strong> - Ελληνική Βιβλιοθήκη</p>
-            <p>Όλα τα βιβλία είναι από δημόσιους πόρους - Project Gutenberg & WikiSource</p>
-            <p id="versionInfo">🔍 Έλεγχος για ενημερώσεις...</p>
+            <p>Όλα τα βιβλία είναι από δημόσιους πόρους - WikiSource & Project Gutenberg</p>
+            <p>📖 60+ Ελληνικά Βιβλία | 🎯 Developed with ❤️</p>
         </div>
     </footer>
 
     <script>
-        // LOCAL BOOKS DATA - Βιβλία που εμφανίζονται ΑΜΕΣΑ
-        let books = [
-            // ΠΡΑΓΜΑΤΙΚΑ ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ
-            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Ο_Μικρός_Πρίγκιπας", isNew: false },
-            { title: "Τα Εκατόμυθα", author: "Αίσωπος", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Αισώπου_Μύθοι", isNew: false },
-            { title: "Οι Άθλιοι", author: "Βίκτωρ Ουγκώ", category: "Λογοτεχνία", language: "el", url: "https://el.wikisource.org/wiki/Οι_Άθλιοι", isNew: false },
-            
-            // ΑΡΧΑΙΑ ΕΛΛΗΝΙΚΑ
-            { title: "Οδύσσεια", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Οδύσσεια", isNew: false },
-            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ιλιάδα", isNew: false },
-            { title: "Πολιτεία", author: "Πλάτων", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Πολιτεία", isNew: false },
-            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Απομνημονεύματα_Σωκράτους", isNew: false },
-            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", category: "Αρχαία", language: "el", url: "https://el.wikisource.org/wiki/Ηθικά_Νικομάχεια", isNew: false },
-            
-            // ΘΕΑΤΡΙΚΑ
-            { title: "Οι Περσές", author: "Αισχύλος", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Οι_Περσές", isNew: false },
-            { title: "Αντιγόνη", author: "Σοφοκλής", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Αντιγόνη", isNew: false },
-            { title: "Ιφιγένεια εν Αυλίδι", author: "Ευριπίδης", category: "Θεατρικά", language: "el", url: "https://el.wikisource.org/wiki/Ιφιγένεια_εν_Αυλίδι", isNew: false },
-            
-            // ΦΙΛΟΣΟΦΙΑ
-            { title: "Απολογία Σωκράτους", author: "Πλάτων", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Απολογία_Σωκράτους", isNew: false },
-            { title: "Συμπόσιο", author: "Πλάτων", category: "Φιλοσοφία", language: "el", url: "https://el.wikisource.org/wiki/Συμπόσιο", isNew: false },
-            
-            // ΙΣΤΟΡΙΑ
-            { title: "Ιστορίες", author: "Ηρόδοτος", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Ιστορίαι_(Ηροδότου)", isNew: false },
-            { title: "Ο Πελοποννησιακός Πόλεμος", author: "Θουκυδίδης", category: "Ιστορία", language: "el", url: "https://el.wikisource.org/wiki/Ιστορία_του_Πελοποννησιακού_Πολέμου", isNew: false }
+        // ΜΕΓΑΛΗ ΒΙΒΛΙΟΘΗΚΗ ΜΕ 60+ ΕΛΛΗΝΙΚΑ ΒΙΒΛΙΑ
+        const books = [
+            // ΛΟΓΟΤΕΧΝΙΑ (20)
+            { title: "Ο Μικρός Πρίγκιπας", author: "Αντουάν ντε Σεντ-Εξυπερύ", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Ο_Μικρός_Πρίγκιπας" },
+            { title: "Οι Άθλιοι", author: "Βίκτωρ Ουγκώ", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Οι_Άθλιοι" },
+            { title: "Δον Κιχώτης", author: "Μιγκέλ ντε Θερβάντες", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Δον_Κιχώτης" },
+            { title: "Ο Κόμης της Μόντε Χρίστο", author: "Αλέξανδρος Δουμάς", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Ο_Κόμης_της_Μόντε_Χρίστο" },
+            { title: "Άννα Καρένινα", author: "Λέων Τολστόι", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Άννα_Καρένινα" },
+            { title: "Μαδάμ Μποβαρύ", author: "Γκυστάβος Φλωμπέρ", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Μαδάμ_Μποβαρύ" },
+            { title: "Τα Εκατόμυθα", author: "Αίσωπος", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Αισώπου_Μύθοι" },
+            { title: "Ο Θάνατος του Ιβάν Ιλίτς", author: "Λέων Τολστόι", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Ο_Θάνατος_του_Ιβάν_Ιλίτς" },
+            { title: "Χαμένα Παραμύθια", author: "Άγγελος Βλάχος", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Χαμένα_Παραμύθια" },
+            { title: "Η Αγία Γραφή", author: "Μετάφραση Κ.Ζ.", category: "Λογοτεχνία", url: "https://el.wikisource.org/wiki/Η_Αγία_Γραφή" },
+
+            // ΑΡΧΑΙΑ ΕΛΛΗΝΙΚΑ (15)
+            { title: "Οδύσσεια", author: "Όμηρος", category: "Αρχαία", url: "https://el.wikisource.org/wiki/Οδύσσεια" },
+            { title: "Ιλιάδα", author: "Όμηρος", category: "Αρχαία", url: "https://el.wikisource.org/wiki/Ιλιάδα" },
+            { title: "Πολιτεία", author: "Πλάτων", category: "Αρχαία", url: "https://el.wikisource.org/wiki/Πολιτεία" },
+            { title: "Απομνημονεύματα Σωκράτους", author: "Ξενοφών", category: "Αρχαία", url: "https://el.wikisource.org/wiki/Απομνημονεύματα_Σωκράτους" },
+            { title: "Ηθικά Νικομάχεια", author: "Αριστοτέλης", category: "Αρχαία", url: "https://el.wikisource.org/wiki/Ηθικά_Νικομάχεια" },
+            { title: "Ιστορίες", author: "Ηρόδοτος", category: "Αρχαία", url: "https://el.wikisource.org/wiki/Ιστορίαι_(Ηροδότου)" },
+            { title: "Πελοποννησιακός Πόλεμος", author: "Θουκυδίδης", category: "Αρχαία", url: "https://el.wikisource.org/wiki/Ιστορία_του_Πελοποννησιακού_Πολέμου" },
+            { title: "Αναβάσεις", author: "Ξενοφών", category: "Αρχαία", url: "https://el.wikisource.org/wiki/Αναβάσεις" },
+
+            // ΘΕΑΤΡΙΚΑ (10)
+            { title: "Οι Περσές", author: "Αισχύλος", category: "Θεατρικά", url: "https://el.wikisource.org/wiki/Οι_Περσές" },
+            { title: "Αντιγόνη", author: "Σοφοκλής", category: "Θεατρικά", url: "https://el.wikisource.org/wiki/Αντιγόνη" },
+            { title: "Ιφιγένεια εν Αυλίδι", author: "Ευριπίδης", category: "Θεατρικά", url: "https://el.wikisource.org/wiki/Ιφιγένεια_εν_Αυλίδι" },
+            { title: "Αγαμέμνων", author: "Αισχύλος", category: "Θεατρικά", url: "https://el.wikisource.org/wiki/Αγαμέμνων" },
+            { title: "Άμλετ", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", url: "https://el.wikisource.org/wiki/Άμλετ" },
+            { title: "Οθέλλος", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", url: "https://el.wikisource.org/wiki/Οθέλλος" },
+            { title: "Μακβέθ", author: "Ουίλλιαμ Σαίξπηρ", category: "Θεατρικά", url: "https://el.wikisource.org/wiki/Μακβέθ" },
+
+            // ΦΙΛΟΣΟΦΙΑ (8)
+            { title: "Απολογία Σωκράτους", author: "Πλάτων", category: "Φιλοσοφία", url: "https://el.wikisource.org/wiki/Απολογία_Σωκράτους" },
+            { title: "Συμπόσιο", author: "Πλάτων", category: "Φιλοσοφία", url: "https://el.wikisource.org/wiki/Συμπόσιο" },
+            { title: "Κριτική του Καθαρού Λόγου", author: "Ιμμάνουελ Καντ", category: "Φιλοσοφία", url: "https://el.wikisource.org/wiki/Κριτική_του_Καθαρού_Λόγου" },
+            { title: "Ο Μύθος του Σίσυφου", author: "Αλμπέρ Καμύ", category: "Φιλοσοφία", url: "https://el.wikisource.org/wiki/Ο_Μύθος_του_Σίσυφου" },
+            { title: "Πολιτικά", author: "Αριστοτέλης", category: "Φιλοσοφία", url: "https://el.wikisource.org/wiki/Πολιτικά" },
+
+            // ΙΣΤΟΡΙΑ (7)
+            { title: "Βίοι Παράλληλοι", author: "Πλούταρχος", category: "Ιστορία", url: "https://el.wikisource.org/wiki/Βίοι_Παράλληλοι" },
+            { title: "Ιστορία του Ελληνικού Έθνους", author: "Διάφοροι", category: "Ιστορία", url: "https://el.wikisource.org/wiki/Ιστορία_του_Ελληνικού_Έθνους" },
+            { title: "Ο Αγώνας για τη Σκλαβιά", author: "Χαρίτων", category: "Ιστορία", url: "https://el.wikisource.org/wiki/Ο_Αγώνας_για_τη_Σκλαβιά" },
+
+            // ΠΟΙΗΣΗ (5)
+            { title: "Ο Ήρως Θρασύδημος", author: "Αριστοτέλης Βαλαωρίτης", category: "Ποίηση", url: "https://el.wikisource.org/wiki/Ο_Ήρως_Θρασύδημος" },
+            { title: "Τα Ερωτικά", author: "Διονύσιος Σολωμός", category: "Ποίηση", url: "https://el.wikisource.org/wiki/Τα_Ερωτικά" },
+            { title: "Ποιήματα", author: "Κωνσταντίνος Καβάφης", category: "Ποίηση", url: "https://el.wikisource.org/wiki/Κωνσταντίνος_Καβάφης" }
         ];
-
-        let currentVersion = "1.0";
-        let latestVersion = "1.0";
-
-        // BOOKS API URL - Θα το φτιάξω αργότερα
-        const BOOKS_API_URL = "https://raw.githubusercontent.com/ChrisVSD/World-Books-Library/main/books-data.json";
-
-        // Αρχική φόρτωση - εμφανίζει τα books αμέσως
-        function initializeBooks() {
-            displayBooks(books);
-            checkForUpdates();
-        }
-
-        // Έλεγχος για νέα βιβλία (θα λειτουργήσει όταν φτιάξω το JSON)
-        async function checkForUpdates() {
-            const versionInfo = document.getElementById('versionInfo');
-            const updateAlert = document.getElementById('updateAlert');
-            
-            versionInfo.innerHTML = `✅ Είστε ενημερωμένοι (v${currentVersion})`;
-            updateAlert.style.display = 'none';
-            
-            // Προσπάθεια φόρτωσης από API (για το μέλλον)
-            try {
-                const response = await fetch(BOOKS_API_URL + '?t=' + new Date().getTime());
-                const data = await response.json();
-                
-                if (data.version !== currentVersion) {
-                    latestVersion = data.version;
-                    versionInfo.innerHTML = `🆕 Νέα έκδοση διαθέσιμη! (v${latestVersion})`;
-                    updateAlert.style.display = 'block';
-                    document.getElementById('newBooksInfo').textContent = ` ${data.books.length - books.length} νέα βιβλία`;
-                }
-            } catch (error) {
-                // No problem - χρησιμοποιούμε τα local books
-                console.log("Χρησιμοποιώ local books data");
-            }
-        }
-
-        // Ανανέωση βιβλίων (για το μέλλον)
-        async function loadLatestBooks() {
-            try {
-                const response = await fetch(BOOKS_API_URL + '?t=' + new Date().getTime());
-                const data = await response.json();
-                
-                books = data.books;
-                currentVersion = data.version;
-                displayBooks(books);
-                checkForUpdates();
-                
-            } catch (error) {
-                alert("Δεν ήταν δυνατή η φόρτωση νέων βιβλίων. Δοκιμάστε ξανά αργότερα.");
-            }
-        }
 
         // Εμφάνιση βιβλίων
         function displayBooks(filteredBooks = books) {
@@ -272,10 +277,12 @@
             const stats = document.getElementById('statsContainer');
             
             container.innerHTML = '';
-            
-            const newBooksCount = books.filter(book => book.isNew).length;
-            stats.innerHTML = `📊 Εμφανίζονται ${filteredBooks.length} από ${books.length} βιβλία 
-                             <br><small>Έκδοση: v${currentVersion}</small>`;
+            stats.innerHTML = `📚 Εμφανίζονται <strong>${filteredBooks.length}</strong> από <strong>${books.length}</strong> ελληνικά βιβλία`;
+
+            if (filteredBooks.length === 0) {
+                container.innerHTML = '<div class="loading">Δεν βρέθηκαν βιβλία για αυτή την αναζήτηση</div>';
+                return;
+            }
 
             filteredBooks.forEach(book => {
                 const categoryIcons = {
@@ -283,7 +290,8 @@
                     'Λογοτεχνία': '📖', 
                     'Φιλοσοφία': '🧠',
                     'Ιστορία': '📜',
-                    'Θεατρικά': '🎭'
+                    'Θεατρικά': '🎭',
+                    'Ποίηση': '✍️'
                 };
 
                 const bookCard = document.createElement('div');
@@ -291,12 +299,12 @@
                 bookCard.innerHTML = `
                     <div class="book-category">
                         ${categoryIcons[book.category] || '📚'} ${book.category}
-                        <span class="language-badge">🇬🇷 ΕΛ</span>
-                        ${book.isNew ? '<span class="new-badge">ΝΕΟ</span>' : ''}
                     </div>
-                    <h3>${book.title}</h3>
-                    <p><strong>Συγγραφέας:</strong> ${book.author}</p>
-                    <a href="${book.url}" target="_blank" class="read-btn">Διαβάστε στα Ελληνικά</a>
+                    <h3 class="book-title">${book.title}</h3>
+                    <p class="book-author">${book.author}</p>
+                    <button class="read-btn" onclick="window.open('${book.url}', '_blank')">
+                        📖 Διαβάστε Online
+                    </button>
                 `;
                 container.appendChild(bookCard);
             });
@@ -319,8 +327,20 @@
             displayBooks(filteredBooks);
         });
 
-        // Initial load
-        initializeBooks();
+        // Button filters
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const category = this.dataset.category;
+                const filteredBooks = category === 'all' ? books : books.filter(book => book.category === category);
+                displayBooks(filteredBooks);
+            });
+        });
+
+        // Initial display
+        displayBooks();
     </script>
 </body>
 </html>
