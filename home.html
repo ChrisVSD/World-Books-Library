@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dentist Mega Book PRO - Ολοκληρωμένη Οδοντιατρική Πλατφόρμα</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Ολοκληρωμένος Οδηγός Οδοντιατρικών Παθήσεων</title>
     <style>
         :root {
-            --primary: #1a5f7a;
-            --secondary: #159895;
+            --primary: #2c7873;
+            --secondary: #6fb98f;
             --accent: #ff9a76;
-            --emergency: #e74c3c;
-            --success: #27ae60;
-            --warning: #f39c12;
             --light: #f8f9fa;
             --dark: #2c3e50;
-            --text: #2d3436;
-            --border: #dfe6e9;
-            --shadow: 0 8px 30px rgba(0,0,0,0.12);
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --text: #333;
+            --border: #e0e0e0;
         }
         
         * {
@@ -29,91 +23,83 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
+            line-height: 1.6;
             color: var(--text);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
+            background: #f5f7fa;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
         
-        /* Header */
-        .professional-header {
-            background: var(--gradient);
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 1.5rem 0;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+            padding: 2rem 0;
+            text-align: center;
         }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
         
-        .logo-section {
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .search-section {
+            background: white;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
             display: flex;
-            align-items: center;
             gap: 1rem;
         }
         
-        .logo-icon {
-            font-size: 3rem;
-        }
-        
-        .logo-text h1 {
-            font-size: 2rem;
-            margin-bottom: 0.3rem;
-        }
-        
-        .developer-badge {
-            background: rgba(255,255,255,0.15);
-            padding: 0.7rem 1.5rem;
+        .search-box input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border);
             border-radius: 25px;
             font-size: 1rem;
+            outline: none;
         }
         
-        /* Navigation */
-        .clinical-nav {
-            background: white;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .search-box input:focus {
+            border-color: var(--primary);
         }
         
-        .nav-container {
+        .categories {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
             gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
         }
         
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
+        .category-btn {
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
             padding: 0.8rem 1.5rem;
             border-radius: 25px;
+            cursor: pointer;
             transition: all 0.3s;
+            font-weight: 600;
         }
         
-        .nav-links a:hover, .nav-links a.active {
+        .category-btn.active, .category-btn:hover {
             background: var(--primary);
             color: white;
         }
         
-        /* Main Content */
         .main-content {
             display: grid;
             grid-template-columns: 300px 1fr;
@@ -121,19 +107,12 @@
             margin: 2rem 0;
         }
         
-        /* Sidebar */
-        .clinical-sidebar {
+        .sidebar {
             background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             height: fit-content;
-            position: sticky;
-            top: 120px;
-        }
-        
-        .sidebar-section {
-            margin-bottom: 2rem;
         }
         
         .sidebar h3 {
@@ -155,7 +134,7 @@
             text-decoration: none;
             color: var(--text);
             display: block;
-            padding: 0.8rem;
+            padding: 0.7rem;
             border-radius: 8px;
             transition: all 0.3s;
         }
@@ -165,424 +144,492 @@
             color: white;
         }
         
-        /* Content */
-        .clinical-content {
+        .content {
             background: white;
-            border-radius: 15px;
+            border-radius: 10px;
             padding: 2rem;
-            box-shadow: var(--shadow);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
-        .clinical-section {
+        .section {
             margin-bottom: 3rem;
         }
         
-        .section-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid var(--secondary);
-        }
-        
-        .section-header h2 {
+        .section h2 {
             color: var(--primary);
-            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
         }
         
-        /* Procedure Cards */
-        .procedure-grid {
+        .disease-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
+            gap: 1.5rem;
         }
         
-        .procedure-card {
+        .disease-card {
             background: var(--light);
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 1.5rem;
             transition: all 0.3s;
             border-left: 5px solid var(--primary);
         }
         
-        .procedure-card:hover {
+        .disease-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         
-        .procedure-card h3 {
+        .disease-card h3 {
             color: var(--primary);
             margin-bottom: 1rem;
         }
         
-        .clinical-tools, .clinical-meds {
-            background: rgba(255,255,255,0.9);
-            padding: 1rem;
-            border-radius: 8px;
+        .symptoms, .treatment, .medication {
             margin-top: 1rem;
-            border-left: 3px solid var(--accent);
         }
         
-        .clinical-tools h4, .clinical-meds h4 {
+        .symptoms h4, .treatment h4, .medication h4 {
             color: var(--dark);
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .tools-list, .meds-list {
+        .symptoms ul, .treatment ul, .medication ul {
             list-style: none;
-            font-size: 0.9rem;
+            padding-left: 1rem;
         }
         
-        .tools-list li, .meds-list li {
+        .symptoms li, .treatment li, .medication li {
             margin-bottom: 0.3rem;
             padding-left: 1rem;
             position: relative;
         }
         
-        .tools-list li:before, .meds-list li:before {
-            content: "▸";
+        .symptoms li:before, .treatment li:before, .medication li:before {
+            content: "•";
             color: var(--secondary);
+            font-weight: bold;
             position: absolute;
             left: 0;
         }
         
-        /* Video Section */
-        .video-section {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow);
-        }
-        
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .video-card {
-            background: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.3s;
-        }
-        
-        .video-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .video-placeholder {
-            height: 200px;
-            background: var(--dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-        }
-        
-        .video-info {
-            padding: 1rem;
-        }
-        
-        /* AI Assistant */
-        .ai-assistant {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 350px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 1000;
-            display: none;
-        }
-        
-        .ai-header {
-            background: var(--gradient);
-            color: white;
-            padding: 1rem;
-            border-radius: 15px 15px 0 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .ai-chat {
-            height: 300px;
-            overflow-y: auto;
-            padding: 1rem;
-        }
-        
-        .ai-message {
-            margin-bottom: 1rem;
-            padding: 0.8rem;
-            border-radius: 10px;
-            max-width: 80%;
-        }
-        
-        .ai-message.bot {
-            background: var(--light);
-        }
-        
-        .ai-message.user {
-            background: var(--primary);
-            color: white;
-            margin-left: auto;
-        }
-        
-        .ai-input {
-            display: flex;
-            padding: 1rem;
-            border-top: 1px solid var(--border);
-        }
-        
-        .ai-input input {
-            flex: 1;
-            padding: 0.8rem;
-            border: 1px solid var(--border);
-            border-radius: 25px;
-            outline: none;
-        }
-        
-        .ai-input button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.2rem;
-            border-radius: 25px;
-            margin-left: 0.5rem;
-            cursor: pointer;
-        }
-        
-        /* Floating Buttons */
-        .fab-container {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            z-index: 999;
-        }
-        
-        .fab {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            border: none;
-            background: var(--primary);
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-        }
-        
-        /* Footer */
         footer {
             background: var(--dark);
             color: white;
-            padding: 3rem 0 1rem;
-            margin-top: 4rem;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .copyright {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .disease-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="professional-header">
+    <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-icon">🦷💊</div>
-                    <div class="logo-text">
-                        <h1>Dentist Mega Book PRO</h1>
-                        <p>Ολοκληρωμένη Οδοντιατρική Πλατφόρμα</p>
-                    </div>
-                </div>
-                <div class="developer-badge">
-                    Developed by <strong>Vasdekis Christos</strong>
-                </div>
-            </div>
+            <div class="logo">🦷</div>
+            <h1>Ολοκληρωμένος Οδηγός Οδοντιατρικών Παθήσεων</h1>
+            <p>Συμπτώματα - Θεραπείες - Φάρμακα</p>
         </div>
     </header>
 
-    <!-- Navigation -->
-    <nav class="clinical-nav">
-        <div class="container">
-            <div class="nav-container">
-                <ul class="nav-links">
-                    <li><a href="#diagnosis" class="active">Διάγνωση</a></li>
-                    <li><a href="#treatment">Θεραπείες</a></li>
-                    <li><a href="#surgery">Χειρουργική</a></li>
-                    <li><a href="#videos">Βίντεο</a></li>
-                    <li><a href="#emergency">Επείγοντα</a></li>
-                </ul>
+    <div class="container">
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Αναζήτηση πάθησης, συμπτώματος ή φαρμάκου...">
+            </div>
+            <div class="categories">
+                <button class="category-btn active" data-category="all">Όλες οι Παθήσεις</button>
+                <button class="category-btn" data-category="caries">Τερηδόνα</button>
+                <button class="category-btn" data-category="periodontal">Περιοδοντικές</button>
+                <button class="category-btn" data-category="endodontic">Ενδοδοντικές</button>
+                <button class="category-btn" data-category="surgery">Χειρουργικές</button>
             </div>
         </div>
-    </nav>
 
-    <!-- Main Content -->
-    <div class="container">
         <div class="main-content">
-            <!-- Sidebar -->
-            <aside class="clinical-sidebar">
-                <div class="sidebar-section">
-                    <h3>Κατηγορίες</h3>
-                    <ul>
-                        <li><a href="#caries" class="active">Τερηδόνα</a></li>
-                        <li><a href="#periodontal">Περιοδοντικές</a></li>
-                        <li><a href="#endodontic">Ενδοδοντικές</a></li>
-                        <li><a href="#prosthetic">Προσθετική</a></li>
-                        <li><a href="#surgery">Χειρουργική</a></li>
-                    </ul>
-                </div>
+            <aside class="sidebar">
+                <h3>Κατηγορίες Παθήσεων</h3>
+                <ul>
+                    <li><a href="#caries" class="active">Τερηδόνα & Κοιλότητες</a></li>
+                    <li><a href="#gingivitis">Γλυγγίτιδα</a></li>
+                    <li><a href="#periodontitis">Περιοδοντίτιδα</a></li>
+                    <li><a href="#pulpitis">Πυρρία</a></li>
+                    <li><a href="#abscess">Απόστημα</a></li>
+                    <li><a href="#sensitivity">Ευαισθησία Δοντιών</a></li>
+                    <li><a href="#bruxism">Βρυγμός</a></li>
+                    <li><a href="#tmj">Διαταραχή ATM</a></li>
+                    <li><a href="#oral-cancer">Στοματικός Καρκίνος</a></li>
+                    <li><a href="#emergency">Οδοντιατρικά Επείγοντα</a></li>
+                </ul>
                 
-                <div class="sidebar-section">
-                    <h3>Εργαλεία</h3>
-                    <ul>
-                        <li><a href="#tools">Διαγνωστικά</a></li>
-                        <li><a href="#medications">Φάρμακα</a></li>
-                        <li><a href="#procedures">Διαδικασίες</a></li>
-                    </ul>
-                </div>
+                <h3 style="margin-top: 2rem;">Φαρμακευτική Κάλυψη</h3>
+                <ul>
+                    <li><a href="#anesthetics">Αναισθητικά</a></li>
+                    <li><a href="#antibiotics">Αντιβιοτικά</a></li>
+                    <li><a href="#analgesics">Αναλγητικά</a></li>
+                    <li><a href="#antiinflammatories">Αντιφλεγμονώδη</a></li>
+                </ul>
             </aside>
 
-            <!-- Content -->
-            <main class="clinical-content">
-                <!-- Diagnosis Section -->
-                <section id="diagnosis" class="clinical-section">
-                    <div class="section-header">
-                        <h2>Σύστημα Κλινικής Διάγνωσης</h2>
-                    </div>
-                    
-                    <div class="procedure-grid">
-                        <div class="procedure-card">
-                            <h3>Τερηδόνα - Επιφανειακή</h3>
+            <main class="content">
+                <!-- Τερηδόνα & Κοιλότητες -->
+                <section id="caries" class="section">
+                    <h2>🦷 Τερηδόνα & Κοιλότητες</h2>
+                    <div class="disease-grid">
+                        <div class="disease-card">
+                            <h3>Επιφανειακή Τερηδόνα</h3>
                             <p>Πρώιμη φάση τερηδόνας που επηρεάζει μόνο το επιφανειακό σμάλτο.</p>
                             
-                            <div class="clinical-tools">
-                                <h4>Προτεινόμενα Εργαλεία:</h4>
-                                <ul class="tools-list">
-                                    <li>Εξελκυστήρας αιχμής</li>
-                                    <li>Διόπτρα οδοντιατρική</li>
-                                    <li>Διαγνωστικός καθετήρας</li>
-                                    <li>Φωτεινός διαφανές</li>
+                            <div class="symptoms">
+                                <h4>📋 Συμπτώματα:</h4>
+                                <ul>
+                                    <li>Λευκές κηλίδες στο σμάλτο</li>
+                                    <li>Ευαισθησία σε γλυκό</li>
+                                    <li>Ήπιος πόνος</li>
+                                    <li>Ορατές κοιλότητες</li>
                                 </ul>
                             </div>
                             
-                            <div class="clinical-meds">
-                                <h4>Προτεινόμενα Φάρμακα:</h4>
-                                <ul class="meds-list">
-                                    <li>Φθοριούχο αφρό</li>
-                                    <li>Χλωρεξιδίνη 0.12%</li>
+                            <div class="treatment">
+                                <h4>🛠️ Θεραπεία:</h4>
+                                <ul>
+                                    <li>Επισμάλτωση</li>
+                                    <li>Φθοριοποίηση</li>
+                                    <li>Στέγασμα κοιλότητας</li>
+                                    <li>Βελτιωμένη στοματική υγιεινή</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Φάρμακα:</h4>
+                                <ul>
+                                    <li>Φθοριούχο αφρό 1.23%</li>
+                                    <li>Χλωρεξιδίνη 0.12% πλύσιμο</li>
                                     <li>Φθοριούχο γέλιο</li>
                                 </ul>
                             </div>
                         </div>
                         
-                        <div class="procedure-card">
-                            <h3>Περιοδοντίτιδα</h3>
+                        <div class="disease-card">
+                            <h3>Βαθιά Τερηδόνα</h3>
+                            <p>Προχωρημένη τερηδόνα που φθάνει μέχρι την πούλπα του δοντιού.</p>
+                            
+                            <div class="symptoms">
+                                <h4>📋 Συμπτώματα:</h4>
+                                <ul>
+                                    <li>Έντονος πόνος</li>
+                                    <li>Ευαισθησία σε κρύο/ζεστό</li>
+                                    <li>Οσμή από το στόμα</li>
+                                    <li>Οίδημα στο πρόσωπο</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="treatment">
+                                <h4>🛠️ Θεραπεία:</h4>
+                                <ul>
+                                    <li>Ενδοδοντική θεραπεία</li>
+                                    <li>Αφαίρεση πούλπας</li>
+                                    <li>Στεφάνη</li>
+                                    <li>Εξαγωγή (σε ακραίες περιπτώσεις)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Φάρμακα:</h4>
+                                <ul>
+                                    <li>Αρτικαΐνη 4% (αναισθητικό)</li>
+                                    <li>Αμοξυκυλλίνη 500mg</li>
+                                    <li>Ιβουπροφαίνη 400mg</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Γλυγγίτιδα -->
+                <section id="gingivitis" class="section">
+                    <h2>🩸 Γλυγγίτιδα</h2>
+                    <div class="disease-grid">
+                        <div class="disease-card">
+                            <h3>Οξεία Γλυγγίτιδα</h3>
+                            <p>Φλεγμονή των ούλων λόγω συσσώρευσης βακτηριακής πλάκας.</p>
+                            
+                            <div class="symptoms">
+                                <h4>📋 Συμπτώματα:</h4>
+                                <ul>
+                                    <li>Ερυθρότητα των ούλων</li>
+                                    <li>Οίδημα</li>
+                                    <li>Αιμορραγία κατά το βούρτσισμα</li>
+                                    <li>Άσχημη οσμή από το στόμα</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="treatment">
+                                <h4>🛠️ Θεραπεία:</h4>
+                                <ul>
+                                    <li>Επαγγελματικός καθαρισμός</li>
+                                    <li>Βελτίωση στοματικής υγιεινής</li>
+                                    <li>Χρήση οδοντικού νήματος</li>
+                                    <li>Αντισηπτικά πλυσίσματα</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Φάρμακα:</h4>
+                                <ul>
+                                    <li>Χλωρεξιδίνη 0.12%</li>
+                                    <li>Αντιβακτηριδιακή οδοντόκρεμα</li>
+                                    <li>Βιταμίνη C</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Περιοδοντίτιδα -->
+                <section id="periodontitis" class="section">
+                    <h2>⚠️ Περιοδοντίτιδα</h2>
+                    <div class="disease-grid">
+                        <div class="disease-card">
+                            <h3>Χρόνια Περιοδοντίτιδα</h3>
                             <p>Προχωρημένη νόσος με απώλεια οστού και περιοδοντικών δεσμών.</p>
                             
-                            <div class="clinical-tools">
-                                <h4>Προτεινόμενα Εργαλεία:</h4>
-                                <ul class="tools-list">
-                                    <li>Χειρουργικά μαχαιράκια</li>
-                                    <li>Περιοδοντική τρυπανοφόρος</li>
-                                    <li>Σύστημα laser</li>
+                            <div class="symptoms">
+                                <h4>📋 Συμπτώματα:</h4>
+                                <ul>
+                                    <li>Υπέρπτωση ούλων</li>
+                                    <li>Κίνηση δοντιών</li>
+                                    <li>Πύον από τις θήκες</li>
+                                    <li>Χαλάρωση δοντιών</li>
+                                    <li>Αλλαγή στο δάγκωμα</li>
                                 </ul>
                             </div>
                             
-                            <div class="clinical-meds">
-                                <h4>Προτεινόμενα Φάρμακα:</h4>
-                                <ul class="meds-list">
-                                    <li>Αμοξυκυλλίνη</li>
-                                    <li>Κλινδαμυκίνη</li>
-                                    <li>Αζιθρομυκίνη</li>
+                            <div class="treatment">
+                                <h4>🛠️ Θεραπεία:</h4>
+                                <ul>
+                                    <li>Κύρωση και ισοπέδωση ριζών</li>
+                                    <li>Περιοδοντική χειρουργική</li>
+                                    <li>Μεταμόσχευση οστού</li>
+                                    <li>Εξαγωγή ασθενών δοντιών</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Φάρμακα:</h4>
+                                <ul>
+                                    <li>Δοξυκυκλίνη 100mg</li>
+                                    <li>Μετρονιδαζόλη 500mg</li>
+                                    <li>Τοπικά αντιβιοτικά τσόφλια</li>
+                                    <li>Αντιφλεγμονώδη σπρέυ</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Treatment Section -->
-                <section id="treatment" class="clinical-section">
-                    <div class="section-header">
-                        <h2>Θεραπευτικές Παρεμβάσεις</h2>
-                    </div>
-                    
-                    <div class="procedure-grid">
-                        <div class="procedure-card">
-                            <h3>Ενδοδοντική Θεραπεία</h3>
-                            <p>Πλήρης ενδοδοντική θεραπεία με σύγχρονα συστήματα.</p>
+                <!-- Πυρρία -->
+                <section id="pulpitis" class="section">
+                    <h2>🔥 Πυρρία</h2>
+                    <div class="disease-grid">
+                        <div class="disease-card">
+                            <h3>Οξεία Πυρρία</h3>
+                            <p>Φλεγμονή της πούλπας του δοντιού με έντονο πόνο.</p>
                             
-                            <div class="clinical-tools">
-                                <h4>Εξειδικευμένα Εργαλεία:</h4>
-                                <ul class="tools-list">
-                                    <li>Ενδοδοντικό τρυπάνι</li>
-                                    <li>Νικελο-τιτανικοί καθετήρες</li>
-                                    <li>Σύστημα συσκευασμού</li>
+                            <div class="symptoms">
+                                <h4>📋 Συμπτώματα:</h4>
+                                <ul>
+                                    <li>Σπονδυλικός πόνος</li>
+                                    <li>Ευαισθησία σε θερμοκρασιακές αλλαγές</li>
+                                    <li>Πόνος που διαρκεί λεπτά</li>
+                                    <li>Πόνος που ξυπνάει το βράδυ</li>
                                 </ul>
                             </div>
                             
-                            <div class="clinical-meds">
-                                <h4>Ειδική Φαρμακευτική:</h4>
-                                <ul class="meds-list">
-                                    <li>Αρτικαΐνη 4%</li>
-                                    <li>Καλκίου υδροξείδιο</li>
-                                    <li>Ενδοδοντικό σφραγιστικό</li>
+                            <div class="treatment">
+                                <h4>🛠️ Θεραπεία:</h4>
+                                <ul>
+                                    <li>Ενδοδοντική θεραπεία</li>
+                                    <li>Απονεκρωτική θεραπεία πούλπας</li>
+                                    <li>Στέγασμα με καλκίου υδροξείδιο</li>
+                                    <li>Εξαγωγή (αν δεν είναι δυνατή η διάσωση)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Φάρμακα:</h4>
+                                <ul>
+                                    <li>Λιδοκαΐνη 2% (αναισθητικό)</li>
+                                    <li>Αμοξυκυλλίνη 500mg</li>
+                                    <li>Ιβουπροφαίνη 600mg</li>
+                                    <li>Παρακεταμόλη 1000mg</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Video Section -->
-                <section id="videos" class="clinical-section">
-                    <div class="section-header">
-                        <h2>Βιβλιοθήκη Χειρουργικών Βίντεο</h2>
-                    </div>
-                    
-                    <div class="video-grid">
-                        <div class="video-card">
-                            <div class="video-placeholder">
-                                <i class="fas fa-play-circle"></i>
+                <!-- Απόστημα -->
+                <section id="abscess" class="section">
+                    <h2>🌡️ Απόστημα</h2>
+                    <div class="disease-grid">
+                        <div class="disease-card">
+                            <h3>Περιοδοντικό Απόστημα</h3>
+                            <p>Λοίμωξη με συλλογή πύου γύρω από τη ρίζα του δοντιού.</p>
+                            
+                            <div class="symptoms">
+                                <h4>📋 Συμπτώματα:</h4>
+                                <ul>
+                                    <li>Έντονος, παλλόμενος πόνος</li>
+                                    <li>Οίδημα στο πρόσωπο</li>
+                                    <li>Πυρετός</li>
+                                    <li>Δυσαρωδία</li>
+                                    <li>Δυσκολία στο άνοιγμα του στόματος</li>
+                                </ul>
                             </div>
-                            <div class="video-info">
-                                <h4>Ενδοδοντική Θεραπεία</h4>
-                                <p>Πλήρης διαδικασία βήμα-βήμα</p>
-                                <button onclick="playVideo('endodontic')" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
-                                    <i class="fas fa-play"></i> Παράωξη
-                                </button>
+                            
+                            <div class="treatment">
+                                <h4>🛠️ Θεραπεία:</h4>
+                                <ul>
+                                    <li>Αποστράγγιση αποστήματος</li>
+                                    <li>Ενδοδοντική θεραπεία</li>
+                                    <li>Εξαγωγή δοντιού</li>
+                                    <li>Κύρωση και ισοπέδωση</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Φάρμακα:</h4>
+                                <ul>
+                                    <li>Αμοξυκυλλίνη 500mg κάθε 8 ώρες</li>
+                                    <li>Κλινδαμυκίνη 300mg (για αλλεργικούς)</li>
+                                    <li>Ιβουπροφαίνη 600mg</li>
+                                    <li>Παρακεταμόλη 1000mg</li>
+                                </ul>
                             </div>
                         </div>
-                        
-                        <div class="video-card">
-                            <div class="video-placeholder">
-                                <i class="fas fa-play-circle"></i>
+                    </div>
+                </section>
+
+                <!-- Ευαισθησία Δοντιών -->
+                <section id="sensitivity" class="section">
+                    <h2>🎯 Ευαισθησία Δοντιών</h2>
+                    <div class="disease-grid">
+                        <div class="disease-card">
+                            <h3>Ευαισθησία Σμάλτου</h3>
+                            <p>Έντονος πόνος από έκθεση της οδοντίνης.</p>
+                            
+                            <div class="symptoms">
+                                <h4>📋 Συμπτώματα:</h4>
+                                <ul>
+                                    <li>Πόνος από κρύο/ζεστό</li>
+                                    <li>Ευαισθησία σε γλυκό/ξινό</li>
+                                    <li>Πόνος κατά το βούρτσισμα</li>
+                                    <li>Πόνος από αέρα</li>
+                                </ul>
                             </div>
-                            <div class="video-info">
-                                <h4>Χειρουργική Εξαγωγή</h4>
-                                <p>Τεχνικές για περίπλοκες εξαγωγές</p>
-                                <button onclick="playVideo('surgery')" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
-                                    <i class="fas fa-play"></i> Παράωξη
-                                </button>
+                            
+                            <div class="treatment">
+                                <h4>🛠️ Θεραπεία:</h4>
+                                <ul>
+                                    <li>Εφαρμογή δεσμοθετικών ουσιών</li>
+                                    <li>Φθοριοποίηση</li>
+                                    <li>Λεύκανση με ελεγχόμενο τρόπο</li>
+                                    <li>Στέγασμα τραχιών</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Φάρμακα:</h4>
+                                <ul>
+                                    <li>Οδοντόκρεμα για ευαίσθητα δόντια</li>
+                                    <li>Φθοριούχο γέλιο</li>
+                                    <li>Χλωρεξιδίνη πλύσιμο</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Οδοντιατρικά Επείγοντα -->
+                <section id="emergency" class="section">
+                    <h2>🚨 Οδοντιατρικά Επείγοντα</h2>
+                    <div class="disease-grid">
+                        <div class="disease-card">
+                            <h3>Οδοντολογία</h3>
+                            <p>Έντονος πόνος που απαιτεί άμεση προσοχή.</p>
+                            
+                            <div class="symptoms">
+                                <h4>📋 Συμπτώματα:</h4>
+                                <ul>
+                                    <li>Αφόρητος πόνος</li>
+                                    <li>Οίδημα προσώπου</li>
+                                    <li>Πυρετός</li>
+                                    <li>Δυσκολία στην αναπνοή</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="treatment">
+                                <h4>🛠️ Άμεσες Ενέργειες:</h4>
+                                <ul>
+                                    <li>Αποστράγγιση αποστήματος</li>
+                                    <li>Επείγουσα ενδοδοντική θεραπεία</li>
+                                    <li>Επείγουσα εξαγωγή</li>
+                                    <li>Αντιβιοτική κάλυψη</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Επείγοντα Φάρμακα:</h4>
+                                <ul>
+                                    <li>Αμοξυκυλλίνη 2g (μονόδοςη)</li>
+                                    <li>Κλινδαμυκίνη 600mg</li>
+                                    <li>Ιβουπροφαίνη 800mg</li>
+                                    <li>Παρακεταμόλη 1000mg</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Φαρμακευτική Κάλυψη -->
+                <section id="anesthetics" class="section">
+                    <h2>💉 Αναισθητικά</h2>
+                    <div class="disease-grid">
+                        <div class="disease-card">
+                            <h3>Τοπικά Αναισθητικά</h3>
+                            
+                            <div class="medication">
+                                <h4>💊 Λιδοκαΐνη 2%</h4>
+                                <ul>
+                                    <li><strong>Δοσολογία:</strong> 1.8ml-5.4ml ανά περιοχή</li>
+                                    <li><strong>Μέγιστη δόση:</strong> 4.4mg/kg</li>
+                                    <li><strong>Διάρκεια:</strong> 60-120 λεπτά</li>
+                                    <li><strong>Σημειώσεις:</strong> Βασικό αναισθητικό για όλες τις επεμβάσεις</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="medication">
+                                <h4>💊 Αρτικαΐνη 4%</h4>
+                                <ul>
+                                    <li><strong>Δοσολογία:</strong> 0.9ml-2.7ml ανά περιοχή</li>
+                                    <li><strong>Μέγιστη δόση:</strong> 7mg/kg</li>
+                                    <li><strong>Διάρκεια:</strong> 120-180 λεπτά</li>
+                                    <li><strong>Σημειώσεις:</strong> Υψηλή ισχύς, ιδανική για κάτω γνάθο</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -591,148 +638,92 @@
         </div>
     </div>
 
-    <!-- AI Assistant -->
-    <div class="ai-assistant" id="aiAssistant">
-        <div class="ai-header">
-            <h4>Dental AI Assistant</h4>
-            <button onclick="closeAIAssistant()" style="background: none; border: none; color: white; cursor: pointer;">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="ai-chat" id="aiChat">
-            <div class="ai-message bot">
-                Γεια σας! Είμαι ο AI βοηθός σας. Πώς μπορώ να βοηθήσω σήμερα;
-            </div>
-        </div>
-        <div class="ai-input">
-            <input type="text" id="aiInput" placeholder="Πληκτρολογήστε ερώτηση...">
-            <button onclick="sendAIMessage()"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-
-    <!-- Floating Buttons -->
-    <div class="fab-container">
-        <button class="fab" onclick="toggleAIAssistant()">
-            <i class="fas fa-robot"></i>
-        </button>
-        <button class="fab" onclick="showEmergency()">
-            <i class="fas fa-ambulance"></i>
-        </button>
-    </div>
-
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div>
-                    <h3>Dentist Mega Book PRO</h3>
-                    <p>Ολοκληρωμένη πλατφόρμα οδοντιατρικής γνώσης</p>
-                </div>
-                <div>
-                    <h3>Developer</h3>
-                    <p>Vasdekis Christos</p>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2024 Dentist Mega Book PRO</p>
-            </div>
+            <p>Ολοκληρωμένος Οδηγός Οδοντιατρικών Παθήσεων & Θεραπειών</p>
+            <p>Developed by Vasdekis Christos</p>
         </div>
     </footer>
 
     <script>
-        // SIMPLE AI ASSISTANT
-        function toggleAIAssistant() {
-            const assistant = document.getElementById('aiAssistant');
-            assistant.style.display = assistant.style.display === 'none' ? 'block' : 'none';
-        }
-        
-        function closeAIAssistant() {
-            document.getElementById('aiAssistant').style.display = 'none';
-        }
-        
-        function sendAIMessage() {
-            const input = document.getElementById('aiInput');
-            const chat = document.getElementById('aiChat');
-            const message = input.value.trim();
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const diseaseCards = document.querySelectorAll('.disease-card');
             
-            if (message) {
-                // Add user message
-                const userMessage = document.createElement('div');
-                userMessage.className = 'ai-message user';
-                userMessage.textContent = message;
-                chat.appendChild(userMessage);
-                
-                // Simple AI response
-                let response = "Δεν μπορώ να απαντήσω σε αυτή την ερώτηση. Συμβουλευτείτε τα πρωτόκολλα.";
-                
-                if (message.toLowerCase().includes('τερηδόνα')) {
-                    response = "Για τερηδόνα προτείνω: Επισμάλτωση, ένθεση ή στεφάνη. Χρησιμοποιήστε εξελκυστήρα και διόπτρα για διάγνωση.";
-                } else if (message.toLowerCase().includes('πόνος')) {
-                    response = "Πόνος μπορεί να οφείλεται σε τερηδόνα, πυρρία ή απόστημα. Απαιτεί άμεση εξέταση και απεικόνιση.";
-                } else if (message.toLowerCase().includes('αντιβιοτικό')) {
-                    response = "Συνήθη αντιβιοτικά: Αμοξυκυλλίνη 500mg κάθε 8 ώρες, Κλινδαμυκίνη 300mg για αλλεργίες σε πενικιλλίνη.";
-                }
-                
-                setTimeout(() => {
-                    const botMessage = document.createElement('div');
-                    botMessage.className = 'ai-message bot';
-                    botMessage.textContent = response;
-                    chat.appendChild(botMessage);
-                    chat.scrollTop = chat.scrollHeight;
-                }, 1000);
-                
-                input.value = '';
-                chat.scrollTop = chat.scrollHeight;
-            }
-        }
-        
-        // VIDEO PLAYER
-        function playVideo(type) {
-            alert('📹 Βίντεο ' + type + ' θα ανοιγε σε πλήρη έκδοση. Σε πραγματική εφαρμογή θα εμφανιζόταν βίντεο player.');
-        }
-        
-        // EMERGENCY FUNCTION
-        function showEmergency() {
-            alert('🚨 Επείγον Πρωτόκολλο: Άμεση προσοχή για οδοντολογία, αποστήματα, τραυματισμούς. Κλήση 166 για κρίσιμα περιστατικά.');
-        }
-        
-        // SMOOTH SCROLLING
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+            diseaseCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
                 }
             });
         });
         
-        // ACTIVE NAVIGATION
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+        // Category filtering
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
+                
+                const category = this.dataset.category;
+                const sections = document.querySelectorAll('.section');
+                
+                sections.forEach(section => {
+                    if (category === 'all' || section.id === category) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
             });
         });
         
-        // ENTER KEY FOR AI CHAT
-        document.getElementById('aiInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendAIMessage();
-            }
+        // Smooth scrolling for sidebar links
+        document.querySelectorAll('.sidebar a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active states
+                    document.querySelectorAll('.sidebar a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
         });
         
-        // SHOW WELCOME MESSAGE
-        setTimeout(() => {
-            const chat = document.getElementById('aiChat');
-            const welcome = document.createElement('div');
-            welcome.className = 'ai-message bot';
-            welcome.textContent = 'Είμαι εδώ για να βοηθήσω με διαγνώσεις, θεραπείες και φαρμακευτικές οδηγίες!';
-            chat.appendChild(welcome);
-        }, 2000);
+        // Update active section based on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const sidebarLinks = document.querySelectorAll('.sidebar a');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                if (window.scrollY >= sectionTop) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
 </body>
 </html>
