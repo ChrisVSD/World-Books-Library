@@ -3,303 +3,344 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dentist Mega Book ULTIMATE - Η Ολοκληρωμένη Λύση</title>
+    <title>Dentist Mega Book PRO - Ολοκληρωμένη Οδοντιατρική Πλατφόρμα</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* EXISTING PROFESSIONAL STYLES REMAIN THE SAME */
+        :root {
+            --primary: #1a5f7a;
+            --secondary: #159895;
+            --accent: #ff9a76;
+            --emergency: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+            --text: #2d3436;
+            --border: #dfe6e9;
+            --shadow: 0 8px 30px rgba(0,0,0,0.12);
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
         
-        /* NEW VIDEO & INTERACTIVE STYLES */
-        .video-library-section {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .professional-header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-icon {
+            font-size: 3rem;
+        }
+        
+        .logo-text h1 {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .developer-badge {
+            background: rgba(255,255,255,0.15);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+        
+        /* Navigation */
+        .clinical-nav {
             background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        /* Sidebar */
+        .clinical-sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+            padding: 0.8rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar a:hover, .sidebar a.active {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Content */
+        .clinical-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .clinical-section {
+            margin-bottom: 3rem;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--secondary);
+        }
+        
+        .section-header h2 {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        /* Procedure Cards */
+        .procedure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .procedure-card {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .procedure-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .procedure-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .clinical-tools, .clinical-meds {
+            background: rgba(255,255,255,0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .clinical-tools h4, .clinical-meds h4 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .tools-list, .meds-list {
+            list-style: none;
+            font-size: 0.9rem;
+        }
+        
+        .tools-list li, .meds-list li {
+            margin-bottom: 0.3rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .tools-list li:before, .meds-list li:before {
+            content: "▸";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Video Section */
+        .video-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
             margin: 2rem 0;
             box-shadow: var(--shadow);
-            border: 1px solid var(--border);
         }
         
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
         
         .video-card {
             background: var(--light);
-            border-radius: 15px;
+            border-radius: 10px;
             overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
+            transition: all 0.3s;
         }
         
         .video-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
         }
         
-        .video-container {
-            position: relative;
+        .video-placeholder {
             height: 200px;
             background: var(--dark);
-            overflow: hidden;
-        }
-        
-        .video-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .video-card:hover .video-overlay {
-            opacity: 1;
-        }
-        
-        .play-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--primary);
             color: white;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .play-btn:hover {
-            background: var(--secondary);
-            transform: scale(1.1);
+            font-size: 3rem;
         }
         
         .video-info {
-            padding: 1.5rem;
-        }
-        
-        .video-info h4 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .video-meta {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: var(--dark);
-        }
-        
-        /* 3D Anatomy Styles */
-        .anatomy-section {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-        
-        .anatomy-viewer {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .model-controls {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .model-controls button {
-            background: var(--light);
-            border: 2px solid var(--border);
-            padding: 0.8rem 1.2rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .model-controls button:hover {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        #toothModel3D {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            border: 2px solid var(--border);
-        }
-        
-        .anatomy-info {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border-left: 4px solid var(--secondary);
-        }
-        
-        /* Simulation Styles */
-        .simulation-section {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-        
-        .simulator-container {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .tool-palette {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .tool-btn {
-            background: var(--light);
-            border: 2px solid var(--border);
             padding: 1rem;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            flex: 1;
-            min-width: 120px;
-            justify-content: center;
         }
         
-        .tool-btn.active {
-            background: var(--primary);
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+        }
+        
+        .ai-header {
+            background: var(--gradient);
             color: white;
-            border-color: var(--primary);
-        }
-        
-        .tool-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        #surgerySimulator {
-            width: 100%;
-            height: 400px;
-            background: #f8f9fa;
-            border: 2px solid var(--border);
-            border-radius: 15px;
-            cursor: crosshair;
-        }
-        
-        .simulation-stats {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 15px;
-            border-left: 4px solid var(--accent);
-        }
-        
-        .stat-item {
+            padding: 1rem;
+            border-radius: 15px 15px 0 0;
             display: flex;
             justify-content: space-between;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
+            align-items: center;
         }
         
-        /* Webinar Styles */
-        .webinar-section {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2rem 0;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-        }
-        
-        .webinar-container {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .live-webinar {
-            background: var(--light);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        .video-stream {
-            position: relative;
+        .ai-chat {
             height: 300px;
-            background: var(--dark);
-        }
-        
-        .video-stream video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .live-badge {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--emergency);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            animation: pulse 2s infinite;
-        }
-        
-        .webinar-chat {
-            padding: 1.5rem;
-            height: 200px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .chat-messages {
-            flex: 1;
             overflow-y: auto;
+            padding: 1rem;
+        }
+        
+        .ai-message {
             margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            max-width: 80%;
         }
         
-        .chat-input {
+        .ai-message.bot {
+            background: var(--light);
+        }
+        
+        .ai-message.user {
+            background: var(--primary);
+            color: white;
+            margin-left: auto;
+        }
+        
+        .ai-input {
             display: flex;
-            gap: 0.5rem;
+            padding: 1rem;
+            border-top: 1px solid var(--border);
         }
         
-        .chat-input input {
+        .ai-input input {
             flex: 1;
             padding: 0.8rem;
             border: 1px solid var(--border);
@@ -307,528 +348,391 @@
             outline: none;
         }
         
-        .upcoming-webinars {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 15px;
-        }
-        
-        .webinar-list {
-            margin-top: 1rem;
-        }
-        
-        .webinar-item {
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .webinar-date {
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .register-btn {
+        .ai-input button {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            margin-left: 0.5rem;
             cursor: pointer;
-            transition: all 0.3s;
         }
         
-        .register-btn:hover {
-            background: var(--secondary);
+        /* Floating Buttons */
+        .fab-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 999;
         }
         
-        /* Enhanced Mobile Responsiveness */
-        @media (max-width: 1200px) {
-            .anatomy-viewer,
-            .simulator-container,
-            .webinar-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .video-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            }
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
         }
         
-        @media (max-width: 768px) {
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .model-controls,
-            .tool-palette {
-                justify-content: center;
-            }
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
     </style>
 </head>
 <body>
-    <!-- EXISTING PROFESSIONAL HEADER, NAV, DASHBOARD REMAIN THE SAME -->
+    <!-- Header -->
+    <header class="professional-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">🦷💊</div>
+                    <div class="logo-text">
+                        <h1>Dentist Mega Book PRO</h1>
+                        <p>Ολοκληρωμένη Οδοντιατρική Πλατφόρμα</p>
+                    </div>
+                </div>
+                <div class="developer-badge">
+                    Developed by <strong>Vasdekis Christos</strong>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <!-- NEW VIDEO LIBRARY SECTION -->
+    <!-- Navigation -->
+    <nav class="clinical-nav">
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="#diagnosis" class="active">Διάγνωση</a></li>
+                    <li><a href="#treatment">Θεραπείες</a></li>
+                    <li><a href="#surgery">Χειρουργική</a></li>
+                    <li><a href="#videos">Βίντεο</a></li>
+                    <li><a href="#emergency">Επείγοντα</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
     <div class="container">
-        <section class="video-library-section">
-            <div class="section-header">
-                <h2><i class="fas fa-video"></i> Βιβλιοθήκη Χειρουργικών Τεχνικών</h2>
-                <div class="video-controls">
-                    <button class="control-btn active" onclick="filterVideos('all')">
-                        <i class="fas fa-filter"></i> Όλα
-                    </button>
-                    <button class="control-btn" onclick="filterVideos('endodontic')">
-                        <i class="fas fa-toolbox"></i> Ενδοδοντικά
-                    </button>
-                    <button class="control-btn" onclick="filterVideos('surgery')">
-                        <i class="fas fa-scalpel"></i> Χειρουργική
-                    </button>
-                    <button class="control-btn" onclick="filterVideos('prosthetic')">
-                        <i class="fas fa-crown"></i> Προσθετική
-                    </button>
-                </div>
-            </div>
-            
-            <div class="video-grid" id="videoGrid">
-                <div class="video-card" data-category="endodontic">
-                    <div class="video-container">
-                        <video controls poster="https://via.placeholder.com/400x200/1a5f7a/ffffff?text=Endodontic+Procedure">
-                            <source src="#" type="video/mp4">
-                        </video>
-                        <div class="video-overlay">
-                            <button class="play-btn" onclick="playVideo(this)">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h4>Πλήρης Ενδοδοντική Θεραπεία</h4>
-                        <p>Βήμα-βήμα διαδικασία με σύγχρονα συστήματα rotary</p>
-                        <div class="video-meta">
-                            <span><i class="fas fa-clock"></i> 15:30</span>
-                            <span><i class="fas fa-eye"></i> 2.4K</span>
-                            <span><i class="fas fa-star"></i> 4.8</span>
-                        </div>
-                    </div>
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="clinical-sidebar">
+                <div class="sidebar-section">
+                    <h3>Κατηγορίες</h3>
+                    <ul>
+                        <li><a href="#caries" class="active">Τερηδόνα</a></li>
+                        <li><a href="#periodontal">Περιοδοντικές</a></li>
+                        <li><a href="#endodontic">Ενδοδοντικές</a></li>
+                        <li><a href="#prosthetic">Προσθετική</a></li>
+                        <li><a href="#surgery">Χειρουργική</a></li>
+                    </ul>
                 </div>
                 
-                <div class="video-card" data-category="surgery">
-                    <div class="video-container">
-                        <video controls poster="https://via.placeholder.com/400x200/159895/ffffff?text=Surgical+Extraction">
-                            <source src="#" type="video/mp4">
-                        </video>
-                        <div class="video-overlay">
-                            <button class="play-btn" onclick="playVideo(this)">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h4>Χειρουργική Εξαγωγή Σοφού Οδόντα</h4>
-                        <p>Τεχνικές για περίπλοκες εξαγωγές με ελάχιστο τραυματισμό</p>
-                        <div class="video-meta">
-                            <span><i class="fas fa-clock"></i> 22:15</span>
-                            <span><i class="fas fa-eye"></i> 3.1K</span>
-                            <span><i class="fas fa-star"></i> 4.9</span>
-                        </div>
-                    </div>
+                <div class="sidebar-section">
+                    <h3>Εργαλεία</h3>
+                    <ul>
+                        <li><a href="#tools">Διαγνωστικά</a></li>
+                        <li><a href="#medications">Φάρμακα</a></li>
+                        <li><a href="#procedures">Διαδικασίες</a></li>
+                    </ul>
                 </div>
-                
-                <div class="video-card" data-category="prosthetic">
-                    <div class="video-container">
-                        <video controls poster="https://via.placeholder.com/400x200/ff9a76/ffffff?text=Prosthetic+Works">
-                            <source src="#" type="video/mp4">
-                        </video>
-                        <div class="video-overlay">
-                            <button class="play-btn" onclick="playVideo(this)">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h4>CAD/CAM Στεφάνη Ζιρκόνιου</h4>
-                        <p>Πλήρης διαδικασία από σάρωση έως τελική τοποθέτηση</p>
-                        <div class="video-meta">
-                            <span><i class="fas fa-clock"></i> 18:45</span>
-                            <span><i class="fas fa-eye"></i> 1.8K</span>
-                            <span><i class="fas fa-star"></i> 4.7</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </aside>
 
-        <!-- 3D ANATOMY SECTION -->
-        <section class="anatomy-section">
-            <h2><i class="fas fa-cube"></i> Διαδραστικά 3D Μοντέλα Ανατομίας</h2>
-            <div class="anatomy-viewer">
-                <div>
-                    <div class="model-controls">
-                        <button onclick="rotateTooth()"><i class="fas fa-sync"></i> Περιστροφή</button>
-                        <button onclick="zoomIn()"><i class="fas fa-search-plus"></i> Μεγέθυνση</button>
-                        <button onclick="showEnamel()"><i class="fas fa-layer-group"></i> Σμάλτο</button>
-                        <button onclick="showDentin()"><i class="fas fa-layer-group"></i> Οδοντίνη</button>
-                        <button onclick="showPulp()"><i class="fas fa-layer-group"></i> Πούλπα</button>
-                        <button onclick="resetModel()"><i class="fas fa-redo"></i> Επαναφορά</button>
+            <!-- Content -->
+            <main class="clinical-content">
+                <!-- Diagnosis Section -->
+                <section id="diagnosis" class="clinical-section">
+                    <div class="section-header">
+                        <h2>Σύστημα Κλινικής Διάγνωσης</h2>
                     </div>
-                    <canvas id="toothModel3D" width="800" height="400"></canvas>
-                </div>
-                <div class="anatomy-info">
-                    <h4 id="layerName">Σμάλτο</h4>
-                    <p id="layerDescription">Το σκληρότερο υλικό στο ανθρώπινο σώμα. Καλύπτει την κορώνα του δοντιού και αποτελείται από 96% ανόργανα υλικά, κυρίως υδροξυαπατίτη.</p>
-                    <div class="clinical-tools" style="margin-top: 1rem;">
-                        <h4><i class="fas fa-info-circle"></i> Κλινική Σημασία:</h4>
-                        <ul class="tools-list">
-                            <li>Προστασία από τερηδόνα</li>
-                            <li>Αντίσταση στη θερμότητα</li>
-                            <li>Αισθητική εμφάνιση</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SURGICAL SIMULATION SECTION -->
-        <section class="simulation-section">
-            <h2><i class="fas fa-gamepad"></i> Πρόσομοιωτής Χειρουργικής Δεξιοτήτων</h2>
-            <div class="simulator-container">
-                <div>
-                    <div class="tool-palette">
-                        <button class="tool-btn active" data-tool="drill">
-                            <i class="fas fa-tools"></i> Τρυπάνι Υψηλής Ταχύτητας
-                        </button>
-                        <button class="tool-btn" data-tool="explorer">
-                            <i class="fas fa-search"></i> Εξελκυστήρας
-                        </button>
-                        <button class="tool-btn" data-tool="suction">
-                            <i class="fas fa-wind"></i> Αspiration
-                        </button>
-                        <button class="tool-btn" data-tool="filling">
-                            <i class="fas fa-fill-drip"></i> Σφραγιστικό
-                        </button>
-                    </div>
-                    <div class="simulation-canvas">
-                        <canvas id="surgerySimulator" width="600" height="400"></canvas>
-                    </div>
-                </div>
-                <div class="simulation-stats">
-                    <h4><i class="fas fa-chart-line"></i> Στατιστικά Προσομοίωσης</h4>
-                    <div class="stat-item">
-                        <span>Ακρίβεια:</span>
-                        <span id="accuracyScore">0%</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Χρόνος:</span>
-                        <span id="simulationTime">00:00</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Βαθμός Δυσκολίας:</span>
-                        <span id="difficultyLevel">Εύκολο</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Προόδου:</span>
-                        <span id="progressScore">0%</span>
-                    </div>
-                    <button class="control-btn" onclick="startSimulation()" style="width: 100%; margin-top: 1rem;">
-                        <i class="fas fa-play"></i> Έναρξη Προσομοίωσης
-                    </button>
-                    <button class="control-btn" onclick="resetSimulation()" style="width: 100%; margin-top: 0.5rem; background: var(--dark);">
-                        <i class="fas fa-redo"></i> Επανεκκίνηση
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- LIVE WEBINAR SECTION -->
-        <section class="webinar-section">
-            <h2><i class="fas fa-broadcast-tower"></i> Ζωντανά Webinars & Συνεχιζόμενη Εκπαίδευση</h2>
-            <div class="webinar-container">
-                <div class="live-webinar">
-                    <div class="video-stream">
-                        <video controls autoplay muted>
-                            <source src="#" type="video/mp4">
-                        </video>
-                        <div class="live-badge">
-                            <i class="fas fa-circle"></i> LIVE NOW
-                        </div>
-                    </div>
-                    <div class="webinar-chat">
-                        <h4><i class="fas fa-comments"></i> Ζωντανό Chat</h4>
-                        <div class="chat-messages" id="chatMessages">
-                            <div class="chat-message">
-                                <strong>Dr. Παπαδόπουλος:</strong> Εξαιρετική παρουσίαση!
+                    
+                    <div class="procedure-grid">
+                        <div class="procedure-card">
+                            <h3>Τερηδόνα - Επιφανειακή</h3>
+                            <p>Πρώιμη φάση τερηδόνας που επηρεάζει μόνο το επιφανειακό σμάλτο.</p>
+                            
+                            <div class="clinical-tools">
+                                <h4>Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Εξελκυστήρας αιχμής</li>
+                                    <li>Διόπτρα οδοντιατρική</li>
+                                    <li>Διαγνωστικός καθετήρας</li>
+                                    <li>Φωτεινός διαφανές</li>
+                                </ul>
                             </div>
-                            <div class="chat-message">
-                                <strong>Dr. Ιωάννου:</strong> Μπορείτε να επαναλάβετε το σημείο για τα εμφυτεύματα;
+                            
+                            <div class="clinical-meds">
+                                <h4>Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Φθοριούχο αφρό</li>
+                                    <li>Χλωρεξιδίνη 0.12%</li>
+                                    <li>Φθοριούχο γέλιο</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="chat-input">
-                            <input type="text" id="chatInput" placeholder="Στείλτε το μήνυμά σας...">
-                            <button onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
+                        
+                        <div class="procedure-card">
+                            <h3>Περιοδοντίτιδα</h3>
+                            <p>Προχωρημένη νόσος με απώλεια οστού και περιοδοντικών δεσμών.</p>
+                            
+                            <div class="clinical-tools">
+                                <h4>Προτεινόμενα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Χειρουργικά μαχαιράκια</li>
+                                    <li>Περιοδοντική τρυπανοφόρος</li>
+                                    <li>Σύστημα laser</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="clinical-meds">
+                                <h4>Προτεινόμενα Φάρμακα:</h4>
+                                <ul class="meds-list">
+                                    <li>Αμοξυκυλλίνη</li>
+                                    <li>Κλινδαμυκίνη</li>
+                                    <li>Αζιθρομυκίνη</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="upcoming-webinars">
-                    <h4><i class="fas fa-calendar-alt"></i> Επερχόμενα Webinars</h4>
-                    <div class="webinar-list">
-                        <div class="webinar-item">
-                            <span class="webinar-date">15/01/2024 - 18:00</span>
-                            <span class="webinar-title">Νέες Τεχνικές στη Προσθετική</span>
-                            <p>Δωρεάν webinar με τον Καθ. Ν. Αντωνίου</p>
-                            <button class="register-btn">Εγγραφή</button>
-                        </div>
-                        <div class="webinar-item">
-                            <span class="webinar-date">20/01/2024 - 17:30</span>
-                            <span class="webinar-title">Ψηφιακή Οδοντιατρική 2024</span>
-                            <p>Επισκέπτης: Dr. Marco G. από την Ιταλία</p>
-                            <button class="register-btn">Εγγραφή</button>
-                        </div>
-                        <div class="webinar-item">
-                            <span class="webinar-date">25/01/2024 - 19:00</span>
-                            <span class="webinar-title">Διαχείριση Επείγοντων Περιστατικών</span>
-                            <p>Πρακτικό workshop με πραγματικά σενάρια</p>
-                            <button class="register-btn">Εγγραφή</button>
+                </section>
+
+                <!-- Treatment Section -->
+                <section id="treatment" class="clinical-section">
+                    <div class="section-header">
+                        <h2>Θεραπευτικές Παρεμβάσεις</h2>
+                    </div>
+                    
+                    <div class="procedure-grid">
+                        <div class="procedure-card">
+                            <h3>Ενδοδοντική Θεραπεία</h3>
+                            <p>Πλήρης ενδοδοντική θεραπεία με σύγχρονα συστήματα.</p>
+                            
+                            <div class="clinical-tools">
+                                <h4>Εξειδικευμένα Εργαλεία:</h4>
+                                <ul class="tools-list">
+                                    <li>Ενδοδοντικό τρυπάνι</li>
+                                    <li>Νικελο-τιτανικοί καθετήρες</li>
+                                    <li>Σύστημα συσκευασμού</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="clinical-meds">
+                                <h4>Ειδική Φαρμακευτική:</h4>
+                                <ul class="meds-list">
+                                    <li>Αρτικαΐνη 4%</li>
+                                    <li>Καλκίου υδροξείδιο</li>
+                                    <li>Ενδοδοντικό σφραγιστικό</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
+
+                <!-- Video Section -->
+                <section id="videos" class="clinical-section">
+                    <div class="section-header">
+                        <h2>Βιβλιοθήκη Χειρουργικών Βίντεο</h2>
+                    </div>
+                    
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <div class="video-placeholder">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <div class="video-info">
+                                <h4>Ενδοδοντική Θεραπεία</h4>
+                                <p>Πλήρης διαδικασία βήμα-βήμα</p>
+                                <button onclick="playVideo('endodontic')" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                                    <i class="fas fa-play"></i> Παράωξη
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="video-card">
+                            <div class="video-placeholder">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                            <div class="video-info">
+                                <h4>Χειρουργική Εξαγωγή</h4>
+                                <p>Τεχνικές για περίπλοκες εξαγωγές</p>
+                                <button onclick="playVideo('surgery')" style="margin-top: 0.5rem; padding: 0.5rem 1rem; background: var(--primary); color: white; border: none; border-radius: 5px; cursor: pointer;">
+                                    <i class="fas fa-play"></i> Παράωξη
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
     </div>
 
-    <!-- EXISTING AI ASSISTANT, FABS, FOOTER REMAIN THE SAME -->
+    <!-- AI Assistant -->
+    <div class="ai-assistant" id="aiAssistant">
+        <div class="ai-header">
+            <h4>Dental AI Assistant</h4>
+            <button onclick="closeAIAssistant()" style="background: none; border: none; color: white; cursor: pointer;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-message bot">
+                Γεια σας! Είμαι ο AI βοηθός σας. Πώς μπορώ να βοηθήσω σήμερα;
+            </div>
+        </div>
+        <div class="ai-input">
+            <input type="text" id="aiInput" placeholder="Πληκτρολογήστε ερώτηση...">
+            <button onclick="sendAIMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Floating Buttons -->
+    <div class="fab-container">
+        <button class="fab" onclick="toggleAIAssistant()">
+            <i class="fas fa-robot"></i>
+        </button>
+        <button class="fab" onclick="showEmergency()">
+            <i class="fas fa-ambulance"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>Dentist Mega Book PRO</h3>
+                    <p>Ολοκληρωμένη πλατφόρμα οδοντιατρικής γνώσης</p>
+                </div>
+                <div>
+                    <h3>Developer</h3>
+                    <p>Vasdekis Christos</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Dentist Mega Book PRO</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // VIDEO LIBRARY FUNCTIONALITY
-        function filterVideos(category) {
-            const videos = document.querySelectorAll('.video-card');
-            const buttons = document.querySelectorAll('.video-controls .control-btn');
-            
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            videos.forEach(video => {
-                if (category === 'all' || video.dataset.category === category) {
-                    video.style.display = 'block';
-                } else {
-                    video.style.display = 'none';
-                }
-            });
+        // SIMPLE AI ASSISTANT
+        function toggleAIAssistant() {
+            const assistant = document.getElementById('aiAssistant');
+            assistant.style.display = assistant.style.display === 'none' ? 'block' : 'none';
         }
         
-        function playVideo(button) {
-            const video = button.closest('.video-container').querySelector('video');
-            const overlay = button.closest('.video-overlay');
-            
-            video.play();
-            overlay.style.display = 'none';
+        function closeAIAssistant() {
+            document.getElementById('aiAssistant').style.display = 'none';
         }
         
-        // 3D ANATOMY SIMULATION
-        function rotateTooth() {
-            showProfessionalNotification('🔄 Περιστροφή 3D μοντέλου ενεργή');
-            // In full implementation: Rotate 3D model
-        }
-        
-        function zoomIn() {
-            showProfessionalNotification('🔍 Μεγέθυνση 3D μοντέλου');
-            // In full implementation: Zoom in 3D model
-        }
-        
-        function showEnamel() {
-            document.getElementById('layerName').textContent = 'Σμάλτο';
-            document.getElementById('layerDescription').textContent = 
-                'Το σκληρότερο υλικό στο ανθρώπινο σώμα. Καλύπτει την κορώνα του δοντιού και αποτελείται από 96% ανόργανα υλικά, κυρίως υδροξυαπατίτη.';
-            showProfessionalNotification('🦷 Εμφάνιση στρώματος σμάλτου');
-        }
-        
-        function showDentin() {
-            document.getElementById('layerName').textContent = 'Οδοντίνη';
-            document.getElementById('layerDescription').textContent = 
-                'Το κύριο συστατικό του δοντιού, λιγότερο σκληρό από το σμάλτο αλλά πιο ελαστικό. Περιέχει σωληνάκια που μεταδίδουν ερεθίσματα.';
-            showProfessionalNotification('🦷 Εμφάνιση στρώματος οδοντίνης');
-        }
-        
-        function showPulp() {
-            document.getElementById('layerName').textContent = 'Πούλπα';
-            document.getElementById('layerDescription').textContent = 
-                'Ο ζωντανός πυρήνας του δοντιού, περιέχει νεύρα και αιμοφόρα αγγεία. Ευαίσθητη σε ερεθίσματα και φλεγμονή.';
-            showProfessionalNotification('🦷 Εμφάνιση πούλπας και νεύρων');
-        }
-        
-        function resetModel() {
-            showEnamel();
-            showProfessionalNotification('🔄 Επαναφορά 3D μοντέλου');
-        }
-        
-        // SURGICAL SIMULATION
-        let simulationActive = false;
-        let simulationTimer;
-        let startTime;
-        
-        function startSimulation() {
-            if (!simulationActive) {
-                simulationActive = true;
-                startTime = new Date();
-                simulationTimer = setInterval(updateSimulationTime, 1000);
-                
-                // Initialize simulation
-                const canvas = document.getElementById('surgerySimulator');
-                const ctx = canvas.getContext('2d');
-                
-                // Draw initial tooth
-                drawTooth(ctx);
-                
-                showProfessionalNotification('🎮 Πρόσομοιωτής χειρουργικής ενεργοποιήθηκε!');
-                
-                // Add event listeners for tools
-                document.querySelectorAll('.tool-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                    });
-                });
-            }
-        }
-        
-        function drawTooth(ctx) {
-            // Simplified tooth drawing for simulation
-            ctx.fillStyle = '#ffffff';
-            ctx.strokeStyle = '#cccccc';
-            ctx.lineWidth = 2;
-            
-            // Draw tooth shape
-            ctx.beginPath();
-            ctx.ellipse(300, 200, 80, 120, 0, 0, 2 * Math.PI);
-            ctx.fill();
-            ctx.stroke();
-            
-            // Draw caries (target area)
-            ctx.fillStyle = 'rgba(139, 0, 0, 0.6)';
-            ctx.beginPath();
-            ctx.arc(320, 150, 15, 0, 2 * Math.PI);
-            ctx.fill();
-        }
-        
-        function updateSimulationTime() {
-            if (simulationActive) {
-                const currentTime = new Date();
-                const elapsed = Math.floor((currentTime - startTime) / 1000);
-                const minutes = Math.floor(elapsed / 60).toString().padStart(2, '0');
-                const seconds = (elapsed % 60).toString().padStart(2, '0');
-                document.getElementById('simulationTime').textContent = `${minutes}:${seconds}`;
-                
-                // Update accuracy based on "performance"
-                const accuracy = Math.min(100, Math.floor(elapsed * 2));
-                document.getElementById('accuracyScore').textContent = `${accuracy}%`;
-                document.getElementById('progressScore').textContent = `${Math.min(100, Math.floor(elapsed * 3))}%`;
-            }
-        }
-        
-        function resetSimulation() {
-            simulationActive = false;
-            clearInterval(simulationTimer);
-            document.getElementById('simulationTime').textContent = '00:00';
-            document.getElementById('accuracyScore').textContent = '0%';
-            document.getElementById('progressScore').textContent = '0%';
-            
-            const canvas = document.getElementById('surgerySimulator');
-            const ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            showProfessionalNotification('🔄 Πρόσομοιωτής επαναφέρθηκε');
-        }
-        
-        // WEBINAR CHAT FUNCTIONALITY
-        function sendChatMessage() {
-            const input = document.getElementById('chatInput');
+        function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const chat = document.getElementById('aiChat');
             const message = input.value.trim();
             
             if (message) {
-                const chat = document.getElementById('chatMessages');
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'chat-message';
-                messageDiv.innerHTML = `<strong>Εσείς:</strong> ${message}`;
-                chat.appendChild(messageDiv);
-                chat.scrollTop = chat.scrollHeight;
-                input.value = '';
-            }
-        }
-        
-        // ENHANCE EXISTING FUNCTIONALITY WITH NEW FEATURES
-        function showProfessionalNotification(message, duration = 4000) {
-            // Enhanced notification system
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: white;
-                padding: 1.2rem 1.5rem;
-                border-radius: 12px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                z-index: 1001;
-                max-width: 400px;
-                border-left: 5px solid var(--primary);
-                transform: translateX(400px);
-                transition: transform 0.3s ease;
-                font-weight: 500;
-                display: flex;
-                align-items: center;
-                gap: 0.8rem;
-            `;
-            notification.innerHTML = message;
-            
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-            
-            setTimeout(() => {
-                notification.style.transform = 'translateX(400px)';
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                chat.appendChild(userMessage);
+                
+                // Simple AI response
+                let response = "Δεν μπορώ να απαντήσω σε αυτή την ερώτηση. Συμβουλευτείτε τα πρωτόκολλα.";
+                
+                if (message.toLowerCase().includes('τερηδόνα')) {
+                    response = "Για τερηδόνα προτείνω: Επισμάλτωση, ένθεση ή στεφάνη. Χρησιμοποιήστε εξελκυστήρα και διόπτρα για διάγνωση.";
+                } else if (message.toLowerCase().includes('πόνος')) {
+                    response = "Πόνος μπορεί να οφείλεται σε τερηδόνα, πυρρία ή απόστημα. Απαιτεί άμεση εξέταση και απεικόνιση.";
+                } else if (message.toLowerCase().includes('αντιβιοτικό')) {
+                    response = "Συνήθη αντιβιοτικά: Αμοξυκυλλίνη 500mg κάθε 8 ώρες, Κλινδαμυκίνη 300mg για αλλεργίες σε πενικιλλίνη.";
+                }
+                
                 setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 300);
-            }, duration);
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'ai-message bot';
+                    botMessage.textContent = response;
+                    chat.appendChild(botMessage);
+                    chat.scrollTop = chat.scrollHeight;
+                }, 1000);
+                
+                input.value = '';
+                chat.scrollTop = chat.scrollHeight;
+            }
         }
         
-        // Initialize video players
-        document.querySelectorAll('video').forEach(video => {
-            video.addEventListener('play', function() {
-                this.closest('.video-card').classList.add('playing');
-            });
-            
-            video.addEventListener('pause', function() {
-                this.closest('.video-card').classList.remove('playing');
+        // VIDEO PLAYER
+        function playVideo(type) {
+            alert('📹 Βίντεο ' + type + ' θα ανοιγε σε πλήρη έκδοση. Σε πραγματική εφαρμογή θα εμφανιζόταν βίντεο player.');
+        }
+        
+        // EMERGENCY FUNCTION
+        function showEmergency() {
+            alert('🚨 Επείγον Πρωτόκολλο: Άμεση προσοχή για οδοντολογία, αποστήματα, τραυματισμούς. Κλήση 166 για κρίσιμα περιστατικά.');
+        }
+        
+        // SMOOTH SCROLLING
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
         
-        // Add keyboard shortcuts for new features
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'v') {
-                e.preventDefault();
-                document.querySelector('.video-library-section').scrollIntoView({ behavior: 'smooth' });
-            }
-            if (e.ctrlKey && e.key === 'm') {
-                e.preventDefault();
-                document.querySelector('.anatomy-section').scrollIntoView({ behavior: 'smooth' });
-            }
-            if (e.ctrlKey && e.key === 's') {
-                e.preventDefault();
-                document.querySelector('.simulation-section').scrollIntoView({ behavior: 'smooth' });
+        // ACTIVE NAVIGATION
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.nav-links a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        
+        // ENTER KEY FOR AI CHAT
+        document.getElementById('aiInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendAIMessage();
             }
         });
-
-        // EXISTING INITIALIZATION CODE REMAINS
-        // ... (all the previous initialization code)
+        
+        // SHOW WELCOME MESSAGE
+        setTimeout(() => {
+            const chat = document.getElementById('aiChat');
+            const welcome = document.createElement('div');
+            welcome.className = 'ai-message bot';
+            welcome.textContent = 'Είμαι εδώ για να βοηθήσω με διαγνώσεις, θεραπείες και φαρμακευτικές οδηγίες!';
+            chat.appendChild(welcome);
+        }, 2000);
     </script>
 </body>
 </html>
